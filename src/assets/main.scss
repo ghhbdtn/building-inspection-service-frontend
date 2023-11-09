@@ -1,1 +1,161 @@
+@font-face {
+  font-family: "TT Travels";
+  src: url('public/TT Travels/TT Travels-DemiBold.otf');
+}
 
+.header{
+  width: 100%;
+  height: 100px;
+  padding: 23px 1vw 22px;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 13%;
+  display: inline-flex
+}
+.icon{
+  width: 86.13px;
+  height: 55px
+}
+.title-container{
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 65px;
+  display: inline-flex
+}
+.title-content{
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  display: flex
+}
+.checkpoint{
+  color: #181D2B;
+  font-size: 20px;
+  font-family: TT Travels, serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  word-wrap: break-word
+}
+.custom-k{
+  color: #E03021;
+  font-size: 20px;
+  font-family: TT Travels, serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  word-wrap: break-word
+}
+.toolbar-items-container{
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  display: flex
+}
+.toolbar-btn{
+  color: #181D2B;
+  font-size: 16px;
+  font-family: TT Travels, serif;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+.toolbar-btn:hover{
+  color: #E03021;
+}
+.toolbar-btn:focus{
+  color: #E03021;
+}
+.toolbar-actions-container{
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  display: inline-flex
+}
+.login-btn{
+  padding: 15px 25px;
+  border-radius: 25px;
+  border: 1px #E03021 solid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex
+}
+.login-btn:hover{
+  background-color: rgba(224, 48, 33, 0.41);
+}
+.login-btn-text-container{
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex
+}
+.login-btn-title{
+  color: #E03021;
+  font-size: 18px;
+  font-family: TT Travels;
+  font-weight: 600;
+  word-wrap: break-word
+}
+
+
+@media (max-width: 991px) {
+  .main-container {
+    flex-wrap: wrap;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .header {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .logo-text {
+    white-space: initial;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .navigation {
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .login-title {
+    white-space: initial;
+  }
+}
+
+.register-btn{
+  width: 100%; height: 100%;
+  padding: 15px 25px;
+  background: #181D2B; border-radius: 25px; justify-content: center;
+  align-items: center; gap: 10px; display: inline-flex
+}
+
+.register-btn:hover{
+  background: rgba(24, 29, 43, 0.72);
+}
+
+.register-btn-text-container{
+  justify-content: center; align-items: center; gap: 10px;
+  display: flex
+}
+.register-btn-text{
+  color: white; font-size: 18px; font-family: TT Travels;
+  font-weight: 600; word-wrap: break-word
+}
+.reg-btn-img{
+  width: 16px; height: 16px; position: relative
+}
+
+.reg-icon{
+  width: 9.18px; height: 9.18px; left: 2.51px; top: 4.31px; position: absolute;
+}

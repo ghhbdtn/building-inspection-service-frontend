@@ -7,8 +7,7 @@ import * as directives from 'vuetify/directives'
 import App from './App.vue'
 import router from "./router";
 import store from "./store";
-import Vuex from 'vuex';
-
+import axios from 'axios';
 
 const vuetify = createVuetify({
     ssr: true,

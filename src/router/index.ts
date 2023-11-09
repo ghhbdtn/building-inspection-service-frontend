@@ -5,9 +5,18 @@ import AboutPage from "../components/menu/toolbar.components/AboutPage.vue";
 import ContactsPage from "../components/menu/toolbar.components/ContactsPage.vue";
 import RegisterPage from "../components/menu/toolbar.components/RegisterPage.vue";
 import LoginPage from "../components/menu/toolbar.components/LoginPage.vue";
-import PersonalAccount from "../components/menu/toolbar.components/PersonalAccount.vue";
-
-
+import PersonalAccount from "../components/menu/PersonalAccount.vue";
+import ProjectsDashboard from "../components/menu/navigation.drawer.components/projects.dashboard/ProjectsDashboard.vue";
+import ProjectEditPage
+    from "../components/menu/navigation.drawer.components/create.new.project/ProjectEditPage.vue";
+import ProjectSettings
+    from "../components/menu/navigation.drawer.components/create.new.project/ProjectSettings.vue";
+import InspectionPreparation
+    from "../components/menu/navigation.drawer.components/create.new.project/InspectionPreparation.vue";
+import ImportMaterialsPage
+    from "../components/menu/navigation.drawer.components/create.new.project/ImportMaterialsPage.vue";
+import ReportParameters from "../components/menu/navigation.drawer.components/create.new.project/ReportParameters.vue";
+import DocExport from "../components/menu/navigation.drawer.components/create.new.project/DocExport.vue";
 
 const routes: Array<any> = [
     {
@@ -42,8 +51,45 @@ const routes: Array<any> = [
     },
     {
         path: '/personal-account',
-        name: 'PersonalAccount',
+        name: 'Личный кабинет',
         component: PersonalAccount,
+    },
+    {
+        path: '/personal-account/projects-dashboard',
+        name: 'Мои проекты',
+        component: ProjectsDashboard,
+    },
+    {
+        path: '/personal-account/edit-project',
+        name: 'NewProject',
+        component: ProjectEditPage,
+        children: [
+            {
+                path: '/personal-account/project-settings',
+                name: 'ProjectSettings',
+                component: ProjectSettings,
+            },
+            {
+                path: '/personal-account/inspection-preparation',
+                name: 'InspectionPreparation',
+                component: InspectionPreparation,
+            },
+            {
+                path: '/personal-account/import-materials',
+                name: 'ImportMaterialsPage',
+                component: ImportMaterialsPage,
+            },
+            {
+                path: '/personal-account/report-parameters',
+                name: 'ReportParameters',
+                component: ReportParameters,
+            },
+            {
+                path: '/personal-account/report-export',
+                name: 'DocExport',
+                component: DocExport,
+            }
+        ]
     },
 
 ]
