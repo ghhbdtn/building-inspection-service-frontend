@@ -12,15 +12,6 @@
     <v-btn>
       Скан с подписью
     </v-btn>
-    <v-btn>
-      *Получить данные из GIS
-    </v-btn>
-    <v-btn>
-      *Загрузить аудио контекст
-    </v-btn>
-    <v-btn>
-      *Анализ корректности ТЗ
-    </v-btn>
   </v-btn-group>
   </v-row>
   </v-container>
@@ -80,7 +71,7 @@ import {defineComponent, ref} from "vue";
 export default defineComponent({
   name: "ProjectSettings",
   setup() {
-    const previewImageUrl = ref(new URL(`/src/assets/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href);
+    const previewImageUrl = ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href);
 
     const previewImage = async (event) => {
       const file = event.target.files[0];
@@ -92,7 +83,7 @@ export default defineComponent({
           console.error('Ошибка при загрузке изображения:', error);
         }
       } else {
-        previewImageUrl.value = new URL(`/src/assets/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href;
+        previewImageUrl.value = ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href);
       }
     };
 

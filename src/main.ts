@@ -1,4 +1,4 @@
-import Vue, { createApp } from 'vue'
+import { createApp } from 'vue'
 import {createVuetify} from "vuetify";
 import './assets/main.scss'
 import 'vuetify/dist/vuetify.min.css'
@@ -7,6 +7,10 @@ import * as directives from 'vuetify/directives'
 import App from './App.vue'
 import router from "./router";
 import store from "./store";
+import DropZone from 'dropzone-vue';
+
+// optionally import default styles
+import 'dropzone-vue/dist/dropzone-vue.common.css';
 import axios from 'axios';
 
 const vuetify = createVuetify({
@@ -15,6 +19,11 @@ const vuetify = createVuetify({
     directives
 })
 
-createApp(App).use(vuetify).use(router).use(store).mount('#app')
+createApp(App)
+    .use(vuetify)
+    .use(router)
+    .use(store)
+    .use(DropZone)
+    .mount('#app')
 
 

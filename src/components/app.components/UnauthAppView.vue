@@ -2,21 +2,21 @@
   <header class="header">
     <div class="title-container">
       <div class="title-content">
-        <img class="icon" src="src/assets/telegram-cloud-document-2-5276362809125387406 1.png" />
+        <img class="icon" src="../../assets/images/telegram-cloud-document-2-5276362809125387406%201.png" />
         <div><span class="checkpoint">Checkpoint</span>
           <span class="custom-k">-K</span></div>
       </div>
       <div class="toolbar-items-container">
         <button class="toolbar-btn" @click="router.push('/about-as')">О нас</button>
-        <button class="toolbar-btn">
-          Контакты
-        </button>
-        <button class="toolbar-btn">
-          FAQ
-        </button>
-        <button class="toolbar-btn">
-          Техподдержка
-        </button>
+<!--        <button class="toolbar-btn">-->
+<!--          Контакты-->
+<!--        </button>-->
+<!--        <button class="toolbar-btn">-->
+<!--          FAQ-->
+<!--        </button>-->
+<!--        <button class="toolbar-btn">-->
+<!--          Техподдержка-->
+<!--        </button>-->
       </div>
     </div>
     <div class="toolbar-actions-container">
@@ -34,7 +34,7 @@
           </div>
           <div class="reg-btn-img">
             <div class="reg-icon">
-              <img src="src/assets/Frame.svg">
+              <img src="../../assets/images/Frame.svg">
             </div>
           </div>
         </div>

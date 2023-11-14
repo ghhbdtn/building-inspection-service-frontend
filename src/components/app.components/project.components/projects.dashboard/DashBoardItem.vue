@@ -18,7 +18,7 @@ export default defineComponent({
   name: "DashBoardItem",
   setup() {
     const getImageUrl = (name) => {
-      return new URL(`/src/assets/${name}`, import.meta.url).href
+      return new URL(`/src/assets/images/${name}`, import.meta.url).href
     }
     return { getImageUrl }
   },
