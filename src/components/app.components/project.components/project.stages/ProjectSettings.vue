@@ -1,67 +1,82 @@
 <template>
-<v-main>
-  <v-container fluid>
-  <v-row>
-  <v-btn-group>
-    <v-btn>
-      Ввод данных
-    </v-btn>
-    <v-btn>
-      Импорт ТЗ для анализа
-    </v-btn>
-    <v-btn>
-      Скан с подписью
-    </v-btn>
-  </v-btn-group>
-  </v-row>
-  </v-container>
-  <v-divider></v-divider>
-  <v-container fluid>
-    <v-card elevation="0" border>
-  <v-row>
-  <v-col cols="7" offset="20">
-    <v-form>
-      <v-text-field label="Название проекта"></v-text-field>
-      <v-select label="Компания"></v-select>
-      <v-text-field label="Адрес"></v-text-field>
-      <v-text-field label="Шифр проекта"></v-text-field>
-      <v-select label="Ответственный исполнитель"></v-select>
-      <v-text-field label="Сроки проведения работ"></v-text-field>
-      <v-checkbox label="Объект культурного наследия"></v-checkbox>
-    </v-form>
+  <v-main>
+    <v-container fluid>
+      <v-row>
+        <v-btn-group>
+          <v-btn>
+            Ввод данных
+          </v-btn>
+          <v-btn>
+            Импорт ТЗ для анализа
+          </v-btn>
+          <v-btn>
+            Скан с подписью
+          </v-btn>
+        </v-btn-group>
+      </v-row>
+    </v-container>
+    <v-divider class="divider-project"/>
+    <v-container fluid>
+      <v-card border elevation="0">
+        <v-row>
+          <v-col cols="7" offset="20">
+            <v-form>
+              <v-card-item>
+                <v-text-field label="Название проекта"></v-text-field>
+              </v-card-item>
+              <v-card-item>
+                <v-select label="Компания"></v-select>
+              </v-card-item>
+              <v-card-item>
+                <v-text-field label="Адрес"></v-text-field>
+              </v-card-item>
+              <v-card-item>
+                <v-text-field label="Шифр проекта"></v-text-field>
+              </v-card-item>
+              <v-card-item>
+                <v-select label="Ответственный исполнитель"></v-select>
+              </v-card-item>
+              <v-card-item>
+                <v-text-field label="Сроки проведения работ"></v-text-field>
+              </v-card-item>
+              <v-card-item>
+                <v-checkbox label="Объект культурного наследия"></v-checkbox>
+              </v-card-item>
+            </v-form>
 
-  </v-col>
-    <v-col cols="4" offset-sm="20">
-      <v-container>
-      <v-row>
-      <v-card-subtitle>Обложка проекта</v-card-subtitle>
-      </v-row>
-      <v-row>
-      <div v-if="previewImageUrl" class="image-container">
-        <v-img :src="previewImageUrl" alt="Предварительный просмотр" height="200" width="200" class="rounded-image"/>
-      </div>
-      </v-row>
-      <v-row>
-        <v-file-input
-            hide-input
-            accept="image/*"
-            density="compact"
-            @change="previewImage"
-        ></v-file-input>
-      </v-row>
-      <v-row>
-        <v-textarea
-            variant="outlined"
-            label="Контекстные данные из ТЗ"
-            disabled="true">
-        </v-textarea>
-      </v-row>
-      </v-container>
-    </v-col>
-  </v-row>
-    </v-card>
-  </v-container>
-</v-main>
+          </v-col>
+          <v-col cols="4" offset-sm="20">
+            <v-container>
+              <v-row>
+                <v-card-subtitle>Обложка проекта</v-card-subtitle>
+              </v-row>
+              <v-row>
+                <div v-if="previewImageUrl" class="image-container">
+                  <v-img :src="previewImageUrl" alt="Предварительный просмотр" class="rounded-image" height="200"
+                         width="200"/>
+                </div>
+              </v-row>
+              <v-row>
+                <v-file-input
+                    accept="image/*"
+                    density="compact"
+                    hide-input
+                    @change="previewImage"
+                ></v-file-input>
+              </v-row>
+              <v-row>
+                <v-textarea
+                    disabled="true"
+                    label="Контекстные данные из ТЗ"
+                    variant="outlined">
+                </v-textarea>
+              </v-row>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-container>
+  </v-main>
 
 </template>
 
@@ -100,7 +115,7 @@ export default defineComponent({
       });
     };
 
-    return { previewImageUrl, previewImage };
+    return {previewImageUrl, previewImage};
   },
 });
 </script>
@@ -118,7 +133,7 @@ export default defineComponent({
   border-radius: 10px; /* Радиус закругления углов */
 }
 
-.v-btn{
+.v-btn {
   font-size: 12px
 }
 </style>

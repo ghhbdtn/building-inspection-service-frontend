@@ -1,13 +1,27 @@
 <template>
   <v-card
-      style="width: 250px; height: 250px; border-radius: 24px; background-color: #CFCFCF"
       :class="'align-center'"
-      elevation="100"
+      elevation="10"
+      border
+      style="width: 250px; height: 250px; border-radius: 24px; background-color: #CFCFCF; border-color: #E03021"
   >
     <v-img :src="getImageUrl('maison2.svg')" height="170" style="background-color: white"/>
     <v-divider/>
-    <v-card-title>Объект</v-card-title>
-    <v-card-subtitle>Название</v-card-subtitle>
+    <v-row justify="space-between">
+      <v-col cols="6">
+        <v-card-title>Объект</v-card-title>
+        <v-card-subtitle>Название</v-card-subtitle>
+      </v-col>
+      <v-col cols="4">
+        <v-card-actions>
+          <v-btn @click.stop icon>
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -20,11 +34,10 @@ export default defineComponent({
     const getImageUrl = (name) => {
       return new URL(`/src/assets/images/${name}`, import.meta.url).href
     }
-    return { getImageUrl }
+    return {getImageUrl}
   },
   data() {
-    return{
-    }
+    return {}
   }
 
 });

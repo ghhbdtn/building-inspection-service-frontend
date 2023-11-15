@@ -78,7 +78,7 @@ export default defineComponent({
     };
 
     const isImage = (file: File) => {
-      return file.type.startsWith('image/');
+      return file.type.endsWith('image/');
     };
 
 

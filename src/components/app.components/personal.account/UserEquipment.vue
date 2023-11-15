@@ -8,8 +8,8 @@
           <v-card-text>
             <v-text-field v-model="editedEquipment.name" label="Наименование Си"></v-text-field>
             <v-text-field v-model="editedEquipment.serialNumber" label="Заводской номер"></v-text-field>
-            <v-text-field v-model="editedEquipment.checkNumber" label="Номер проверки"></v-text-field>
-            <v-text-field v-model="editedEquipment.checkDate" label="Дата проверки" type="date"></v-text-field>
+            <v-text-field v-model="editedEquipment.checkNumber" label="Номер поверки"></v-text-field>
+            <v-text-field v-model="editedEquipment.checkDate" label="Дата поверки" type="date"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn @click="saveEquipment">{{ editMode ? 'Сохранить' : 'Добавить' }}</v-btn>
@@ -20,7 +20,7 @@
 
       <v-dialog v-model="uploadScanDialog" max-width="600px">
         <v-card>
-          <v-card-title>Загрузить сканы проверок</v-card-title>
+          <v-card-title>Загрузить сканы поверок</v-card-title>
           <v-card-text>
             <v-row>
               <v-col cols="12">
@@ -39,10 +39,13 @@
         </v-card>
       </v-dialog>
 
-      <v-btn @click="openAddDialog" text>
+      <v-btn @click="openAddDialog" variant="text" color="#E03021" elevation="0">
         Добавить оборудование
+        <v-icon>
+          mdi-plus
+        </v-icon>
       </v-btn>
-
+      <v-card elevation="10" border style="border-color: #E03021">
       <v-table class="table" :hide-no-data="true">
         <v-table class="table" :hide-no-data="true"
         >
@@ -50,9 +53,9 @@
           <tr>
             <th scope="col">Наименование Си</th>
             <th scope="col">Заводской номер</th>
-            <th scope="col">Номер проверки</th>
-            <th scope="col">Дата проверки</th>
-            <th scope="col">Сканы проверок</th>
+            <th scope="col">Номер поверки</th>
+            <th scope="col">Дата поверки</th>
+            <th scope="col">Сканы поверок</th>
             <th scope="col">Действия</th>
           </tr>
           </thead>
@@ -63,19 +66,19 @@
             <td>{{ item.checkNumber }}</td>
             <td>{{ item.checkDate }}</td>
             <td>
-              <v-btn @click="uploadScanDialog = true" icon>
+              <v-btn @click="uploadScanDialog = true" icon size="40">
                 <v-icon>
                   mdi-paperclip
                 </v-icon>
               </v-btn>
             </td>
             <td>
-              <v-btn @click="openEditDialog(index)" icon>
+              <v-btn @click="openEditDialog(index)" icon size="40">
                 <v-icon>
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <v-btn @click="removeItem(index)" icon>
+              <v-btn @click="removeItem(index)" icon size="40">
                 <v-icon>
                   mdi-delete
                 </v-icon>
@@ -85,6 +88,7 @@
           </tbody>
         </v-table>
       </v-table>
+      </v-card>
     </v-container>
   </v-main>
 </template>

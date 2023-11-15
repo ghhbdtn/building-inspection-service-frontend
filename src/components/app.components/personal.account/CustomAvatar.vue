@@ -10,17 +10,17 @@
           style="margin-left: 20%; margin-top: 10%;" size="150"
       >
         <v-avatar size="150" style=" border: double #E03021;">
-          <img :src="avatarSrc" style="border: #181D2B">
+          <img :src="avatarSrc" style="border: #181D2B" :width="150"  :height="150">
         </v-avatar>
       </v-btn>
     </template>
-    <v-card>
-      <v-btn variant="text" color="#181D2B"
+    <v-card max-height="200">
+      <v-btn variant="text" color="#181D2B" rounded
              @click="openFilePicker" >
         Загрузить фото
       </v-btn>
       <v-divider/>
-      <v-btn variant="text" v-show="avatarSrc !== 'src/assets/photo-camera-black-tool_icon-icons.com_72960.svg'"
+      <v-btn rounded variant="text" v-show="avatarSrc !== 'src/assets/photo-camera-black-tool_icon-icons.com_72960.svg'"
              @click="deletePhoto" color="#E03021">
         Удалить фото
       </v-btn>
@@ -31,12 +31,14 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
+import {ref} from "vue/dist/vue";
 
 export default defineComponent({
   name: "CustomAvatar",
   data() {
     return {
-      avatarSrc: "src/assets/photo-camera-black-tool_icon-icons.com_72960.svg", // Заглушка для изображения
+
+      avatarSrc: new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href, // Заглушка для изображения
     };
   },
   methods: {
@@ -59,7 +61,7 @@ export default defineComponent({
     },
     deletePhoto() {
       // Удалить фотографию (можно добавить здесь логику удаления)
-      this.avatarSrc = "src/assets/photo-camera-black-tool_icon-icons.com_72960.svg"; // Возвращаем заглушку
+      this.avatarSrc = new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href; // Возвращаем заглушку
     },
   },
 });

@@ -3,7 +3,7 @@
   <v-container>
      <v-row justify="start">
        <v-col cols="12">
-       <v-btn variant="text" color="#CD5E5E" @click="onNewProjectItemClick">
+       <v-btn variant="text" color="#E03021" @click="onNewProjectItemClick">
          Создать проект
          <v-icon dark>
            mdi-plus
@@ -45,7 +45,7 @@ export default defineComponent({
     const router = useRouter();
 
     const onProjectItemClick = () => {
-      store.commit("users/LOG_OUT");
+      router.push({path: '/personal-account/edit-project'})
     };
     const onNewProjectItemClick = () => {
       router.push('/personal-account/edit-project')

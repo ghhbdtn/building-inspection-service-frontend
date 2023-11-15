@@ -65,7 +65,7 @@ export default defineComponent({
     const router = useRouter()
     const isAuth = computed(() => store.state.users.isAuthenticated)
     onMounted(() => {
-      router.push({name: 'MainPage'})
+      router.push('/about-as')
     })
     return {
       isAuth,

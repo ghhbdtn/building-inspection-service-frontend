@@ -4,56 +4,52 @@
 
       <v-row justify="center">
         <v-card align-self="center" width="600">
-          <v-toolbar color="#CD5E5E">
-            <v-card-title>Регистрация</v-card-title>
+          <v-toolbar color="#E03021">
+            <v-card-title class="register-btn-text">Регистрация</v-card-title>
           </v-toolbar>
           <v-divider/>
-          <div class="card-items">
+          <div class="text-fields card-items">
+            <v-row justify="center">
+            <v-col cols="10">
             <v-text-field
+                color="#181D2B"
                 dense
-                label="Имя пользователя"
-                placeholder="Имя пользователя"
+                label="Фамилия"
             />
             <v-text-field
+                color="#181D2B"
+                dense
+                label="Имя"
+            />
+            <v-text-field
+                color="#181D2B"
+                dense
+                label="Отчество"
+            />
+            <v-text-field
+                color="#181D2B"
                 dense
                 label="Электронная почта"
-                placeholder="Электронная почта"
             />
             <v-text-field
+                color="#181D2B"
                 dense
                 label="Пароль"
                 placeholder="Введите пароль"
                 type="password"
             />
             <v-text-field
+                color="#181D2B"
                 dense
-                label="Повторите пароль"
+                label="Подтверждение пароля"
                 placeholder="Повторите пароль"
                 type="password"
             />
-          </div>
-          <v-checkbox v-model="isAdditional"
-            label="Заполнить дополнительные поля">
-          </v-checkbox>
-          <v-card-text>
-            Для чего это нужно...
-          </v-card-text>
-          <div v-if="isAdditional" class="card-items">
-            <v-text-field
-                dense
-                label="Дополнительное поле №1"
-            />
-            <v-text-field
-                dense
-                label="Дополнительное поле №2"
-            />
-            <v-text-field
-                dense
-                label="Дополнительное поле №2"
-            />
+            </v-col>
+            </v-row>
           </div>
           <v-card-actions style="justify-content: center">
-            <v-btn class="mt-4" @click="onRegisterButtonClick" color="#CD5E5E">
+            <v-btn class="text-fields" @click="onRegisterButtonClick" color="#E03021">
               Зарегистрироваться
             </v-btn>
           </v-card-actions>
@@ -93,13 +89,7 @@ export default  defineComponent({
 </script>
 
 <style >
-.card-items {
-  margin-top: 1.5rem;
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.additional-items {
-  background-color: rgba(128, 128, 128, 0.13);
+.card-items{
+  padding-top: 5%;
 }
 </style>
