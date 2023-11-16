@@ -3,29 +3,36 @@
     <v-container fluid>
       <v-row justify="center">
         <v-col cols="4" offset="20">
-          <v-card elevation="0" border>
+          <v-card elevation="0" border style="border-color: #E03021" width="600">
             <v-container fluid>
-              <v-row>
+              <v-card-item>
                 <v-card-subtitle>Пожалуйста дождитесь завершения формирования отчета</v-card-subtitle>
-              </v-row>
-              <v-row>
-                <v-progress-linear></v-progress-linear>
-              </v-row>
+              </v-card-item>
+              <v-card-item>
+
+                <v-progress-linear  indeterminate :height="12"/>
+
+              </v-card-item>
+              <v-card-actions>
               <v-row justify="center">
-                  <v-btn variant="text">
+                  <v-btn variant="outlined" color="#E03021">
                     Скачать отчет
                   </v-btn>
               </v-row>
+              </v-card-actions>
+              <v-card-actions>
               <v-row justify="center">
-                <v-btn variant="text">
+                <v-btn variant="outlined" color="#E03021">
                   Скачать dwg файлы
                 </v-btn>
               </v-row>
+              </v-card-actions>
             </v-container>
+            <v-divider class="divider-project"/>
             <v-container>
               <v-textarea label="Нужно ли что-то подправить?"></v-textarea>
               <v-card-actions>
-                <v-btn variant="text">
+                <v-btn variant="outlined" color="#E03021">
                   Отправить
                 </v-btn>
               </v-card-actions>

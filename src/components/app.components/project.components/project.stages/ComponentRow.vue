@@ -6,7 +6,6 @@
             v-model="category.name"
             label="Название категории"
             variant="underlined"
-            density="compact"
         />
       </v-col>
       <v-col cols="6">

@@ -1,26 +1,26 @@
 <template>
   <v-main>
     <v-container fluid>
-      <v-row>
+      <v-row justify="center">
         <v-btn-group>
-          <v-btn>
+          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
             Синхронизировать
           </v-btn>
-          <v-btn>
+          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
             Скачать фото с объекта
           </v-btn>
-          <v-btn>
+          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
             Отправить фото на распознавание
           </v-btn>
-          <v-btn>
+          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
             Отправить контекстную информацию
           </v-btn>
         </v-btn-group>
       </v-row>
     </v-container>
-    <v-divider></v-divider>
+    <v-divider class="divider-project"/>
     <v-container fluid>
-      <v-card elevation="0" border>
+      <v-card elevation="0" border style="border-color: #E03021">
       <v-row>
         <v-col cols="7" offset="20">
             <v-container fluid>
@@ -54,13 +54,14 @@
             <v-card-title>Просмотр изображений</v-card-title>
           </v-row>
           <v-row>
-            <v-carousel height="400" width="400">
-              <v-carousel-item v-if="photos" v-for="photo in photos"
-                   :key="photo">
-                <v-img :src="previewImage(photo)" width="400" height="400" alt="photo" style="justify-self: center"/>
-              </v-carousel-item>
-              <v-carousel-item v-else></v-carousel-item>
-            </v-carousel>
+            <v-carousel height="300" width="300" v-if="photos.length > 0"
+                        show-arrows-on-hover
+                        cover
+            >
+              <v-carousel-item  v-for="photo in photos"
+                   :key="photo" :src="previewImage(photo)"
+              >
+              </v-carousel-item></v-carousel>
           </v-row>
           </v-container>
         </v-col>
