@@ -17,8 +17,8 @@
       <v-card elevation="0" border style="border-color: #E03021">
         <v-container fluid>
       <v-row>
-        <v-col cols="6">
-            <v-row justify="center">
+        <v-col >
+            <v-row justify="space-around">
               <v-col>
               <v-card-text>Загрузить обмерные чертежи или схемы здания</v-card-text>
               </v-col>
@@ -67,11 +67,11 @@
                 </v-col>
               </v-row>
         </v-col>
-        <v-col cols="6">
-          <v-row justify="center">
+        <v-col >
+          <v-row justify="space-around">
             <h4>Схема осей здания</h4>
           </v-row>
-          <v-row justify="center">
+          <v-row justify="space-around">
             <v-menu
                 max-width="100"
                 rounded
@@ -82,10 +82,9 @@
                     v-bind="props"
                     height="300"
                     width="500"
-                    style="border-radius: 5%"
                 >
 
-                  <img :src="avatarSrc" :width="500"  :height="300" style=" border: double #E03021; border-radius: 5%">
+                  <img :src="avatarSrc" :width="500"  :height="300" style=" border: double #E03021;">
                 </v-btn>
               </template>
               <v-card max-height="200">

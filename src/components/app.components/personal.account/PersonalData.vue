@@ -1,8 +1,8 @@
 <template>
   <v-main>
     <v-container fluid>
-      <v-row justify="center" align="center">
-        <v-card border elevation="10" style="justify-content: center; border-color: #E03021" width="900">
+      <v-row justify="center" align="center" style="padding-top: 5%">
+        <v-card border elevation="10" style="justify-content: center; border-color: #E03021;" width="900">
           <v-row>
             <v-col cols="3">
              <CustomAvatar/>
