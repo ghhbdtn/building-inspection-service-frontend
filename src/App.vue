@@ -1,8 +1,8 @@
 <template>
   <UnauthAppView v-if="!isAuth"/>
-  <v-app>
+
     <PersonalAccount v-if="isAuth"/>
-  </v-app>
+
 </template>
 
 <script lang="ts">
