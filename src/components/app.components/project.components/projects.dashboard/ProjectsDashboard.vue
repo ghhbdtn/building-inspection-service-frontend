@@ -15,13 +15,13 @@
       <v-container>
         <v-row>
           <v-col
-              v-for="n in 10"
-              :key="n"
+              v-for="(inspection) in allInspections"
+              :key="inspection.id"
               cols="12"
               md="4"
           >
             <v-item>
-              <DashBoardItem @click="onProjectItemClick"></DashBoardItem>
+              <DashBoardItem @click="onProjectItemClick" :inspection="inspection"></DashBoardItem>
             </v-item>
           </v-col>
         </v-row>
@@ -32,10 +32,14 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import {computed, defineComponent, nextTick, onMounted, ref} from "vue";
 import DashBoardItem from "./DashBoardItem.vue";
-import {useStore} from "vuex";
+import {mapState, useStore} from "vuex";
 import {useRouter} from "vue-router";
+interface Inspection {
+  id: number,
+  name: string
+}
 
 export default defineComponent({
   name: "ProjectsDashboard",
@@ -43,20 +47,31 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-
+    const inspections = ref(computed(()=> store.getters["inspections/getAll"]))
+    onMounted(() => {
+      store.dispatch('inspections/allInspections').then(()=>{
+      });
+    })
     const onProjectItemClick = () => {
       router.push({path: '/personal-account/edit-project'})
     };
     const onNewProjectItemClick = () => {
+      store.dispatch('inspections/createNewInspection', {}).then(()=>
       router.push('/personal-account/edit-project')
+      )
     };
 
 
     return {
+      inspections,
       onProjectItemClick,
-      onNewProjectItemClick
+      onNewProjectItemClick,
+      store
     };
   },
+  computed:{
+    ...mapState('inspections', ['allInspections', 'inspection']),
+  }
 });
 </script>
 

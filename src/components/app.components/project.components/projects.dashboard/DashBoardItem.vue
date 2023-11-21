@@ -10,7 +10,7 @@
     <v-row justify="space-between">
       <v-col cols="6">
         <v-card-title>Объект</v-card-title>
-        <v-card-subtitle>Название</v-card-subtitle>
+        <v-card-subtitle>{{inspection.name}}</v-card-subtitle>
       </v-col>
       <v-col cols="4">
         <v-card-actions>
@@ -30,6 +30,7 @@ import {defineComponent} from "vue";
 
 export default defineComponent({
   name: "DashBoardItem",
+  props: ['inspection'],
   setup() {
     const getImageUrl = (name) => {
       return new URL(`/src/assets/images/${name}`, import.meta.url).href

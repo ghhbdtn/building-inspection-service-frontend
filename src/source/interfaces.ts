@@ -2,7 +2,7 @@ interface User {
     id: number,
     name: string,
     surname: string,
-    middleName: string,
+    patronymic: string,
     email: string,
     number: string
 }
@@ -48,19 +48,19 @@ interface Equipment {
 
 interface Inspection {
     id: number,
-    name: string,
+    name?: string,
     startDate?: string,
     endDate?: string,
-    address: string,
-    buildingType: string,
-    companyID: number,
-    mainPhotoName: string,
-    mainPhotoID: number,
-    status: string,
-    reportName: string,
-    script: string,
-    result: string,
-    categoriesCount: number
+    address?: string,
+    buildingType?: string,
+    companyID?: number,
+    mainPhotoName?: string,
+    mainPhotoID?: number,
+    status?: string,
+    reportName?: string,
+    script?: string,
+    result?: string,
+    categoriesCount?: number
 }
 
 interface InspectionFile {
@@ -101,3 +101,5 @@ interface Plan {
     name: string,
     inspectionID: number
 }
+
+export {User, Plan, Company, Photos, License, Employer, InspectionFile, Inspection, Equipment, Categories}

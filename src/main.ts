@@ -13,6 +13,8 @@ import DropZone from 'dropzone-vue';
 import 'dropzone-vue/dist/dropzone-vue.common.css';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://' + location.hostname + ':8080';
+
 const vuetify = createVuetify({
     ssr: true,
     components,

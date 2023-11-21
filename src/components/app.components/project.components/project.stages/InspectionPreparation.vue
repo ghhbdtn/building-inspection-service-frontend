@@ -318,11 +318,11 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px; /* Высота и ширина по вашему выбору */
+  height: 200px;
 }
 
 .rounded-image {
-  border: 2px solid #ccc; /* Цвет рамки и толщина по вашему выбору */
-  border-radius: 10px; /* Радиус закругления углов */
+  border: 2px solid #ccc;
+  border-radius: 10px;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-
+  <v-app>
   <v-main>
     <v-toolbar>
       <template v-slot:prepend>
-        <img class="mr-3" height="40" src="../../assets/images/telegram-cloud-document-2-5276362809125387406%201.png">
+        <img class="mr-3" height="40" src="../../assets/images/logooooo.png">
         <div class="checkpoint">Checkpoint</div>
         <div class="custom-k">-k</div>
         <v-divider class="ms-3" inset
@@ -35,6 +35,7 @@
     </v-toolbar>
     <RouterView/>
   </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -71,8 +72,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.nested-list-item {
-  font-size: 14px; /* Установите желаемый размер шрифта */
-  margin-left: 50px; /* Установите желаемый отступ слева */
-}
 </style>

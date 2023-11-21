@@ -1,6 +1,15 @@
+html {
+  -webkit-font-smoothing: antialiased; /* Для браузеров на основе WebKit (Chrome, Safari) */
+  text-rendering: optimizeLegibility; /* Улучшает читаемость текста */
+
+  /* Сглаживание шрифтов для Firefox */
+  text-rendering: optimizeSpeed;
+  font-smooth: always;
+}
+
 @font-face {
   font-family: "TT Travels";
-  src: url('public/TT Travels/TT Travels-DemiBold.otf');
+  src: url('/fonts/TT Travels-DemiBold.otf');
 }
 
 .header{
@@ -9,12 +18,65 @@
   padding: 23px 1vw 22px;
   justify-content: space-evenly;
   align-items: flex-start;
-  gap: 13%;
+  gap: 65px;
+  display: inline-flex;
+  background: #F4F6F7;
+}
+.about-us{
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 65px;
+  padding-top: 65px;
+  display: inline-flex;
+  background: #F4F6F7;
+}
+.main-container {
+  align-items: center;
+  border-radius: 25px;
+  background-color: #fff;
+  display: flex;
+  max-width: 100%;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.title {
+  color: #000;
+  text-transform: uppercase;
+  margin: auto 0;
+  font: 600 14px/23px TT Travels, sans-serif;
+}
+
+.image {
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  aspect-ratio: 1.05;
+  flex-direction: column;
+}
+
+.image {
+  aspect-ratio: 1.05;
+  object-fit: contain;
+  object-position: center;
+  width: 21px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.about-us-container{
+  padding: 23px 300px 22px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 110.02px;
   display: inline-flex
 }
 .icon{
-  width: 86.13px;
-  height: 55px
+  width: 61.98px;
+  height: 63px
 }
 .title-container{
   align-self: stretch;
@@ -72,6 +134,7 @@
   display: inline-flex
 }
 .login-btn{
+  height: 100%;
   padding: 15px 25px;
   border-radius: 25px;
   border: 1px #E03021 solid;
