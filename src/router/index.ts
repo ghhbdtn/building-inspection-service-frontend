@@ -78,32 +78,32 @@ const routes: Array<any> = [
         component: UserEquipment,
     },
     {
-        path: '/personal-account/edit-project',
+        path: '/personal-account/:id/edit-project',
         name: 'NewProject',
         component: ProjectEditPage,
         children: [
             {
-                path: '/personal-account/project-settings',
+                path: '/personal-account/:id/project-settings',
                 name: 'ProjectSettings',
                 component: ProjectSettings,
             },
             {
-                path: '/personal-account/inspection-preparation',
+                path: '/personal-account/:id/inspection-preparation',
                 name: 'InspectionPreparation',
                 component: InspectionPreparation,
             },
             {
-                path: '/personal-account/import-materials',
+                path: '/personal-account/:id/import-materials',
                 name: 'ImportMaterialsPage',
                 component: ImportMaterialsPage,
             },
             {
-                path: '/personal-account/report-parameters',
+                path: '/personal-account/:id/report-parameters',
                 name: 'ReportParameters',
                 component: ReportParameters,
             },
             {
-                path: '/personal-account/report-export',
+                path: '/personal-account/:id/report-export',
                 name: 'DocExport',
                 component: DocExport,
             }

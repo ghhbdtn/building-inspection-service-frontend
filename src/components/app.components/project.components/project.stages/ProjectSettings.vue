@@ -43,6 +43,11 @@
               <v-card-item>
                 <v-checkbox label="Объект культурного наследия"></v-checkbox>
               </v-card-item>
+              <v-card-actions>
+                <v-btn variant="outlined" color="#E03021">
+                  сохранить данные
+                </v-btn>
+              </v-card-actions>
             </v-form>
 
           </v-col>

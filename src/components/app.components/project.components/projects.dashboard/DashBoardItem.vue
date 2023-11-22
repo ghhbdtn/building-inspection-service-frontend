@@ -14,7 +14,7 @@
       </v-col>
       <v-col cols="4">
         <v-card-actions>
-          <v-btn @click.stop icon>
+          <v-btn @click.stop="onDeleteInspection" icon>
             <v-icon>
               mdi-delete
             </v-icon>
@@ -35,10 +35,16 @@ export default defineComponent({
     const getImageUrl = (name) => {
       return new URL(`/src/assets/images/${name}`, import.meta.url).href
     }
+
     return {getImageUrl}
   },
   data() {
     return {}
+  },
+  methods: {
+    onDeleteInspection()  {
+      this.$emit('onDeleteInspection', this.inspection)
+    }
   }
 
 });

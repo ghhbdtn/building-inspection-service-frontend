@@ -4,6 +4,7 @@ import {Inspection} from "../../source/interfaces";
 export interface State {
     allInspections: Inspection[],
     inspection: Inspection,
+    totalPages: number
 }
 const inspections = {
     namespaced: true,
@@ -25,31 +26,38 @@ const inspections = {
             result: "",
             categoriesCount: -1
         },
-
+        totalPages: 0
     }),
 
     getters: {
         getAll(state: State){
             return state.allInspections;
+        },
+        getPages(state: State){
+            return state.totalPages;
+        },
+        getNewInspectionId(state: State) {
+            return state.inspection.id;
         }
     },
 
     mutations: {
-        SET_INSPECTIONS: (state: State, inspections: []) => {
-            state.allInspections = inspections;
+        SET_INSPECTIONS: (state: State, data: {}) => {
+            state.allInspections = data['content'];
+            state.totalPages = data['totalPages']
         },
-        SET_INSPECTION: (state: State, data: {inspectionId: number}) => {
-            state.inspection.id = data.inspectionId
+        SET_INSPECTION: (state: State, data: {}) => {
+            state.inspection = <Inspection>data;
         },
     },
 
     actions: {
-        allInspections({commit}: any) {
+        allInspections({commit}: any, page: number) {
             return new Promise((resolve, reject) => {
-                axios({url: '/api/v1/inspections ', method: 'GET', withCredentials: true})
+                axios({url: `api/v1/inspections?pageNum=${page}&pageSize=9`, method: 'GET', withCredentials: true})
                     .then(resp => {
-                        const inspections: Inspection[] = resp.data.content;
-                        commit('SET_INSPECTIONS', inspections);
+                        const inspections: Inspection[] = resp.data;
+                        commit('SET_INSPECTIONS', resp.data);
                         resolve(resp);
                     })
                     .catch(err => {
@@ -63,7 +71,19 @@ const inspections = {
                 axios({url: '/api/v1/inspections ', data: data, method: 'POST', withCredentials: true})
                     .then(resp => {
                         const inspectionId: number = resp.data;
-                        commit('SET_INSPECTION', inspectionId);
+                        commit('SET_INSPECTION', resp.data);
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        deleteInspection({commit}: any, data: {id: number}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/inspections/${data.id}`, data: data, method: 'DELETE', withCredentials: true})
+                    .then(resp => {
                         resolve(resp);
                     })
                     .catch(err => {

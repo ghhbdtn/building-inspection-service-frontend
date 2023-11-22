@@ -56,7 +56,9 @@ export default defineComponent({
     return{
       data,
       onLoginButtonClick(){
-        store.dispatch('users/signIn', data.value)
+        store.dispatch('users/signIn', data.value).then(()=>{
+          window.location.reload();
+        })
       }
     }
   }

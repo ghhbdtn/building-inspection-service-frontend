@@ -2,21 +2,21 @@
   <v-main>
     <v-stepper alt-labels elevation="0">
       <v-stepper-header>
-        <v-stepper-item value="1" editable title="Настройка проекта" @click="router.push('/personal-account/project-settings')"></v-stepper-item>
+        <v-stepper-item value="1" editable title="Настройка проекта" @click="router.push({name: 'ProjectSettings', params: {id: route.params.id}})"></v-stepper-item>
 
         <v-divider></v-divider>
 
-        <v-stepper-item value="2" editable title="Подготовка к обследованию" @click="router.push('/personal-account/inspection-preparation')"></v-stepper-item>
+        <v-stepper-item value="2" editable title="Подготовка к обследованию" @click="router.push({name: 'InspectionPreparation', params: {id: route.params.id}})"></v-stepper-item>
 
         <v-divider></v-divider>
 
-        <v-stepper-item value="3" editable title="Импорт материалов обследования" @click="router.push('/personal-account/import-materials')"></v-stepper-item>
+        <v-stepper-item value="3" editable title="Импорт материалов обследования" @click="router.push({name: 'ImportMaterialsPage',  params: {id: route.params.id}})"></v-stepper-item>
         <v-divider></v-divider>
 
-        <v-stepper-item value="4" editable title="Параметры отчета" @click="router.push('/personal-account/report-parameters')"></v-stepper-item>
+        <v-stepper-item value="4" editable title="Параметры отчета" @click="router.push({name: 'ReportParameters',  params: {id: route.params.id}})"></v-stepper-item>
         <v-divider></v-divider>
 
-        <v-stepper-item value="5" editable title="Экспорт документации" @click="router.push('/personal-account/report-export')"></v-stepper-item>
+        <v-stepper-item value="5" editable title="Экспорт документации" @click="router.push({name: 'DocExport',  params: {id: route.params.id}})"></v-stepper-item>
       </v-stepper-header>
       <v-stepper-window>
         <RouterView/>
@@ -31,17 +31,20 @@
 
 <script lang="ts">
 import {defineComponent, onMounted} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 export default defineComponent({
   name: "ProjectEditPage",
   setup(){
     const router = useRouter();
+    const route = useRoute();
     onMounted(() => {
-      router.push('/personal-account/project-settings')
+      const id = route.params.id;
+      router.push({name: 'ProjectSettings', params: {id: id}})
     })
     return{
-      router
+      router,
+      route
     }
   },
   data() {
