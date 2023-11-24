@@ -50,21 +50,21 @@
                         </v-btn>
                       </td>
                       <td>
-                        <v-btn icon @click="onUploadDialog(category)" size="40">
-                          <v-icon>mdi-paperclip</v-icon>
+                        <v-btn icon @click="onUploadDialog(category)" size="30" elevation="0">
+                          <v-icon size="25">mdi-paperclip</v-icon>
                         </v-btn>
                         ({{category.photos.length}})
                       </td>
                       <td>
-                        <v-btn icon @click="viewCategoryPhoto(category)" size="40">
-                          <v-icon>
+                        <v-btn icon @click="viewCategoryPhoto(category)" size="30" elevation="0">
+                          <v-icon size="25">
                             mdi-eye
                           </v-icon>
                         </v-btn>
                       </td>
                       <td>
-                        <v-btn icon @click="deleteCategory(category)" size="40">
-                          <v-icon color="#E03021">
+                        <v-btn icon @click="deleteCategory(category)" size="30" elevation="0">
+                          <v-icon color="#E03021" size="25">
                             mdi-delete
                           </v-icon>
                         </v-btn>
@@ -99,7 +99,7 @@
                         cover
             >
               <v-carousel-item v-for="(image, index) in loadedImages" :key="index">
-                <img :src="`${image}`" alt="Изображение">
+                <img :width="500" :height="300" :src="`${image}`" alt="Изображение">
               </v-carousel-item>
             </v-carousel>
           </v-row>
@@ -172,7 +172,6 @@ export default defineComponent({
     let editMode = ref(false);
     let editedIndex = ref(false);
     let addCategoryDialog = ref(false);
-    let categoryPhotos = ref(computed)
     let categoriesList = ref(computed(()=>store.getters['categories/getAll']))
     let defaultCategory = ref({
       id: -1,
@@ -219,18 +218,21 @@ export default defineComponent({
       uploadPhotoDialog.value = true
       editedCategory.value = item;
     }
-    const uploadScan = () => {
+    const uploadScan = async () => {
       for (const file of editedCategory.value.photos) {
-        let formData = new FormData();
-        formData.append('file', file);
-        let data = {
-          inspectionId: route.params.id,
-          id: editedCategory.value.id,
-          file: formData
+        if (!file.id) {
+          let formData = new FormData();
+          formData.append('file', file);
+          let data = {
+            inspectionId: route.params.id,
+            id: editedCategory.value.id,
+            file: formData
+          }
+          await store.dispatch('categories/addCategoryPhoto', data)
         }
-        store.dispatch('categories/addCategoryPhoto', data)
       }
       uploadPhotoDialog.value = false;
+      store.dispatch('categories/allCategories', route.params.id);
     };
     const fileAdded = (file)=> {
       editedCategory.value.photos.push(file);

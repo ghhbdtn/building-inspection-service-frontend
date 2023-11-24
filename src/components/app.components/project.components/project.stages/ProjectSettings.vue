@@ -68,7 +68,6 @@
                         size="230"
                         style="border-radius: 10%"
                     >
-
                         <img :src="avatarSrc" :width="230"  :height="230" style=" border: double #E03021; border-radius: 10%">
                     </v-btn>
                   </template>
@@ -161,6 +160,13 @@ export default defineComponent({
           }
         };
         reader.readAsDataURL(input.files[0]);
+        let formData = new FormData();
+        formData.append('file', input.files[0]);
+        let data = {
+          inspectionId: route.params.id,
+          id: editedCategory.value.id,
+          file: formData
+        }
       }
     },
     deletePhoto() {

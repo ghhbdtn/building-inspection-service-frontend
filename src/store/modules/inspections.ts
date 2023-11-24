@@ -4,6 +4,7 @@ import {Inspection} from "../../source/interfaces";
 export interface State {
     allInspections: Inspection[],
     inspection: Inspection,
+    newInspection: { inspectionId: number },
     totalPages: number
 }
 const inspections = {
@@ -37,7 +38,7 @@ const inspections = {
             return state.totalPages;
         },
         getNewInspectionId(state: State) {
-            return state.inspection.id;
+            return state.newInspection;
         }
     },
 
@@ -46,8 +47,8 @@ const inspections = {
             state.allInspections = data['content'];
             state.totalPages = data['totalPages']
         },
-        SET_INSPECTION: (state: State, data: {}) => {
-            state.inspection = <Inspection>data;
+        SET_INSPECTION: (state: State, data: {inspectionId: number}) => {
+            state.newInspection = data;
         },
     },
 
@@ -91,7 +92,27 @@ const inspections = {
                         reject(err);
                     })
             })
-        }
+        },
+        addMainPhoto({commit}: any, data: {id: number, file: FormData}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/inspections/${data.id}/main-photo`,
+                    method: 'POST',
+                    data: data.file,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    withCredentials: true})
+                    .then(resp => {
+                        //const inspectionId: number = resp.data;
+                        //commit('SET_INSPECTION', resp.data);
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
     }
 };
 

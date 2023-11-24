@@ -6,9 +6,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted} from "vue";
-import {useStore} from "vuex";
-import {useRouter} from "vue-router";
+import {computed, defineComponent} from "vue";
 import UnauthAppView from "./components/app.components/UnauthAppView.vue";
 import PersonalAccount from "./components/app.components/PersonalAccount.vue";
 
@@ -33,8 +31,6 @@ function checkJWTTokenInCookies() {
 export default defineComponent({
   components: {PersonalAccount, UnauthAppView},
   setup() {
-    const store = useStore();
-    const router = useRouter()
     const isAuth = computed(() => checkJWTTokenInCookies())
     return {
       isAuth,

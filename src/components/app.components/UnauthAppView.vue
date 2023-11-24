@@ -56,7 +56,7 @@
             style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
           <div style="justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
             <div style="width: 61.98px; height: 63px; position: relative">
-              <img :src="'/src/assets/images/logooooo.png'">
+              <img src="../../assets/images/logooooo.png">
             </div>
             <div><span
                 style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; word-wrap: break-word">Checkpoint</span><span

@@ -19,7 +19,7 @@
               v-for="(inspection) in inspections"
               :key="inspection.id"
               cols="12"
-              md="4"
+              :md="(inspections.length > 2) ? 4 : 6"
           >
             <v-item>
               <DashBoardItem
@@ -65,6 +65,7 @@ export default defineComponent({
     const inspections = ref(computed(()=> store.getters["inspections/getAll"]))
     const newInspectionId = ref(computed(()=> store.getters['inspections/getNewInspectionId']))
     const page = ref(1);
+    const size = ref(computed(()=>inspections.size))
     onMounted(() => {
       store.dispatch('inspections/allInspections', page.value - 1).then(()=>{
       });
@@ -78,14 +79,22 @@ export default defineComponent({
     };
     const onNewProjectItemClick = () => {
       store.dispatch('inspections/createNewInspection', {}).then(()=>
-      router.push({name: 'NewProject', params:{id: newInspectionId}})
+      router.push({name: 'NewProject', params:{id: newInspectionId.value.inspectionId}})
       )
     };
     const onDeleteInspection = (inspection) => {
       const data = {
         id: inspection.id
       }
-      store.dispatch('inspections/deleteInspection', data)
+      const result = confirm("Вы действительно хотите удалить проект " + inspection.name)
+      if(result) {
+        store.dispatch('inspections/deleteInspection', data).then(()=>{
+          const index = inspections.value.indexOf(inspection)
+          inspections.value.splice(index, 1)
+          store.dispatch('inspections/allInspections', page.value - 1).then(()=>{
+          });
+        })
+      }
     }
 
     return {
@@ -96,7 +105,8 @@ export default defineComponent({
       pages,
       page,
       onNextPage,
-      onDeleteInspection
+      onDeleteInspection,
+      size
     };
   },
   computed:{

@@ -2,7 +2,6 @@ import App from "../App.vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import MainPage from "../components/app.components/toolbar.components/MainPage.vue";
 import AboutPage from "../components/app.components/toolbar.components/AboutPage.vue";
-import ContactsPage from "../components/app.components/toolbar.components/ContactsPage.vue";
 import RegisterPage from "../components/app.components/toolbar.components/RegisterPage.vue";
 import LoginPage from "../components/app.components/toolbar.components/LoginPage.vue";
 import PersonalAccount from "../components/app.components/PersonalAccount.vue";
@@ -36,11 +35,6 @@ const routes: Array<any> = [
         path: '/about-us',
         name: 'AboutPage',
         component: AboutPage,
-    },
-    {
-        path: '/contacts',
-        name: 'ContactsPage',
-        component: ContactsPage,
     },
     {
         path: '/register',
@@ -113,7 +107,7 @@ const routes: Array<any> = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.VITE_BASE_PATH),
     routes
 });
 

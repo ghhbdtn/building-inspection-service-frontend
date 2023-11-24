@@ -31,12 +31,6 @@ const users = {
 
     mutations: {
         SET_USER: (state: State, user: User) => {
-            // state.user.id = user.id;
-            // state.user.login = user.fullName;
-            // state.user.login = user.login;
-            // state.user.isAdmin = user.isAdmin;
-            // state.user.terminationDate = user.terminationDate;
-            // state.isAdmin = user.isAdmin;
             state.user = user;
             state.isAuthenticated = true;
         },

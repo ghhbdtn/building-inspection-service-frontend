@@ -8,7 +8,7 @@
           <button class="main-container" @click="onRegisterButtonClick">
             <div class="title">Попробуйте бесплатно</div>
             <div class="image-wrapper">
-              <img :src="'src/assets/images/Group 48097054.svg'" class="image" loading="lazy"/>
+              <img src="../../../assets/images/Group%2048097054.svg" class="image" loading="lazy"/>
             </div>
           </button>
           <div
@@ -43,14 +43,14 @@
                       style="color: white; font-size: 18px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
                     Начало работы
                   </div>
-                  <img :src="'src/assets/images/start.svg'" style="width: 16px; height: 16px; position: relative">
+                  <img src="../../../assets/images/start.svg" style="width: 16px; height: 16px; position: relative">
                 </div>
               </button>
             </div>
           </div>
         </div>
         <div style="width: 517.50px; height: 624px; position: relative">
-          <img src="src/assets/images/gif/Checkpoint-K_Screen_Render_resize.gif"
+          <img src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif"
                style="position: absolute; width: 517.50px; height: 624px"/>
           <div
               style="margin: 60px 72.25px;position: absolute; width: 203px; height: 60px; padding: 20px 25px;background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
@@ -99,7 +99,7 @@
             <div
                 style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
               <div style="width: 50px; height: 50px; position: relative">
-                <img :src="'src/assets/images/analytics.svg'">
+                <img src="../../../assets/images/analytics.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
@@ -119,7 +119,7 @@
             <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
               <div
                   style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                <img :src="'src/assets/images/Group 48097054.svg'" style="position: relative; padding: 5px 4px">
+                <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@
                 style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
               <div style="width: 50px; height: 50px; position: relative">
                 <div style="width: 50px; height: 45.83px; left: 0px; top: 4.17px; position: absolute">
-                  <img :src="'src/assets/images/photo.svg'">
+                  <img src="../../../assets/images/photo.svg">
                 </div>
               </div>
               <div
@@ -158,7 +158,7 @@
                   style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
                 <div
                     style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img :src="'src/assets/images/Group 48097054.svg'" style="position: relative; padding: 5px 4px">
+                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
                 </div>
               </div>
             </div>
@@ -175,7 +175,7 @@
                 style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
               <div style="width: 50px; height: 50px; position: relative">
                 <div style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute">
-                  <img :src="'src/assets/images/drawing.svg'">
+                  <img src="../../../assets/images/drawing.svg">
                 </div>
               </div>
               <div
@@ -198,7 +198,7 @@
                   style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
                 <div
                     style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img :src="'src/assets/images/Group 48097054.svg'" style="position: relative; padding: 5px 4px">
+                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
                 </div>
               </div>
             </div>
@@ -214,7 +214,7 @@
             <div
                 style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
               <div style="width: 53.33px; height: 50px; position: relative">
-                <img :src="'src/assets/images/audio.svg'">
+                <img src="../../../assets/images/audio.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
@@ -236,7 +236,7 @@
                   style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
                 <div
                     style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img :src="'src/assets/images/Group 48097054.svg'" style="position: relative; padding: 5px 4px">
+                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@
     <div
         style="margin-bottom: 150px; width: 100%; height: 100%; justify-content: center; align-items: center; gap: 87px; display: inline-flex">
       <div style="width: 527px; height: 633px; position: relative">
-        <img :src="'src/assets/images/gif/Checkpoint-K_Screen_Render_resize.gif'"
+        <img src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif"
              style="width: 527px; height: 633px; left: 0px; top: 0px; position: absolute"/>
       </div>
       <div
@@ -382,7 +382,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/moreobjects.svg'">
+                <img src="../../../assets/images/moreobjects.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -399,7 +399,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/calm.svg'">
+                <img src="../../../assets/images/calm.svg">
               </div>
               <div
                   style="width: 339px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -416,7 +416,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/universe.svg'">
+                <img src="../../../assets/images/universe.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -435,7 +435,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/knowledge.svg'">
+                <img src="../../../assets/images/knowledge.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -452,7 +452,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/quality.svg'">
+                <img src="../../../assets/images/quality.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -469,7 +469,7 @@
               style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
             <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
               <div style="width: 40px; height: 40px; position: relative">
-                <img :src="'src/assets/images/rapidity.svg'">
+                <img src="../../../assets/images/rapidity.svg">
               </div>
               <div
                   style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
@@ -624,19 +624,19 @@
               Начать сотрудничество
             </div>
             <div style="width: 16px; height: 16px; position: relative">
-              <img :src="'src/assets/images/start.svg'">
+              <img src="../../../assets/images/start.svg">
             </div>
           </div>
         </div>
       </div>
       <img
-          src="src/assets/images/gif/Checkpoint-K_Screen_Render_Red.gif"
+          src="../../../assets/images/Checkpoint-K_Screen_Render_Red.gif"
           style="width: 590px; left: 0; top: 0; border-radius: 25px; padding-right: 0;"/>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {defineComponent} from "vue";
 
 export default defineComponent({
