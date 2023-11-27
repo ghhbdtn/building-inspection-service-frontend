@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   server:
-    image: tetrade/inspection:0.0.3.1
+    image: tetrade/inspection:0.0.3.2
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/inspection-service-db
       - aws.s3.host=http://minio:9000/
@@ -36,7 +36,7 @@ services:
     command: minio server /data
 
   client:
-    image: alina2002alina/front:0.0.1
+    image: alina2002alina/front:0.0.2
     environment:
       - NGINX_HOST=foobar.com
       - NGINX_PORT=80

@@ -97,7 +97,7 @@ export default  defineComponent({
           store.dispatch('users/signIn', {email: userData.value.email,
             password: userData.value.password}).then(()=>
               nextTick(()=> {
-                router.push({name: "PersonalAccount"})
+                location.reload();
               }))
         }).catch()
       }
