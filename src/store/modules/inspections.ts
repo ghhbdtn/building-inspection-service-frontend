@@ -7,7 +7,8 @@ export interface State {
     inspection: Inspection,
     newInspection: { inspectionId: number },
     totalPages: number,
-    mainPhoto: string
+    mainPhoto: string,
+    progressingStatus: string
 }
 const inspections = {
     namespaced: true,
@@ -34,7 +35,8 @@ const inspections = {
             inspectionId: -1
         },
         mainPhoto: "",
-        totalPages: 0
+        totalPages: 0,
+        progressingStatus: ""
     }),
 
     getters: {
@@ -52,6 +54,9 @@ const inspections = {
         },
         getMainPhoto(state: State) {
             return state.mainPhoto;
+        },
+        getStatus(state: State) {
+            return state.progressingStatus;
         },
     },
 
@@ -71,6 +76,10 @@ const inspections = {
         },
         DELETE_INSPECTION_PHOTO: (state: State) => {
             state.mainPhoto = '';
+        },
+        SET_STATUS: (state: State, data: {progressingStatus: string}) => {
+            if (!data) state.progressingStatus = 'PROCESSING';
+            else state.progressingStatus = data.progressingStatus;
         },
     },
 
@@ -195,7 +204,63 @@ const inspections = {
                     })
             })
         },
+        generateReport({commit}: any, id: number) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/inspections/${id}/docx`,
+                    method: 'POST',
+                    withCredentials: true})
+                    .then(resp => {
+                        commit('SET_STATUS')
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        pingStatus({commit}: any, id: number) {
+            axios({url: `/api/v1/inspections/${id}/docx/status`,
+                method: 'GET',
+                withCredentials: true})
+                .then(response => {
+                    commit('SET_STATUS', response.data)
+                })
+                .catch(error => {
+
+                });
+        },
+        downloadReport({commit}: any, id: number) {
+            return new Promise((resolve, reject) => {
+                axios({
+                    url: `/api/v1/inspections/${id}/docx`,
+                    params: {},
+                    responseType: 'blob',
+                    withCredentials: true,
+                    method: "GET"
+                })
+                    .then((resp) => {
+                        const href = URL.createObjectURL(resp.data);
+                        const link = document.createElement('a');
+
+                        // Получить заголовок Content-Disposition, где содержится имя файла
+                        // const contentDisposition = resp.headers['Content-Disposition'];
+                        // const filename = contentDisposition.split(';')[1].trim().split('=')[1].replace(/"/g, '');
+
+                        link.href = href;
+                        link.setAttribute('download', 'report.docx');
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        //URL.revokeObjectURL(href);
+                    })
+                    .catch(err => {
+                        //commit('ERR', err.response.message);
+                        reject(err);
+                    })
+            })
+        },
     }
-};
+}
 
 export default inspections

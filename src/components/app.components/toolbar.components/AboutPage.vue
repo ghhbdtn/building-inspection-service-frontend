@@ -2,13 +2,13 @@
   <div class="about-us">
     <div class="about-us-container">
       <div
-          style="margin-bottom: 150px; width: 100%; height: 100%; justify-content: flex-start; align-items: center; gap: 94px; display: inline-flex">
+          style="margin-bottom: 150px; margin-top: 65px; width: 100%; height: 100%; justify-content: flex-start; align-items: center; gap: 94px; display: inline-flex">
         <div
             style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 35px; display: inline-flex">
           <button class="main-container" @click="onRegisterButtonClick">
-            <div class="title">Попробуйте бесплатно</div>
+            <div class="title">Попробуйте уже сейчас</div>
             <div class="image-wrapper">
-              <img src="../../../assets/images/Group%2048097054.svg" class="image" loading="lazy"/>
+              <img class="image" loading="lazy" src="../../../assets/images/Group%2048097054.svg"/>
             </div>
           </button>
           <div
@@ -35,8 +35,7 @@
               </div>
             </div>
             <div style="justify-content: flex-start; align-items: center; gap: 35px; display: inline-flex">
-              <button
-                  style="padding-left: 25px; padding-right: 25px; padding-top: 15px; padding-bottom: 15px; background: #E03021; border-radius: 25px; justify-content: center; align-items: center; gap: 10px; display: flex"
+              <button class="start-button"
                   @click="onRegisterButtonClick">
                 <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
                   <div
@@ -517,26 +516,26 @@
       <div style="width: 1042px; height: 516px; position: relative">
         <div style="width: 1042px; height: 516px; left: 0; top: 0; position: absolute">
           <div
-              style=" height: 111px; left: -12px; top: 130px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-end; gap: 25px; display: inline-flex">
+              style=" height: 111px; left: 50px; top: 130px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-end; gap: 25px; display: inline-flex">
             <div
                 style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
-              Февраль 2024
+              Июнь 2024
             </div>
             <div
                 style="text-align: right; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
-              Распознавание дефектов на каменных и ж.б. конструкциях<br/>Маркировка дефектов в приложении<br/>Анализ
-              архивной документации
+              Расчетный модуль<br/>Распознавание дефектов на металлоконструкциях<br/>Проверка здания на нормативы
             </div>
           </div>
           <div
               style=" height: 111px; left: 583px; top: 0px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: inline-flex">
             <div
                 style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
-              Июнь 2024
+              Февраль 2024
             </div>
             <div
-                style="color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
-              Расчетный модуль<br/>Распознавание дефектов на металлоконструкциях<br/>Проверка здания на нормативы
+                style="width: 550px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
+              <p>Распознавание дефектов на каменных и ж.б. конструкциях<br/>Маркировка дефектов в приложении<br/>Анализ
+              архивной документации</p>
             </div>
           </div>
           <div
@@ -616,31 +615,148 @@
             начинается здесь
           </div>
         </div>
-        <div
-            style="padding: 15px 25px;background: #181D2B; border-radius: 25px; justify-content: center; align-items: center; display: inline-flex">
+        <button @click="onDialogButton" class="dialog-button">
           <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-            <div
+            <p
                 style="color: white; font-size: 18px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
               Начать сотрудничество
-            </div>
+            </p>
             <div style="width: 16px; height: 16px; position: relative">
               <img src="../../../assets/images/start.svg">
             </div>
           </div>
-        </div>
+        </button>
       </div>
       <img
           src="../../../assets/images/Checkpoint-K_Screen_Render_Red.gif"
           style="width: 590px; left: 0; top: 0; border-radius: 25px; padding-right: 0;"/>
     </div>
   </div>
+  <v-dialog v-model="dialog">
+    <v-row justify="center">
+    <v-card width="600" style="border-radius: 25px">
+      <v-row justify="center">
+      <v-col cols="10" class="text-fields">
+        <h3 style="text-align: center; padding-top: 3%">Сотрудничество</h3>
+        <v-card-text>
+          Оставьте свои контактные данные и кратко опишите запрос - пилот,
+          инвестирование, сотрудничество,
+          внедрение или иное. Мы с вами
+          свяжемся и вышлем презентацию проекта
+        </v-card-text>
+        <v-form ref="form">
+        <v-text-field
+            label="ФИО*"
+            variant="outlined"
+            v-model="message.fullName"
+            :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
+        />
+        <v-text-field
+            label="email*"
+            variant="outlined"
+            v-model="message.email"
+            :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
+        />
+        <v-text-field
+            label="Контактный номер"
+            variant="outlined"
+            v-model="message.number"
+        />
+        <v-text-field
+            label="Компания"
+            variant="outlined"
+            v-model="message.companyName"
+        />
+        <v-textarea
+            label="Описание запроса"
+            variant="outlined"
+            v-model="message.details"
+        />
+        </v-form>
+        <v-card-actions style="justify-content: center; padding-bottom: 3%">
+          <v-btn
+              variant="outlined"
+              color="#E03021"
+              style="border-radius: 25px;
+              border-color: #E03021;
+              align-content: center;"
+              @click="onSendMessage"
+          >
+            Отправить
+          </v-btn>
+          <v-btn
+              variant="outlined"
+              color="#181D2B"
+              style="border-radius: 25px;
+              border-color: #181D2B;
+              align-content: center;"
+              @click="onClose"
+          >
+            Отмена
+          </v-btn>
+        </v-card-actions>
+      </v-col>
+      </v-row>
+    </v-card>
+    </v-row>
+  </v-dialog>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, ref} from "vue";
+import {useStore} from "vuex";
+import {VForm} from "../../../formType";
 
 export default defineComponent({
   name: "AboutPage",
+  setup() {
+    const store = useStore();
+    const dialog = ref(false);
+    const message = ref({
+      fullName: "",
+      email: "",
+      number: "",
+      companyName: "",
+      details: ""
+    });
+    const onDialogButton= () => {
+      dialog.value = true;
+    };
+    const onSendMessage = () => {
+      let data = message.value;
+      if (message.value.fullName && message.value.email) {
+        store.dispatch('users/sendMessage', data).then(() => {
+          message.value = {
+            fullName: "",
+            email: "",
+            number: "",
+            companyName: "",
+            details: ""
+          }
+          dialog.value = false
+        })
+      }
+    };
+    const onClose = () => {
+      dialog.value = false;
+      message.value = {
+        fullName: "",
+        email: "",
+        number: "",
+        companyName: "",
+        details: ""
+      }
+    };
+    return {
+      dialog,
+      onDialogButton,
+      message,
+      onSendMessage,
+      onClose
+    }
+  },
+  data() {
+  },
   methods: {
     onRegisterButtonClick: function () {
       this.$router.push({name: 'RegisterPage'})
@@ -650,5 +766,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 </style>

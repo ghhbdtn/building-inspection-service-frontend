@@ -3,14 +3,12 @@
       :class="'align-center'"
       elevation="10"
       border
-      style="width: 350px; height: 300px; border-radius: 24px; background-color: #CFCFCF; border-color: #E03021"
+      style="width: 350px; height: 300px; border-radius: 24px; background-color: #eaeaea; border-color: #E03021"
   >
-    <v-img :src="getImageUrl()" :height="220" :width="350" style="background-color: white"/>
-    <v-divider/>
+    <img :src="getImageUrl()" :height="220" :width="350" style="background-color: white">
     <v-row justify="space-between">
       <v-col cols="6">
-        <v-card-title>Объект</v-card-title>
-        <v-card-subtitle>{{inspection.name}}</v-card-subtitle>
+        <v-card-text style="font-size: 18px">{{inspection.name}}</v-card-text>
       </v-col>
       <v-col cols="4">
         <v-card-actions>

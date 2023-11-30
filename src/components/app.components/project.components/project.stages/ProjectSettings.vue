@@ -99,11 +99,10 @@
                     <v-btn
                         elevation="0"
                         v-bind="props"
-                        size="230"
-                        style="border-radius: 10%"
+                        size="300"
                     >
-                        <img v-if="!mainPhoto" :src="avatarSrc" :width="230"  :height="230" style=" border: double #E03021; border-radius: 10%">
-                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="230"  :height="230" style=" border: double #E03021; border-radius: 10%">
+                        <img v-if="!mainPhoto" :src="avatarSrc" :width="300"  :height="300" style=" border: double #E03021; ">
+                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="300"  :height="300" style=" border: double #E03021; ">
                     </v-btn>
                   </template>
                   <v-card max-height="200">
@@ -176,8 +175,8 @@ export default defineComponent({
           address: editedInspection.value.address,
           script: editedInspection.value.script,
           isCulture: editedInspection.value.isCulture,
-          startDate: editedInspection.value.startDate.split('-').reverse().join('.'),
-          endDate: editedInspection.value.endDate.split('-').reverse().join('.'),
+          startDate: (editedInspection.value.startDate) ? editedInspection.value.startDate.split('-').reverse().join('.') : '',
+          endDate: (editedInspection.value.endDate) ? editedInspection.value.endDate.split('-').reverse().join('.') : '',
           companyId: (editedInspection.value.company) ? editedInspection.value.company.id : null,
           employerId: (editedInspection.value.employer) ? editedInspection.value.employer.id : null,
         }

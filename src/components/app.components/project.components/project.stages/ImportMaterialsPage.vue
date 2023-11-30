@@ -94,11 +94,11 @@
             <v-card-title>Просмотр изображений</v-card-title>
           </v-row>
           <v-row>
-            <v-carousel height="300" width="300" v-if="editedCategory.photos.length > 0"
+            <v-carousel height="300" width="300" v-if="editedCategory.loadedImages.length > 0 && !uploadPhotoDialog"
                         show-arrows-on-hover
                         cover
             >
-              <v-carousel-item v-for="(image, index) in loadedImages" :key="index">
+              <v-carousel-item v-for="(image, index) in editedCategory.loadedImages" :key="index">
                 <img :width="500" :height="300" :src="`${image}`" alt="Изображение">
               </v-carousel-item>
             </v-carousel>
@@ -176,18 +176,19 @@ export default defineComponent({
     let defaultCategory = ref({
       id: -1,
       name: "",
-      photos: []
+      photos: [],
+      loadedImages: [],
     } as PhotoCategory);
     let editedCategory = ref({
       id: -1,
-          name: "",
-          photos: []
+      name: "",
+      photos: [],
+      loadedImages: []
     } as PhotoCategory);
     onMounted(() => {
       store.dispatch('categories/allCategories', route.params.id).then(()=>{
       });
     });
-    const loadedImages = ref([]);
 
     const loadImages = async () => {
       for (const photo of editedCategory.value.photos) {
@@ -202,11 +203,11 @@ export default defineComponent({
                   new Uint8Array(arrayBuffer)
                       .reduce((data, byte) => data + String.fromCharCode(byte), '')
               );
-              loadedImages.value.push(`data:image/jpeg;base64,${base64String}`);
+              editedCategory.value.loadedImages.push(`data:image/jpeg;base64,${base64String}`);
             })
             .catch((error) => {
               console.error('Ошибка загрузки изображения:', error);
-              loadedImages.value.push('');
+              editedCategory.value.loadedImages.value.push('');
             });
       }
     };
@@ -238,8 +239,8 @@ export default defineComponent({
       editedCategory.value.photos.push(file);
     };
     const viewCategoryPhoto = (value: PhotoCategory) => {
-      loadedImages.value = [];
       editedCategory.value = value;
+      editedCategory.value.loadedImages = [];
       loadImages();
     };
     const onAddCategoryButtonClick = () => {
@@ -317,7 +318,6 @@ export default defineComponent({
       onUploadDialog,
       viewCategoryPhoto,
       loadImages,
-      loadedImages,
       addCategoryDialog,
       editCategory,
       cancelUpload,

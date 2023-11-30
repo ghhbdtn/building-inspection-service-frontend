@@ -162,6 +162,20 @@ const users = {
                     })
             })
         },
+        sendMessage({commit}: any, data: {}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/feedback `,
+                    method: 'POST',
+                    data: data})
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
     }
 };
 

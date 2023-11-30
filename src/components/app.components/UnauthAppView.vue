@@ -49,7 +49,7 @@
   </body>
   <footer
       style="width: 100%; height: 100%; padding: 60px 10px;background: #F4F6F7; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-    <div style="justify-content: flex-start; align-items: flex-start; gap: 486px; display: flex">
+    <div style="justify-content: flex-start; align-items: flex-start; gap: 10vw; display: flex">
       <div
           style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 45px; display: inline-flex">
         <div
@@ -69,7 +69,8 @@
           </div>
         </div>
       </div>
-      <div style="justify-content: flex-start; align-items: flex-start; gap: 120px; display: flex">
+
+      <div style="justify-content: center; align-items: flex-start; gap: 20%; display: flex">
         <div
             style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
           <div
@@ -119,6 +120,14 @@
             <div
                 style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
               Телеграм
+            </div>
+          </div>
+        </div>
+        <div style="align-items: flex-start; display: flex;">
+          <div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px;">
+            <p style="margin-bottom: 30px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">Приложение</p>
+            <div style="width: 200px; height: 200px; display: inline-flex;">
+              <img src="../../assets/images/photo_2023-11-29_16-55-32.jpg">
             </div>
           </div>
         </div>
