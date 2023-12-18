@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   server:
-    image: tetrade/inspection:0.0.4
+    image: tetrade/inspection:0.0.4.3
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/inspection-service-db
       - aws.s3.host=http://minio:9000/
