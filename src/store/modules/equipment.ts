@@ -4,7 +4,8 @@ interface Equipment {
     id: number,
     name: string,
     serialNumber: string,
-    verificationDate: string
+    verificationDate: string,
+    files: []
 }
 export interface State {
     equipment: Equipment
@@ -18,7 +19,8 @@ const equipment = {
             name: "",
             serialNumber: "",
             verificationNumber: "",
-            verificationDate: ""
+            verificationDate: "",
+            files: []
         } as Equipment,
         equipments: [] as Equipment[],
     }),
@@ -95,13 +97,28 @@ const equipment = {
         },
         addEquipmentScan({commit}: any, data: {file: FormData, id: number}) {
             return new Promise((resolve, reject) => {
-                axios({url: `/api/v1/equipment/${data.id}/pic`,
+                axios({url: `/api/v1/equipment/${data.id}/file?scanNumber=2`,
                     method: 'POST',
                     data: data.file,
                     withCredentials: true,
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
+                })
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        deleteEquipmentScan({commit}: any, data: {fileId: number, id: number}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/equipment/${data.id}/file/${data.fileId}`,
+                    method: 'DELETE',
+                    withCredentials: true,
                 })
                     .then(resp => {
                         resolve(resp);

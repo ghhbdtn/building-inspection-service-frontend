@@ -19,6 +19,7 @@ import DocExport from "../components/app.components/project.components/project.s
 import PersonalData from "../components/app.components/personal.account/PersonalData.vue";
 import CompaniesData from "../components/app.components/personal.account/CompaniesData.vue";
 import UserEquipment from "../components/app.components/personal.account/UserEquipment.vue";
+import CompanyCard from "../components/app.components/personal.account/CompanyCard.vue";
 
 const routes: Array<any> = [
     {
@@ -65,6 +66,13 @@ const routes: Array<any> = [
         path: '/personal-account/companies',
         name: 'CompaniesData',
         component: CompaniesData,
+        children: [
+            {
+                path: '/personal-account/companies/:id',
+                name: 'CompanyCard',
+                component: CompanyCard,
+            },
+        ]
     },
     {
         path: '/personal-account/equipment',

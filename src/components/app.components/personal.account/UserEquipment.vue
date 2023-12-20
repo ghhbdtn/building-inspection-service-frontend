@@ -25,7 +25,7 @@
             <v-row>
               <v-col cols="12">
                 <DragAndDrop
-                    :files="editedEquipment.scans"
+                    :files="editedEquipment.files"
                     @fileAdded="fileAdded"
                     @removeFile="removeFile"
                     :is-multiple="true"/>
@@ -71,6 +71,7 @@
                   mdi-paperclip
                 </v-icon>
               </v-btn>
+              ({{item.files.length}})
             </td>
             <td>
               <v-btn @click="openEditDialog(index)" icon size="40">
@@ -98,6 +99,7 @@ import {computed, defineComponent, ref} from 'vue';
 import DragAndDrop from '../../DragAndDrop.vue';
 import {onMounted} from "vue";
 import {useStore} from "vuex";
+import {vi} from "vuetify/locale";
 
 export default defineComponent({
   name: 'UserEquipment',
@@ -114,7 +116,7 @@ export default defineComponent({
       serialNumber: '',
       verificationNumber: '',
       verificationDate: '',
-      scans: [],
+      files: [],
     });
     const equipmentList = ref(computed(()=> store.getters['equipment/getAll']));
 
@@ -131,7 +133,7 @@ export default defineComponent({
     const onUploadDialog = (item) => {
       uploadScanDialog.value = true;
       editedEquipment.value = { ...item };
-      editedEquipment.value.scans = [];
+      //editedEquipment.value.files = [];
     }
 
     const openEditDialog = (index) => {
@@ -184,22 +186,23 @@ export default defineComponent({
         serialNumber: '',
         verificationNumber: '',
         verificationDate: '',
-        scans: [],
+        files: [],
       };
       editMode.value = false;
       editedIndex.value = -1;
     };
 
     const uploadScan = async () => {
-      for (const file of editedEquipment.value.scans) {
-        if (file) {
+      for (const file of editedEquipment.value.files) {
+        if (file && !file.id) {
           let formData = new FormData();
-          formData.append('picture', file);
+          formData.append('file', file);
           let data = {
             id: editedEquipment.value.id,
             file: formData
           }
-          await store.dispatch('equipment/addEquipmentScan', data)
+          await store.dispatch('equipment/addEquipmentScan', data).catch(() => {
+          })
         }
       }
       await store.dispatch('equipment/allEquipments');
@@ -208,11 +211,11 @@ export default defineComponent({
 
     const cancelUpload = () => {
       uploadScanDialog.value = false;
-      editedEquipment.value.scans = [];
+      editedEquipment.value.files = [];
     };
 
     const fileAdded = (file) => {
-      editedEquipment.value.scans.push(file);
+      editedEquipment.value.files.push(file);
     };
 
     const removeItem = (item) => {
@@ -224,8 +227,18 @@ export default defineComponent({
     };
 
     const removeFile = (file) => {
-      const index = editedEquipment.value.scans.indexOf(file);
-      editedEquipment.value.scans.splice(index, 1);
+      const index = editedEquipment.value.files.indexOf(file);
+      if (editedEquipment.value.files[index].id) {
+        let data = {
+          id: editedEquipment.value.id,
+          fileId: editedEquipment.value.files[index].id
+        }
+        store.dispatch('equipment/deleteEquipmentScan', data).then(() => {
+          editedEquipment.value.files.splice(index, 1);
+        })
+      } else {
+        editedEquipment.value.files.splice(index, 1);
+      }
     };
 
     return {

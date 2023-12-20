@@ -4,13 +4,15 @@ import { createStore } from 'vuex';
 import inspections from "./modules/inspections";
 import categories from "./modules/categories";
 import equipment from "./modules/equipment";
+import companies from "./modules/companies";
 
 const store = createStore({
     modules: {
         users,
         inspections,
         categories,
-        equipment
+        equipment,
+        companies
     },
    // plugins: [plug]
 });

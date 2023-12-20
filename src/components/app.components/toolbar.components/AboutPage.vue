@@ -46,6 +46,9 @@
                 </div>
               </button>
             </div>
+            <a href="https://disk.yandex.ru/i/ddmHnRFgOmQ73A"
+               class="link"
+            >Инструкция по работе</a>
           </div>
         </div>
         <div style="width: 517.50px; height: 624px; position: relative">

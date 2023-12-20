@@ -127,7 +127,7 @@
           <div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px;">
             <p style="margin-bottom: 30px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">Приложение</p>
             <div style="width: 200px; height: 200px; display: inline-flex;">
-              <img src="../../assets/images/photo_2023-11-29_16-55-32.jpg">
+              <img src="../../assets/images/qrcode.png">
             </div>
           </div>
         </div>
