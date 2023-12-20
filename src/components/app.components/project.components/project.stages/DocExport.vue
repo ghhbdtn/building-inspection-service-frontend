@@ -2,20 +2,22 @@
   <v-main>
     <v-container fluid>
       <v-row justify="center">
-        <v-col cols="4" offset="20">
+        <v-col cols="5" offset="20">
           <v-card elevation="0" border style="border-color: #E03021" width="600">
             <v-container fluid>
               <v-card-item>
-                <v-card-subtitle>Пожалуйста дождитесь завершения формирования отчета</v-card-subtitle>
+                <v-card-subtitle>
+                  {{isReady ? `Загрузка завершена`: `Пожалуйста дождитесь завершения формирования отчета`}}
+                </v-card-subtitle>
               </v-card-item>
               <v-card-item>
 
-                <v-progress-linear  indeterminate :height="12"/>
-
+                <v-progress-linear v-if="!isReady" :indeterminate="!isReady" :height="12" color="#E03021"/>
+                <v-progress-linear v-else v-model="done" :height="12" color="#E03021"/>
               </v-card-item>
               <v-card-actions>
               <v-row justify="center">
-                  <v-btn variant="outlined" color="#E03021">
+                  <v-btn variant="outlined" color="#E03021" :disabled="!isReady" @click="onDownload">
                     Скачать отчет
                   </v-btn>
               </v-row>
@@ -45,10 +47,53 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent, onMounted, onUnmounted, ref} from "vue";
+import {useStore} from "vuex";
+import {useRoute} from "vue-router";
 
 export default defineComponent({
-  name: "DocExport"
+  name: "DocExport",
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+    const status = ref(computed(()=>store.getters['inspections/getStatus']))
+    const isReady = ref(computed(()=>status.value === 'READY'))
+    const intervalId = ref(null);
+
+    const startPolling = () => {
+      intervalId.value = setInterval(checkStatus, 2000);
+    };
+
+    const stopPolling = () => {
+      clearInterval(intervalId.value);
+    };
+
+    const checkStatus = () => {
+      store.dispatch('inspections/pingStatus', route.params.id).then(()=>{
+        if (status.value === 'READY') stopPolling();
+      }).catch(()=>{
+        stopPolling()
+      })
+    };
+
+    const onDownload = () => {
+      store.dispatch('inspections/downloadReport', route.params.id)
+    };
+    const done = ref(100)
+    onMounted(() => {
+      startPolling();
+    });
+
+    onUnmounted(() => {
+      stopPolling();
+    });
+    return{
+      status,
+      isReady,
+      onDownload,
+      done
+    }
+  }
 });
 </script>
 

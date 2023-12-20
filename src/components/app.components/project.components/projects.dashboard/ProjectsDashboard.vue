@@ -11,22 +11,36 @@
        </v-btn>
        </v-col>
      </v-row>
+    <v-row>
     <v-item-group selected-class="bg-primary">
       <v-container>
         <v-row>
           <v-col
-              v-for="(inspection) in allInspections"
+              v-for="(inspection) in inspections"
               :key="inspection.id"
               cols="12"
-              md="4"
+              :md="(inspections.length > 2) ? 4 : 6"
           >
             <v-item>
-              <DashBoardItem @click="onProjectItemClick" :inspection="inspection"></DashBoardItem>
+              <DashBoardItem
+                  @click="onProjectItemClick(inspection)"
+                  :inspection="inspection"
+                  @onDeleteInspection="onDeleteInspection(inspection)"
+              ></DashBoardItem>
             </v-item>
           </v-col>
         </v-row>
       </v-container>
     </v-item-group>
+    </v-row>
+    <v-row justify="center">
+      <v-pagination
+          v-model="page"
+          class="my-4"
+          :length="pages"
+          @click="onNextPage"
+      ></v-pagination>
+    </v-row>
   </v-container>
 </v-main>
 </template>
@@ -47,30 +61,56 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const pages = ref(computed(()=>store.getters['inspections/getPages']))
     const inspections = ref(computed(()=> store.getters["inspections/getAll"]))
+    const newInspectionId = ref(computed(()=> store.getters['inspections/getNewInspectionId']))
+    const page = ref(1);
+    const size = ref(computed(()=>inspections.size))
     onMounted(() => {
-      store.dispatch('inspections/allInspections').then(()=>{
+      store.dispatch('inspections/allInspections', page.value - 1).then(()=>{
       });
     })
-    const onProjectItemClick = () => {
-      router.push({path: '/personal-account/edit-project'})
+    const onNextPage = () => {
+      store.dispatch('inspections/allInspections', page.value - 1).then(()=>{
+      });
+    }
+    const onProjectItemClick = (inspection: Inspection) => {
+      router.push({name: 'NewProject', params:{id: inspection.id}})
     };
     const onNewProjectItemClick = () => {
       store.dispatch('inspections/createNewInspection', {}).then(()=>
-      router.push('/personal-account/edit-project')
+      router.push({name: 'NewProject', params:{id: newInspectionId.value.inspectionId}})
       )
     };
-
+    const onDeleteInspection = (inspection) => {
+      const data = {
+        id: inspection.id
+      }
+      const result = confirm("Вы действительно хотите удалить проект " + inspection.name)
+      if(result) {
+        store.dispatch('inspections/deleteInspection', data).then(()=>{
+          const index = inspections.value.indexOf(inspection)
+          inspections.value.splice(index, 1)
+          store.dispatch('inspections/allInspections', page.value - 1).then(()=>{
+          });
+        })
+      }
+    }
 
     return {
       inspections,
       onProjectItemClick,
       onNewProjectItemClick,
-      store
+      store,
+      pages,
+      page,
+      onNextPage,
+      onDeleteInspection,
+      size
     };
   },
   computed:{
-    ...mapState('inspections', ['allInspections', 'inspection']),
+    ...mapState('inspections', ['allInspections', 'inspection', 'totalPages']),
   }
 });
 </script>

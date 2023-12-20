@@ -2,9 +2,8 @@ import _ from "lodash";
 import Vue from "vue";
 import axios from "axios";
 interface User {
-    id: number,
-    name: string,
-    surname: string,
+    firstName: string,
+    secondName: string,
     patronymic: string,
     email: string,
     number: string
@@ -13,30 +12,30 @@ interface User {
 export interface State {
     isAuthenticated: boolean,
     user: User,
-    status: number
+    status: number,
+    avatar: string
 }
 const users = {
     namespaced: true,
     state: () => ({
-
         isAdmin: false,
         isAuthenticated: false,
         user: {} as User,
+        avatar: '',
         status: 0
-
     }),
 
     getters: {
+        getUserData(state: State) {
+            return state.user
+        },
+        getAvatar(state: State) {
+            return state.avatar
+        }
     },
 
     mutations: {
         SET_USER: (state: State, user: User) => {
-            // state.user.id = user.id;
-            // state.user.login = user.fullName;
-            // state.user.login = user.login;
-            // state.user.isAdmin = user.isAdmin;
-            // state.user.terminationDate = user.terminationDate;
-            // state.isAdmin = user.isAdmin;
             state.user = user;
             state.isAuthenticated = true;
         },
@@ -46,7 +45,16 @@ const users = {
         },
         ERR(state: State, data: number) {
             state.status = data;
-        }
+        },
+        SET_USER_DATA(state: State, data: User) {
+            state.user = data;
+        },
+        SET_AVATAR(state: State, data: any) {
+            state.avatar = data;
+        },
+        DELETE_AVATAR(state: State) {
+            state.avatar = '';
+        },
     },
 
     actions: {
@@ -79,6 +87,94 @@ const users = {
         logOut({commit}: any) {
             document.cookie = 'jwt' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             commit('LOG_OUT');
+        },
+        userData({commit}: any) {
+            return new Promise((resolve, reject) => {
+                axios({url: '/api/v1/account ', method: 'GET', withCredentials: true})
+                    .then(resp => {
+                        commit('SET_USER_DATA', resp.data)
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        putUserData({commit}: any, data: {}) {
+            return new Promise((resolve, reject) => {
+                axios({url: '/api/v1/account/update-user', data: data, method: 'PUT', withCredentials: true})
+                    .then(resp => {
+                        commit('SET_USER_DATA', resp.data)
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        changePassword({commit}: any, data: {}) {
+            return new Promise((resolve, reject) => {
+                axios({url: '/api/v1/account/password', data: data, method: 'PUT', withCredentials: true})
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        userAvatar({commit}: any) {
+            return new Promise((resolve, reject) => {
+                axios({url: '/api/v1/account/logo ', method: 'GET', withCredentials: true, responseType: 'arraybuffer'})
+                    .then(resp => {
+                        const arrayBuffer = resp.data;
+                        const base64String = btoa(
+                            new Uint8Array(arrayBuffer)
+                                .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                        );
+                        commit('SET_AVATAR', `${base64String}`)
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        addAvatar({commit}: any, data: FormData) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/account/logo `,
+                    method: 'POST',
+                    data: data,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    withCredentials: true})
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        sendMessage({commit}: any, data: {}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/feedback `,
+                    method: 'POST',
+                    data: data})
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
         },
     }
 };

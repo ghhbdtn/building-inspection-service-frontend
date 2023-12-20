@@ -30,7 +30,7 @@
                 </v-card-title>
               </v-row>
               <v-col>
-                <v-table v-if="categoriesList.length > 0">
+                <v-table >
                   <template v-slot:default>
                     <thead>
                     <tr>
@@ -50,21 +50,21 @@
                         </v-btn>
                       </td>
                       <td>
-                        <v-btn icon @click="uploadPhotoDialog = true" size="40">
-                          <v-icon>mdi-paperclip</v-icon>
+                        <v-btn icon @click="onUploadDialog(category)" size="30" elevation="0">
+                          <v-icon size="25">mdi-paperclip</v-icon>
                         </v-btn>
-                        ({{category.pics.length}})
+                        ({{category.photos.length}})
                       </td>
                       <td>
-                        <v-btn icon @click="viewCategoryPhoto(category)" size="40">
-                          <v-icon>
+                        <v-btn icon @click="viewCategoryPhoto(category)" size="30" elevation="0">
+                          <v-icon size="25">
                             mdi-eye
                           </v-icon>
                         </v-btn>
                       </td>
                       <td>
-                        <v-btn icon @click="deleteCategory(index)" size="40">
-                          <v-icon color="#E03021">
+                        <v-btn icon @click="deleteCategory(category)" size="30" elevation="0">
+                          <v-icon color="#E03021" size="25">
                             mdi-delete
                           </v-icon>
                         </v-btn>
@@ -77,7 +77,7 @@
               <v-row>
                 <v-tooltip text="Добавить категорию">
                   <template v-slot:activator="{props}">
-                    <v-btn icon v-bind="props" @click="addCategoryDialog = true" color="#181D2B" size="40">
+                    <v-btn icon v-bind="props" @click="onPlusButtonClick" color="#181D2B" size="40">
                       <v-icon>
                         mdi-plus
                       </v-icon>
@@ -94,14 +94,14 @@
             <v-card-title>Просмотр изображений</v-card-title>
           </v-row>
           <v-row>
-            <v-carousel height="300" width="300" v-if="photos.length > 0"
+            <v-carousel height="300" width="300" v-if="editedCategory.loadedImages.length > 0 && !uploadPhotoDialog"
                         show-arrows-on-hover
                         cover
             >
-              <v-carousel-item  v-for="photo in photos"
-                   :key="photo" :src="previewImage(photo)"
-              >
-              </v-carousel-item></v-carousel>
+              <v-carousel-item v-for="(image, index) in editedCategory.loadedImages" :key="index">
+                <img :width="500" :height="300" :src="`${image}`" alt="Изображение">
+              </v-carousel-item>
+            </v-carousel>
           </v-row>
           </v-container>
         </v-col>
@@ -118,7 +118,7 @@
       </v-card-text>
       <v-card-actions>
         <v-btn @click="onAddCategoryButtonClick">{{ editMode ? 'Сохранить' : 'Добавить' }}</v-btn>
-        <v-btn @click="addCategoryDialog = false">{{ editMode ? 'Отмена' : 'Закрыть' }}</v-btn>
+        <v-btn @click="onCancel">{{ editMode ? 'Отмена' : 'Закрыть' }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -130,7 +130,7 @@
         <v-row>
           <v-col cols="12">
             <DragAndDrop
-                :files="editedCategory.pics"
+                :files="editedCategory.photos"
                 :is-multiple="true"
                 @fileAdded="fileAdded"
                 @removeFile="removeFile"/>
@@ -146,13 +146,20 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import {computed, defineComponent, onMounted, ref} from "vue";
 import ComponentRow from "./ComponentRow.vue";
 import DragAndDrop from "../../../DragAndDrop.vue";
-
+import {useStore} from "vuex";
+import {useRoute} from "vue-router";
+import axios from "axios";
+interface Photo {
+  id: number,
+  name: string
+}
 interface  PhotoCategory  {
+  id: number,
   name: String,
-  pics: String[]
+  photos: Photo[]
 }
 
 export default defineComponent({
@@ -160,71 +167,175 @@ export default defineComponent({
   components: {ComponentRow, DragAndDrop},
   emits: ['view', 'delete'],
   setup() {
-    const getImageUrl = (name) => {
+    const store = useStore();
+    const route = useRoute();
+    let editMode = ref(false);
+    let editedIndex = ref(false);
+    let addCategoryDialog = ref(false);
+    let categoriesList = ref(computed(()=>store.getters['categories/getAll']))
+    let defaultCategory = ref({
+      id: -1,
+      name: "",
+      photos: [],
+      loadedImages: [],
+    } as PhotoCategory);
+    let editedCategory = ref({
+      id: -1,
+      name: "",
+      photos: [],
+      loadedImages: []
+    } as PhotoCategory);
+    onMounted(() => {
+      store.dispatch('categories/allCategories', route.params.id).then(()=>{
+      });
+    });
+
+    const loadImages = async () => {
+      for (const photo of editedCategory.value.photos) {
+        await axios({
+          url: `api/v1/inspections/${route.params.id}/categories/${editedCategory.value.id}/photos/${photo.id}`,
+          responseType: 'arraybuffer',
+          withCredentials: true
+        })
+            .then((response) => {
+              const arrayBuffer = response.data;
+              const base64String = btoa(
+                  new Uint8Array(arrayBuffer)
+                      .reduce((data, byte) => data + String.fromCharCode(byte), '')
+              );
+              editedCategory.value.loadedImages.push(`data:image/jpeg;base64,${base64String}`);
+            })
+            .catch((error) => {
+              console.error('Ошибка загрузки изображения:', error);
+              editedCategory.value.loadedImages.value.push('');
+            });
+      }
+    };
+        const getImageUrl = (name) => {
       return new URL(`/${name}`, import.meta.url).href
     }
-    return { getImageUrl }
+    let uploadPhotoDialog = ref(false);
+    const onUploadDialog = (item) => {
+      uploadPhotoDialog.value = true
+      editedCategory.value = item;
+    }
+    const uploadScan = async () => {
+      for (const file of editedCategory.value.photos) {
+        if (!file.id) {
+          let formData = new FormData();
+          formData.append('file', file);
+          let data = {
+            inspectionId: route.params.id,
+            id: editedCategory.value.id,
+            file: formData
+          }
+          await store.dispatch('categories/addCategoryPhoto', data)
+        }
+      }
+      uploadPhotoDialog.value = false;
+      store.dispatch('categories/allCategories', route.params.id);
+    };
+    const fileAdded = (file)=> {
+      editedCategory.value.photos.push(file);
+    };
+    const viewCategoryPhoto = (value: PhotoCategory) => {
+      editedCategory.value = value;
+      editedCategory.value.loadedImages = [];
+      loadImages();
+    };
+    const onAddCategoryButtonClick = () => {
+      if (editMode.value) {
+        const data = {
+          id: editedCategory.value.id,
+          inspectionId: route.params.id,
+          name: editedCategory.value.name
+        };
+        store.dispatch('categories/putCategory', data).then(() => {
+          store.dispatch('categories/allCategories', route.params.id);
+          addCategoryDialog.value = false;
+          editedCategory.value = Object.assign({}, defaultCategory.value);
+        })
+      } else {
+        const data = {
+          inspectionId: route.params.id,
+          name: editedCategory.value.name
+        };
+        store.dispatch('categories/createNewCategory', data).then(() => {
+          store.dispatch('categories/allCategories', route.params.id);
+          addCategoryDialog.value = false;
+          editedCategory.value = Object.assign({}, defaultCategory.value);
+        })
+      }
+    }
+    const onPlusButtonClick = () => {
+      editedCategory.value = Object.assign({}, defaultCategory.value);
+      editMode.value = false;
+      addCategoryDialog.value = true;
+    }
+    const editCategory = (index) => {
+      editMode.value = true;
+      editedIndex.value = index;
+      const item = categoriesList.value[index];
+      editedCategory.value = { ...item };
+      addCategoryDialog.value = true;
+    }
+    const cancelUpload = () => {
+      uploadPhotoDialog.value = false;
+      editedCategory.value = Object.assign({}, defaultCategory.value);
+    }
+    const onCancel = () => {
+      addCategoryDialog.value = false
+      editedCategory.value = Object.assign({}, defaultCategory.value);
+    }
+    const deleteCategory = (value: PhotoCategory) => {
+      const index = categoriesList.value.indexOf(value)
+      categoriesList.value.splice(index, 1)
+      const data = {
+        id: route.params.id,
+        categoryId: value.id
+      }
+      store.dispatch('categories/deleteCategory', data)
+    }
+    const removeFile = (file) => {
+      const data = {
+        id: editedCategory.value.id,
+        inspectionId: route.params.id,
+        fileId: file.id
+      };
+      const index = editedCategory.value.photos.indexOf(file);
+      editedCategory.value.photos.splice(index, 1)
+      if (file.id) store.dispatch('categories/deleteCategoryPhoto', data)
+    }
+    return {
+      getImageUrl,
+      categoriesList,
+      route,
+      onAddCategoryButtonClick,
+      editedCategory,
+      uploadScan,
+      uploadPhotoDialog,
+      fileAdded,
+      onUploadDialog,
+      viewCategoryPhoto,
+      loadImages,
+      addCategoryDialog,
+      editCategory,
+      cancelUpload,
+      editMode,
+      onCancel,
+      onPlusButtonClick,
+      deleteCategory,
+      removeFile
+    }
   },
   data() {
     return{
-      categoriesList: [] as PhotoCategory[],
-      photos: [] as string[],
-      editedCategory: {
-        name: "",
-        pics: []
-      } as PhotoCategory,
-      addCategoryDialog: false,
-      uploadPhotoDialog: false,
-      editMode: false,
-      editedIndex: false
+      photos: [] as Photo[],
     }
   },
   methods: {
-    onAddCategoryButtonClick () {
-      this.categoriesList.push({...this.editedCategory})
-      this.addCategoryDialog = false
-    },
-     viewCategoryPhoto (value: PhotoCategory) {
-      const urls = value.pics;
-      this.photos = urls
-    },
-    deleteCategory (value: PhotoCategory)  {
-      const index = this.categoriesList.indexOf(value)
-      this.categoriesList.splice(index, 1)
-    },
-     previewImage (file)  {
-      if (file) {
-        return URL.createObjectURL(file);
-      } else {
-        // Возвращайте путь к заглушке или другому изображению по умолчанию
-        return new URL(
-            `/src/assets/photo-camera-black-tool_icon-icons.com_72960.svg`,
-            import.meta.url
-        ).href;
-      }
-    },
-    fileAdded(file) {
-      this.editedCategory.pics.push(file);
-    },
-    removeFile(file) {
-      const index = this.editedCategory.pics.indexOf(file);
-      this.editedCategory.pics.splice(index, 1)
-    },
-    uploadScan(item) {
-      item.sro = this.editedCategory.pics;
-      this.uploadPhotoDialog = false;
-    },
-    cancelUpload() {
-      this.uploadPhotoDialog = false;
-      this.editedCategory.pics = [];
-    },
-    editCategory(index) {
-      this.editMode = true;
-      this.editedIndex = index;
-      const item = this.categoriesList[index];
-      this.editedCategory = { ...item };
-      this.addCategoryDialog = true;
-    },
+
+
   }
 });
 </script>

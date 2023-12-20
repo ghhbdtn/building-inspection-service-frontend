@@ -8,8 +8,8 @@
           <v-card-text>
             <v-text-field v-model="editedEquipment.name" label="Наименование Си"></v-text-field>
             <v-text-field v-model="editedEquipment.serialNumber" label="Заводской номер"></v-text-field>
-            <v-text-field v-model="editedEquipment.checkNumber" label="Номер поверки"></v-text-field>
-            <v-text-field v-model="editedEquipment.checkDate" label="Дата поверки" type="date"></v-text-field>
+            <v-text-field v-model="editedEquipment.verificationNumber" label="Номер поверки"></v-text-field>
+            <v-text-field v-model="editedEquipment.verificationDate" label="Дата поверки" type="date"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn @click="saveEquipment">{{ editMode ? 'Сохранить' : 'Добавить' }}</v-btn>
@@ -25,7 +25,7 @@
             <v-row>
               <v-col cols="12">
                 <DragAndDrop
-                    :files="editedEquipment.scans"
+                    :files="editedEquipment.files"
                     @fileAdded="fileAdded"
                     @removeFile="removeFile"
                     :is-multiple="true"/>
@@ -63,14 +63,15 @@
           <tr v-for="(item, index) in equipmentList" :key="index">
             <td>{{ item.name }}</td>
             <td>{{ item.serialNumber }}</td>
-            <td>{{ item.checkNumber }}</td>
-            <td>{{ item.checkDate }}</td>
+            <td>{{ item.verificationNumber }}</td>
+            <td>{{ item.verificationDate }}</td>
             <td>
-              <v-btn @click="uploadScanDialog = true" icon size="40">
+              <v-btn @click="onUploadDialog(item)" icon size="40">
                 <v-icon>
                   mdi-paperclip
                 </v-icon>
               </v-btn>
+              ({{item.files.length}})
             </td>
             <td>
               <v-btn @click="openEditDialog(index)" icon size="40">
@@ -78,7 +79,7 @@
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <v-btn @click="removeItem(index)" icon size="40">
+              <v-btn @click="removeItem(item)" icon size="40">
                 <v-icon>
                   mdi-delete
                 </v-icon>
@@ -94,86 +95,170 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import DragAndDrop from "../../DragAndDrop.vue";
+import {computed, defineComponent, ref} from 'vue';
+import DragAndDrop from '../../DragAndDrop.vue';
+import {onMounted} from "vue";
+import {useStore} from "vuex";
+import {vi} from "vuetify/locale";
 
 export default defineComponent({
-  name: "UserEquipment",
+  name: 'UserEquipment',
   components: { DragAndDrop },
-  data() {
-    return {
-      addEquipmentDialog: false,
-      uploadScanDialog: false,
-      editMode: false,
-      editedIndex: -1,
-      editedEquipment: {
-        name: "",
-        serialNumber: "",
-        checkNumber: "",
-        checkDate: "",
-        scans: []
-      },
-      equipmentList: [
-        { name: "Оборудование 1", serialNumber: "SN001", checkNumber: "CN001", checkDate: "2023-01-01", scans: [] },
-        { name: "Оборудование 2", serialNumber: "SN002", checkNumber: "CN002", checkDate: "2023-02-01", scans:[] },
-      ],
+  setup() {
+    const store = useStore();
+    const addEquipmentDialog = ref(false);
+    const uploadScanDialog = ref(false);
+    const editMode = ref(false);
+    const editedIndex = ref(-1);
+    const editedEquipment = ref({
+      id: -1,
+      name: '',
+      serialNumber: '',
+      verificationNumber: '',
+      verificationDate: '',
+      files: [],
+    });
+    const equipmentList = ref(computed(()=> store.getters['equipment/getAll']));
+
+    onMounted(()=>{
+      store.dispatch('equipment/allEquipments').then(()=>{})
+    })
+
+    const openAddDialog = () => {
+      editMode.value = false;
+      clearEditedEquipment();
+      addEquipmentDialog.value = true;
     };
-  },
-  methods: {
-    openAddDialog() {
-      this.editMode = false;
-      this.clearEditedEquipment();
-      this.addEquipmentDialog = true;
-    },
-    openEditDialog(index) {
-      this.editMode = true;
-      this.editedIndex = index;
-      const item = this.equipmentList[index];
-      this.editedEquipment = { ...item };
-      this.addEquipmentDialog = true;
-    },
-    saveEquipment() {
-      if (this.editMode) {
-        this.equipmentList.splice(this.editedIndex, 1, { ...this.editedEquipment });
+
+    const onUploadDialog = (item) => {
+      uploadScanDialog.value = true;
+      editedEquipment.value = { ...item };
+      //editedEquipment.value.files = [];
+    }
+
+    const openEditDialog = (index) => {
+      editMode.value = true;
+      editedIndex.value = index;
+      const item = equipmentList.value[index];
+      editedEquipment.value = { ...item };
+      editedEquipment.value.verificationDate = editedEquipment.value.verificationDate.split(".").reverse().join("-");
+      addEquipmentDialog.value = true;
+    };
+
+    const saveEquipment = () => {
+      if (editMode.value) {
+        const data = {
+          data: {
+            name: editedEquipment.value.name,
+            serialNumber: editedEquipment.value.serialNumber,
+            verificationNumber: editedEquipment.value.verificationNumber,
+            verificationDate: editedEquipment.value.verificationDate.split("-").reverse().join(".")
+          },
+          id: editedEquipment.value.id
+        }
+        store.dispatch('equipment/putEquipment', data).then(()=>{
+          store.dispatch('equipment/allEquipments')
+        })
       } else {
-        this.equipmentList.push({ ...this.editedEquipment });
+        const data = {
+          name: editedEquipment.value.name,
+          serialNumber: editedEquipment.value.serialNumber,
+          verificationNumber: editedEquipment.value.verificationNumber,
+          verificationDate: editedEquipment.value.verificationDate.split("-").reverse().join(".")
+        }
+        store.dispatch('equipment/createNewEquipment', data).then(()=>{
+          store.dispatch('equipment/allEquipments')
+        })
       }
-      this.addEquipmentDialog = false;
-      this.clearEditedEquipment();
-    },
-    cancelEquipment() {
-      this.addEquipmentDialog = false;
-      this.clearEditedEquipment();
-    },
-    clearEditedEquipment() {
-      this.editedEquipment = {
-        name: "",
-        serialNumber: "",
-        checkNumber: "",
-        checkDate: "",
-        scans: []
+      addEquipmentDialog.value = false;
+      clearEditedEquipment();
+    };
+
+    const cancelEquipment = () => {
+      addEquipmentDialog.value = false;
+      clearEditedEquipment();
+    };
+
+    const clearEditedEquipment = () => {
+      editedEquipment.value = {
+        id: -1,
+        name: '',
+        serialNumber: '',
+        verificationNumber: '',
+        verificationDate: '',
+        files: [],
       };
-      this.editMode = false;
-      this.editedIndex = -1;
-    },
-    uploadScan(item) {
-      item.scans = this.editedEquipment.scans;
-      this.uploadScanDialog = false;
-    },
-    cancelUpload() {
-      this.uploadScanDialog = false;
-      this.editedEquipment.scans = [];
-    },
-    fileAdded(file) {
-      this.editedEquipment.scans.push(file);
-    },
-    removeItem(index) {
-      this.equipmentList.splice(index, 1);
-    },
-    removeFile(file) {
-      const index = this.editedEquipment.scans.indexOf(file);
-      this.editedEquipment.scans.splice(index, 1)
-    },
+      editMode.value = false;
+      editedIndex.value = -1;
+    };
+
+    const uploadScan = async () => {
+      for (const file of editedEquipment.value.files) {
+        if (file && !file.id) {
+          let formData = new FormData();
+          formData.append('file', file);
+          let data = {
+            id: editedEquipment.value.id,
+            file: formData
+          }
+          await store.dispatch('equipment/addEquipmentScan', data).catch(() => {
+          })
+        }
+      }
+      await store.dispatch('equipment/allEquipments');
+      uploadScanDialog.value = false;
+    };
+
+    const cancelUpload = () => {
+      uploadScanDialog.value = false;
+      editedEquipment.value.files = [];
+    };
+
+    const fileAdded = (file) => {
+      editedEquipment.value.files.push(file);
+    };
+
+    const removeItem = (item) => {
+      editedEquipment.value = { ...item };
+      let id = editedEquipment.value.id;
+      store.dispatch('equipment/deleteEquipment', id).then(() => {
+        store.dispatch('equipment/allEquipments')
+      })
+    };
+
+    const removeFile = (file) => {
+      const index = editedEquipment.value.files.indexOf(file);
+      if (editedEquipment.value.files[index].id) {
+        let data = {
+          id: editedEquipment.value.id,
+          fileId: editedEquipment.value.files[index].id
+        }
+        store.dispatch('equipment/deleteEquipmentScan', data).then(() => {
+          editedEquipment.value.files.splice(index, 1);
+        })
+      } else {
+        editedEquipment.value.files.splice(index, 1);
+      }
+    };
+
+    return {
+      addEquipmentDialog,
+      uploadScanDialog,
+      editMode,
+      editedIndex,
+      editedEquipment,
+      equipmentList,
+      openAddDialog,
+      openEditDialog,
+      saveEquipment,
+      cancelEquipment,
+      uploadScan,
+      cancelUpload,
+      fileAdded,
+      removeItem,
+      removeFile,
+      onUploadDialog
+    };
   },
 });
 </script>
@@ -181,4 +266,3 @@ export default defineComponent({
 <style scoped>
 
 </style>
-

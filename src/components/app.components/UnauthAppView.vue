@@ -49,14 +49,14 @@
   </body>
   <footer
       style="width: 100%; height: 100%; padding: 60px 10px;background: #F4F6F7; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-    <div style="justify-content: flex-start; align-items: flex-start; gap: 486px; display: flex">
+    <div style="justify-content: flex-start; align-items: flex-start; gap: 10vw; display: flex">
       <div
           style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 45px; display: inline-flex">
         <div
             style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
           <div style="justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
             <div style="width: 61.98px; height: 63px; position: relative">
-              <img :src="'/src/assets/images/logooooo.png'">
+              <img src="../../assets/images/logooooo.png">
             </div>
             <div><span
                 style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; word-wrap: break-word">Checkpoint</span><span
@@ -69,7 +69,8 @@
           </div>
         </div>
       </div>
-      <div style="justify-content: flex-start; align-items: flex-start; gap: 120px; display: flex">
+
+      <div style="justify-content: center; align-items: flex-start; gap: 20%; display: flex">
         <div
             style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
           <div
@@ -119,6 +120,14 @@
             <div
                 style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
               Телеграм
+            </div>
+          </div>
+        </div>
+        <div style="align-items: flex-start; display: flex;">
+          <div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px;">
+            <p style="margin-bottom: 30px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">Приложение</p>
+            <div style="width: 200px; height: 200px; display: inline-flex;">
+              <img src="../../assets/images/qrcode.png">
             </div>
           </div>
         </div>

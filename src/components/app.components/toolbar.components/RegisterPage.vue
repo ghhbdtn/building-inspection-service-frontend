@@ -1,10 +1,10 @@
 <template>
+  <div style="width: 100%; height: 100%; margin-top: 3% ">
   <v-main>
     <v-container>
-
       <v-row justify="center" style="padding-top: 65px; align-items: center">
         <v-card align-self="center" width="600" style="border-radius: 25px">
-          <v-toolbar color="#E03021">
+          <v-toolbar color="#181D2B">
             <v-card-title class="register-btn-text">Регистрация</v-card-title>
           </v-toolbar>
           <v-divider/>
@@ -16,24 +16,28 @@
                 dense
                 label="Фамилия"
                 v-model="userData.secondName"
+                variant="outlined"
             />
             <v-text-field
                 color="#181D2B"
                 dense
                 label="Имя"
                 v-model="userData.firstName"
+                variant="outlined"
             />
             <v-text-field
                 color="#181D2B"
                 dense
                 label="Отчество"
                 v-model="userData.patronymic"
+                variant="outlined"
             />
             <v-text-field
                 color="#181D2B"
                 dense
                 label="Электронная почта"
                 v-model="userData.email"
+                variant="outlined"
             />
             <v-text-field
                 color="#181D2B"
@@ -42,6 +46,7 @@
                 placeholder="Введите пароль"
                 type="password"
                 v-model="userData.password"
+                variant="outlined"
             />
             <v-text-field
                 color="#181D2B"
@@ -49,12 +54,19 @@
                 label="Подтверждение пароля"
                 placeholder="Повторите пароль"
                 type="password"
+                variant="outlined"
             />
             </v-col>
             </v-row>
           </div>
           <v-card-actions style="justify-content: center">
-            <v-btn class="text-fields" @click="onRegisterButtonClick" color="#E03021">
+            <v-btn
+                class="text-fields"
+                @click="onRegisterButtonClick"
+                color="#E03021"
+                variant="outlined"
+                style="border-radius: 25px; border-color: #E03021;align-content: center"
+            >
               Зарегистрироваться
             </v-btn>
           </v-card-actions>
@@ -62,6 +74,7 @@
       </v-row>
     </v-container>
   </v-main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -97,7 +110,7 @@ export default  defineComponent({
           store.dispatch('users/signIn', {email: userData.value.email,
             password: userData.value.password}).then(()=>
               nextTick(()=> {
-                router.push({name: "PersonalAccount"})
+                location.reload();
               }))
         }).catch()
       }

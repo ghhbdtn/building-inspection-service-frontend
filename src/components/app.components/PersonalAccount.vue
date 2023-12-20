@@ -52,7 +52,10 @@ export default defineComponent({
 
 
     const onLogoutButtonClick = () => {
-      store.commit("users/LOG_OUT");
+      const result = confirm("Вы действительно хотите завршить сессию?")
+      if (result) {
+        store.dispatch("users/logOut").then(()=> location.reload());
+      }
     };
 
     onMounted(() => {

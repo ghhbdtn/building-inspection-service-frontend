@@ -1,4 +1,6 @@
 <template>
+  <v-main>
+    <v-container>
   <v-card border elevation="10" style="border-color: #E03021">
     <v-row>
       <v-col cols="3">
@@ -14,17 +16,18 @@
           <v-text-field v-model="editedCompany.city" label="Город"></v-text-field>
         </v-card-item>
         <v-card-item>
-          <v-textarea v-model="editedCompany.requisites" label="Реквизиты компании"></v-textarea>
+          <v-text-field v-model="editedCompany.legalAddress" label="Реквизиты компании"></v-text-field>
         </v-card-item>
           <v-card-text>Загрузить СРО (.jpg)
-            <v-btn icon @click="uploadScanDialog = true" size="40">
+            <v-btn @click="uploadScanDialog = true" icon size="30" elevation="0">
               <v-icon>
                 mdi-paperclip
               </v-icon>
             </v-btn>
+            ({{editedCompany.sro.length}})
           </v-card-text>
         <v-card-actions>
-          <v-btn color="#E03021" variant="outlined">Сохранить</v-btn>
+          <v-btn color="#E03021" variant="outlined" @click="saveCompanyData">Сохранить</v-btn>
         </v-card-actions>
         <v-divider class="divider"/>
         <v-card-title>Список лицензий</v-card-title>
@@ -52,17 +55,18 @@
             <tr v-for="(license, index) in editedCompany.licenses" :key="index">
               <td>{{ license.name }}</td>
               <td>
-                <v-btn icon @click="uploadLicenseScanDialog = true" size="40">
+                <v-btn @click="onLicDialog(license)" icon size="30" elevation="0">
                   <v-icon>mdi-paperclip</v-icon>
                 </v-btn>
+                ({{license.files.length}})
               </td>
               <td>
-                <v-btn icon @click="editLicense(index)" size="40">
+                <v-btn @click="editLicense(index)" icon size="30" elevation="0">
                   <v-icon>
                     mdi-pencil
                   </v-icon>
                 </v-btn>
-                <v-btn icon @click="deleteLicense(index)" size="40">
+                <v-btn @click="deleteLicense(license)" icon size="30" elevation="0">
                   <v-icon color="#E03021">
                     mdi-delete
                   </v-icon>
@@ -76,7 +80,7 @@
         <v-card-title>Список сотрудников компании</v-card-title>
         <v-card-actions>
           <v-btn
-              @click="addEmployeeDialog = true"
+              @click="onAddEmployer"
               variant="text"
               color="#E03021">
             Добавить сотрудника
@@ -85,7 +89,7 @@
             </v-icon>
           </v-btn>
         </v-card-actions>
-        <v-table v-if="editedCompany.employees.length > 0">
+        <v-table v-if="editedCompany.employers.length > 0">
           <template v-slot:default>
             <thead>
             <tr>
@@ -97,18 +101,17 @@
             </thead>
             <tbody>
             <!-- Здесь будут данные о сотрудниках -->
-            <tr v-for="(employee, index) in editedCompany.employees" :key="index">
-              <td>{{ employee.fullName }}</td>
-              <td>{{ employee.position }}</td>
-              <td>{{ employee.signature }}</td>
+            <tr v-for="(employee, index) in editedCompany.employers" :key="index">
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.positionName }}</td>
+              <td>{{ employee.signatureName }}</td>
               <td>
-                <v-btn @click="editEmployee(index)" icon size="40">
+                <v-btn @click="editEmployee(index)" icon size="30" elevation="0">
                   <v-icon>
                     mdi-pencil
-
                   </v-icon>
                 </v-btn>
-                <v-btn @click="deleteEmployee(index)" icon size="40">
+                <v-btn @click="deleteEmployee(index)" icon size="30" elevation="0">
                   <v-icon color="#E03021">
                     mdi-delete
                   </v-icon>
@@ -119,7 +122,7 @@
           </template>
         </v-table>
         <v-card-actions>
-          <v-btn color="#E03021" variant="outlined">
+          <v-btn color="#E03021" variant="outlined" @click="onRemoveCompany">
             Удалить компанию
           </v-btn>
         </v-card-actions>
@@ -153,7 +156,7 @@
           <v-row>
             <v-col cols="12">
               <DragAndDrop
-                  :files="newLicense.scans"
+                  :files="newLicense.files"
                   :is-multiple="true"
                   @fileAdded="onUploadLicenses"
                   @removeFile="onRemoveLicenses"/>
@@ -169,19 +172,21 @@
     <!-- Диалоговое окно для добавления сотрудника -->
     <v-dialog v-model="addEmployeeDialog" max-width="500px">
       <v-card>
-        <v-card-title>Добавить сотрудника</v-card-title>
+        <v-card-title>{{editMode ? 'Редактировать данные сотрудника' : 'Добавить сотрудника'}}</v-card-title>
         <v-card-text>
-          <v-text-field v-model="newEmployee.fullName" label="ФИО"></v-text-field>
-          <v-text-field v-model="newEmployee.position" label="Должность"></v-text-field>
-          <v-file-input v-model="newEmployee.signature" label="Добавить подпись (.jpg)"></v-file-input>
+          <v-text-field v-model="newEmployee.name" label="ФИО"></v-text-field>
+          <v-text-field v-model="newEmployee.positionName" label="Должность"></v-text-field>
+          <v-file-input v-model="newEmployee.signatureName" label="Добавить подпись (.jpg)"></v-file-input>
         </v-card-text>
         <v-card-actions>
-          <v-btn @click="addEmployee">Добавить</v-btn>
+          <v-btn @click="addEmployee">{{editMode ? 'Сохранить' : 'Добавить'}}</v-btn>
           <v-btn @click="addEmployeeDialog = false">Отмена</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-card>
+    </v-container>
+  </v-main>
   <v-dialog v-model="addLicenseDialog" max-width="500px">
     <v-card>
       <v-card-title>Добавить лицензию</v-card-title>
@@ -197,127 +202,339 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent, onMounted, ref, watch} from "vue";
 import CustomAvatar from "./CustomAvatar.vue";
 import DragAndDrop from "../../DragAndDrop.vue";
+import {useStore} from "vuex";
+import {useRoute} from "vue-router";
+import {tr} from "vuetify/locale";
 
 interface License {
+  id: number,
   name: string,
-  scans: []
+  files: []
 }
 
 interface Employee {
-  fullName: string,
-  position: string,
-  signature: null | File
+  id: number,
+  name: string,
+  positionName: string
+  signatureName: null | File
+}
+
+interface Sro {
+  id: number,
+  name: string
 }
 
 export default defineComponent({
   name: "CompanyCard",
   components: {DragAndDrop, CustomAvatar},
-  data() {
-    return {
-      addEmployeeDialog: false,
-      uploadScanDialog: false,
-      uploadLicenseScanDialog: false,
-      editedCompany: {
-        name: "",
-        city: "",
-        requisites: "",
-        sro: [],
-        licenses: [] as License[],
-        employees: [] as Employee[]
-      },
-      newEmployee: {
-        fullName: "",
-        position: "",
-        signature: null, // Подпись может быть файлом
-      },
-      addLicenseDialog: false,
-      editedLicenseIndex: -1,
-      newLicense: {
-        name: "",
-        scans: [],
-      },
+  setup() {
+    const company = ref(computed(() => store.getters['companies/getCompany']));
+    const store = useStore();
+    const route = useRoute();
+    const addEmployeeDialog = ref(false);
+    const uploadScanDialog = ref(false);
+    const uploadLicenseScanDialog = ref(false);
+    const editedCompany = ref({
+      name: company.value.name,
+      city: company.value.city,
+      legalAddress: company.value.legalAddress,
+      sro: company.value.sro as Sro[],
+      licenses: company.value.licenses as License[],
+      employers: company.value.employers as Employee[],
+    });
+
+    watch(company, (newCompany) => {
+      editedCompany.value = {
+        name: newCompany.name,
+        city: newCompany.city,
+        legalAddress: newCompany.legalAddress,
+        sro: newCompany.sro as Sro[],
+        licenses: newCompany.licenses,
+        employers: newCompany.employers,
+      };
+    });
+    const newEmployee = ref({
+      id: -1,
+      name: "",
+      positionName: "",
+      signatureName: null | File
+    });
+    const addLicenseDialog = ref(false);
+    const editedLicenseIndex = ref(-1);
+    const editMode = ref(false);
+    const newLicense = ref({
+      name: "",
+      files: [] as File[],
+    });
+
+    const saveCompanyData = () => {
+      let data = {
+        data: {
+          name: editedCompany.value.name,
+          legalAddress: editedCompany.value.legalAddress,
+          city: editedCompany.value.city
+        },
+        id: route.params.id
+      }
+      store.dispatch('companies/putCompany', data)
+    }
+
+    const onAddEmployer = () => {
+      addEmployeeDialog.value = true
+      editMode.value = false
+    }
+
+    const addEmployee = () => {
+      if (editMode.value) {
+        let formData = new FormData();
+        formData.append('signature', newEmployee.value.signatureName[0]);
+        let data = {
+          id: route.params.id,
+          empId: newEmployee.value.id,
+          data: {
+            name: newEmployee.value.name,
+            positionName: newEmployee.value.positionName
+          }
+        }
+        store.dispatch('companies/putEmployee', data).then(() => {
+          store.dispatch('companies/getCompanyData', route.params.id);
+          newEmployee.value.name = "";
+          newEmployee.value.positionName = "";
+          newEmployee.value.signatureName = null;
+          addEmployeeDialog.value = false;
+        })
+      }else {
+        editedCompany.value.employers.push({...newEmployee.value});
+        let formData = new FormData();
+        formData.append('signature', newEmployee.value.signatureName[0]);
+        let data = {
+          id: route.params.id,
+          name: newEmployee.value.name,
+          position: newEmployee.value.positionName,
+          file: formData
+        }
+        store.dispatch('companies/addEmployee', data).then(() => {
+          newEmployee.value.name = "";
+          newEmployee.value.positionName = "";
+          newEmployee.value.signatureName = null;
+          addEmployeeDialog.value = false;
+          store.dispatch('companies/getCompanyData', route.params.id);
+        })
+      }
     };
-  },
-  methods: {
-    addEmployee() {
-      // Добавление нового сотрудника в массив
-      this.editedCompany.employees.push({...this.newEmployee});
-      // Сброс значений после добавления
-      this.newEmployee.fullName = "";
-      this.newEmployee.position = "";
-      this.newEmployee.signature = null;
-      this.addEmployeeDialog = false;
-    },
-    editEmployee(index) {
-      // Логика редактирования сотрудника
-      // Можно открыть диалог с предварительно заполненными данными
-    },
-    deleteEmployee(index) {
-      // Логика удаления сотрудника
-      this.editedCompany.employees.splice(index, 1);
-    },
-    fileAdded(file) {
-      this.editedCompany.sro.push(file);
-    },
-    removeFile(file) {
-      const index = this.editedCompany.sro.indexOf(file);
-      this.editedCompany.sro.splice(index, 1)
-    },
-    uploadScan(item) {
-      item.sro = this.editedCompany.sro;
-      this.uploadScanDialog = false;
-    },
-    cancelUpload() {
-      this.uploadScanDialog = false;
-      this.editedCompany.sro = [];
-    },
-    addLicense() {
-      this.editedCompany.licenses.push({...this.newLicense});
-      this.newLicense.name = "";
-      this.newLicense.scans = [];
-      this.addLicenseDialog = false;
-    },
-    cancelLicense() {
-      this.newLicense.name = "";
-      this.newLicense.scans = [];
-      this.addLicenseDialog = false;
-    },
-    showLicenseScans(index: number) {
-      const license = this.editedCompany.licenses[index];
-      // Отобразить сканы лицензии, например, в модальном окне или как-то еще.
-      // Это можно сделать с помощью диалогового окна или другого компонента для отображения сканов.
-    },
 
-    editLicense(index: number) {
-      this.editedLicenseIndex = index;
-      const license = this.editedCompany.licenses[index];
-      this.newLicense.name = license.name;
-      this.newLicense.scans = license.scans;
-      this.addLicenseDialog = true;
-    },
+    const editEmployee = (index: number) => {
+      editMode.value = true;
+      const employeeToEdit = editedCompany.value.employers[index];
 
-    deleteLicense(index: number) {
-      this.editedCompany.licenses.splice(index, 1);
-    },
+      const signatureBlob = new Blob([employeeToEdit.signatureName], { type: 'image/jpeg' });
+      const signatureFile = new File([signatureBlob], employeeToEdit.signatureName, { type: 'image/jpeg' });
 
-    onUploadLicenses(files) {
-      this.newLicense.scans.push(files);
-    },
-    onRemoveLicenses(file) {
-      const index =  this.newLicense.scans.indexOf(file);
-      this.newLicense.scans.splice(index, 1)
-    },
-    uploadLicenseScan(item) {
-      item.scans = this.newLicense.scans;
-      this.uploadLicenseScanDialog = false;
-    },
-    cancelLicenseUpload() {
-      this.uploadLicenseScanDialog = false;
-      this.newLicense.scans = [];
-    },
+      // Загрузить данные сотрудника в форму редактирования
+      newEmployee.value = {
+        id: employeeToEdit.id,
+        name: employeeToEdit.name,
+        positionName: employeeToEdit.positionName,
+        signatureName: signatureFile || null
+      };
+
+      // Отобразить диалог добавления сотрудника для редактирования
+      addEmployeeDialog.value = true;
+    };
+
+    const deleteEmployee = (index: number) => {
+          let data = {
+            id: route.params.id,
+            empId: newEmployee.value.id,
+          }
+          store.dispatch('companies/deleteEmployee', data).then(() => {
+            editedCompany.value.employers.splice(index, 1);
+          })
+    };
+
+    const fileAdded = (file: File) => {
+      editedCompany.value.sro.push(file);
+    };
+
+    const removeFile = (file: File) => {
+      const index = editedCompany.value.sro.indexOf(file);
+      if (editedCompany.value.sro[index].id) {
+        let data = {
+          id: route.params.id,
+          sroId: editedCompany.value.sro[index].id
+        }
+        store.dispatch('companies/deleteSro', data).then(() => {
+          editedCompany.value.sro.splice(index, 1);
+        })
+      } else {
+        editedCompany.value.sro.splice(index, 1);
+      }
+    };
+
+    const uploadScan = async (item: any) => {
+      item.sro = editedCompany.value.sro;
+      for (const file of editedCompany.value.sro) {
+        if (file && !file.id) {
+          let formData = new FormData();
+          formData.append('picture', file);
+          let data = {
+            id: route.params.id,
+            file: formData
+          }
+          await store.dispatch('companies/addSro', data)
+        }
+      }
+      await store.dispatch('companies/getCompanyData', route.params.id);
+      uploadScanDialog.value = false;
+    };
+
+    const cancelUpload = () => {
+      uploadScanDialog.value = false;
+      editedCompany.value.sro = [];
+    };
+
+    const addLicense = () => {
+      //editedCompany.value.licenses.push({ ...newLicense.value });
+      if (editedLicenseIndex.value == -1) {
+        let data = {
+          data: {
+            name: newLicense.value.name
+          },
+          id: route.params.id
+        }
+        store.dispatch('companies/addLicense', data).then(() => {
+          store.dispatch('companies/getCompanyData', route.params.id)
+        })
+        newLicense.value.name = "";
+        newLicense.value.files = [];
+      } else {
+        let data = {
+          id: route.params.id,
+          licId: newLicense.value.id,
+          data: {
+            name: newLicense.value.name
+          }
+        }
+        store.dispatch('companies/putLicense', data).then(() => {
+          editedLicenseIndex.value = -1;
+          store.dispatch('companies/getCompanyData', route.params.id);
+        })
+      }
+      addLicenseDialog.value = false;
+    };
+    const onLicDialog = (license) => {
+      uploadLicenseScanDialog.value = true;
+      newLicense.value = license
+    }
+    const cancelLicense = () => {
+      newLicense.value.name = "";
+      newLicense.value.files = [];
+      addLicenseDialog.value = false;
+    };
+
+    const showLicenseScans = (index: number) => {
+      const license = editedCompany.value.licenses[index];
+      // Логика отображения сканов лицензии
+    };
+
+    const editLicense = (index: number) => {
+      editedLicenseIndex.value = index;
+      const license = editedCompany.value.licenses[index];
+      newLicense.value = license;
+      addLicenseDialog.value = true;
+    };
+
+    const deleteLicense = (item) => {
+      let data = {
+        id: route.params.id,
+        licId: item.id
+      }
+      store.dispatch('companies/deleteLicense', data).then(() => {
+        store.dispatch('companies/getCompanyData', route.params.id);
+      })
+    };
+
+    const onUploadLicenses = (files: File[]) => {
+      if (!newLicense.value.files) newLicense.value.files = [];
+      newLicense.value.files.push(files)
+    };
+
+    const onRemoveLicenses = (file: File) => {
+      const index = newLicense.value.files.indexOf(file);
+      if (newLicense.value.files[index].id) {
+        let data = {
+          id: route.params.id,
+          licId: newLicense.value.id,
+          scanId: newLicense.value.files[index].id
+        }
+        store.dispatch('companies/deleteLicenseScan', data).then(() => {
+          newLicense.value.files.splice(index, 1);
+        })
+      } else {
+        newLicense.value.files.splice(index, 1);
+      }
+    };
+
+    const uploadLicenseScan = async (item: any) => {
+      item.files = newLicense.value.files;
+      for (const file of newLicense.value.files) {
+        if (file && !file.id) {
+          let formData = new FormData();
+          formData.append('scan', file);
+          let data = {
+            id: route.params.id,
+            licId: newLicense.value.id,
+            file: formData
+          }
+          await store.dispatch('companies/addLicenseScan', data)
+        }
+      }
+      await store.dispatch('companies/getCompanyData', route.params.id);
+      uploadLicenseScanDialog.value = false;
+    };
+
+    const cancelLicenseUpload = () => {
+      uploadLicenseScanDialog.value = false;
+      newLicense.value.files = [];
+    };
+
+    const onRemoveCompany = () => {
+      store.dispatch('companies/deleteCompany', route.params.id)
+    }
+
+    return {
+      addEmployeeDialog,
+      uploadScanDialog,
+      uploadLicenseScanDialog,
+      editedCompany,
+      newEmployee,
+      newLicense,
+      addLicenseDialog,
+      cancelLicenseUpload,
+      uploadLicenseScan,
+      onRemoveLicenses,
+      onUploadLicenses,
+      deleteLicense,
+      editLicense,
+      showLicenseScans,
+      cancelLicense,
+      addLicense,
+      cancelUpload,
+      uploadScan,
+      removeFile,
+      fileAdded,
+      deleteEmployee,
+      editEmployee,
+      addEmployee,
+      saveCompanyData,
+      onLicDialog,
+      onRemoveCompany,
+      onAddEmployer,
+      editMode
+    }
   },
 });
 </script>

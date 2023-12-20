@@ -18,10 +18,9 @@
       Перетащите сюда файлы
     </div>
     <div v-else>
-      <slot name="preview" v-for="(file, index) in files" :key="index" :file="file" :removeFile="removeFile">
+      <slot name="preview" v-for="(file, index) in files" :key="file.id" :file="file.name" :removeFile="removeFile">
         <div class="file-preview">
-          <v-icon v-if="isImage(file)" color="primary">mdi-file-image</v-icon>
-          <v-icon v-else>mdi-file</v-icon>
+          <v-icon>mdi-file-image</v-icon>
           <span>{{ file.name }}</span>
           <v-icon @click.stop="removeFile(file)">mdi-close-circle</v-icon>
         </div>
@@ -32,6 +31,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+interface Photos {
+  id: number,
+  name: string
+}
 
 export default defineComponent({
   name: 'DragAndDrop',
@@ -77,10 +80,6 @@ export default defineComponent({
       emit('removeFile', file);
     };
 
-    const isImage = (file: File) => {
-      return file.type.endsWith('image/');
-    };
-
 
     return {
       isDragging,
@@ -89,7 +88,6 @@ export default defineComponent({
       dragLeave,
       handleFileInput,
       removeFile,
-      isImage,
     };
   },
   methods: {

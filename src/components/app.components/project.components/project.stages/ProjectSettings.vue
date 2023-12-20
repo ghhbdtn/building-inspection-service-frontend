@@ -19,30 +19,73 @@
     <v-container fluid>
       <v-card elevation="0" border style="border-color: #E03021">
         <v-row justify="center">
-          <v-col cols="6" offset="20">
+          <v-col cols="5" offset="20">
             <v-form>
               <v-card-title>Заполните данные проекта</v-card-title>
               <v-card-item>
-                <v-text-field label="Название проекта"></v-text-field>
+                <v-text-field
+                    label="Название проекта"
+                    v-model="editedInspection.name"
+                />
               </v-card-item>
               <v-card-item>
-                <v-select label="Компания"></v-select>
+                <v-select
+                    :items="companies"
+                    :item-props="itemProps"
+                    label="Компания"
+                    v-model="editedInspection.company"
+                />
+              </v-card-item>
+              <v-card-item v-if="editedInspection.company">
+                <v-select
+                    label="Ответственный исполнитель"
+                    v-model="editedInspection.employer"
+                    :items="editedInspection.company.employers"
+                    :item-props="itemProps"
+                />
               </v-card-item>
               <v-card-item>
-                <v-text-field label="Адрес"></v-text-field>
+                <v-text-field
+                    label="Адрес"
+                    v-model="editedInspection.address"
+                />
               </v-card-item>
               <v-card-item>
-                <v-text-field label="Шифр проекта"></v-text-field>
+                <v-text-field
+                    label="Шифр проекта"
+                    v-model="editedInspection.script"
+                />
               </v-card-item>
               <v-card-item>
-                <v-select label="Ответственный исполнитель"></v-select>
+                <v-text-field
+                    label="Дата начала"
+                    type="date"
+                    v-model="editedInspection.startDate"
+                />
               </v-card-item>
               <v-card-item>
-                <v-text-field label="Сроки проведения работ"></v-text-field>
+                <v-text-field
+                    label="Дата окончания"
+                    type="date"
+                    v-model="editedInspection.endDate"
+                />
               </v-card-item>
               <v-card-item>
-                <v-checkbox label="Объект культурного наследия"></v-checkbox>
+                <v-checkbox
+                    label="Объект культурного наследия"
+                    v-model="editedInspection.isCulture"
+                    :value="editedInspection.isCulture"
+                />
               </v-card-item>
+              <v-card-actions>
+                <v-btn
+                    variant="outlined"
+                    color="#E03021"
+                    @click="onSaveDataButtonClick"
+                >
+                  сохранить данные
+                </v-btn>
+              </v-card-actions>
             </v-form>
 
           </v-col>
@@ -51,7 +94,7 @@
               <v-row justify="center">
                 <v-card-title>Обложка проекта</v-card-title>
               </v-row>
-              <v-row justify="center">
+              <v-row justify="end">
                 <v-menu
                     max-width="100"
                     rounded
@@ -60,11 +103,11 @@
                     <v-btn
                         elevation="0"
                         v-bind="props"
-                        size="230"
-                        style="border-radius: 10%"
+                        height="300"
+                        width="400"
                     >
-
-                        <img :src="avatarSrc" :width="230"  :height="230" style=" border: double #E03021; border-radius: 10%">
+                        <img v-if="!mainPhoto" :src="avatarSrc" :width="400"  :height="300" style=" border: double #E03021; ">
+                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="400"  :height="300" style=" border: double #E03021; ">
                     </v-btn>
                   </template>
                   <v-card max-height="200">
@@ -81,13 +124,6 @@
                   </v-card>
                 </v-menu>
               </v-row>
-<!--              <v-row>-->
-<!--                <v-textarea-->
-<!--                    disabled="true"-->
-<!--                    label="Контекстные данные из ТЗ"-->
-<!--                    variant="outlined">-->
-<!--                </v-textarea>-->
-<!--              </v-row>-->
             </v-container>
           </v-col>
         </v-row>
@@ -98,69 +134,127 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
-
+import {computed, defineComponent, onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
+import {useStore} from "vuex";
+interface Employer {
+  id: number,
+  name: string,
+  positionName: string
+}
+interface Company {
+  id: number,
+  name: string,
+  legalAddress: string,
+  city: string,
+  employers: Employer[],
+}
 export default defineComponent({
   name: "ProjectSettings",
-  // setup() {
-  //   const previewImageUrl = ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href);
-  //
-  //   const previewImage = async (event) => {
-  //     const file = event.target.files[0];
-  //     if (file) {
-  //       try {
-  //         const imageUrl: string = await readFileAsDataURL(file) as string;
-  //         previewImageUrl.value = imageUrl;
-  //       } catch (error) {
-  //         console.error('Ошибка при загрузке изображения:', error);
-  //       }
-  //     } else {
-  //       previewImageUrl.value = ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href);
-  //     }
-  //   };
-  //
-  //   const readFileAsDataURL = (file) => {
-  //     return new Promise((resolve, reject) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         resolve(reader.result);
-  //       };
-  //       reader.onerror = (error) => {
-  //         reject(error);
-  //       };
-  //       reader.readAsDataURL(file);
-  //     });
-  //   };
-  //
-  //   return {previewImageUrl, previewImage};
-  // },
+  setup() {
+    const route = useRoute();
+    const store = useStore();
+    const currentInspection = ref(computed(()=>store.getters['inspections/getInspectionData']))
+    const mainPhoto = ref(computed(()=>store.getters['inspections/getMainPhoto']))
+    const companies = ref(computed(() => store.getters['companies/getAll']) as Company[])
+    const itemProps = (item) => {
+      return {
+        title: item.name
+      }
+    }
+    onMounted(()=>{
+      store.dispatch('inspections/inspectionMainData', route.params.id).then(()=>{
+        editedInspection.value = currentInspection.value
+        editedInspection.value.startDate = editedInspection.value.startDate.split('.').reverse().join('-');
+        editedInspection.value.endDate = editedInspection.value.endDate.split('.').reverse().join('-');
+      })
+      store.dispatch('inspections/inspectionMainPhoto', route.params.id)
+      store.dispatch('companies/allCompanies')
+    });
+    const editedInspection = ref({
+       id: 0,
+       name: "",
+       address: "",
+       script: "",
+       isCulture: false,
+       startDate: "",
+       endDate: "",
+       company: {
+         id: 0,
+         name: ""
+       },
+       employer: {
+          id: 0,
+         name: ""
+       }
+    });
+    const onSaveDataButtonClick = () => {
+      let data = {
+        id: route.params.id,
+        data: {
+          id: editedInspection.value.id,
+          name: editedInspection.value.name,
+          address: editedInspection.value.address,
+          script: editedInspection.value.script,
+          isCulture: editedInspection.value.isCulture,
+          startDate: (editedInspection.value.startDate) ? editedInspection.value.startDate.split('-').reverse().join('.') : '',
+          endDate: (editedInspection.value.endDate) ? editedInspection.value.endDate.split('-').reverse().join('.') : '',
+          companyId: (editedInspection.value.company) ? editedInspection.value.company.id : null,
+          employerId: (editedInspection.value.employer) ? editedInspection.value.employer.id : null,
+        }
+      }
+      store.dispatch('inspections/putInspectionData', data).then(()=>{
+        store.dispatch('inspections/inspectionMainData', route.params.id)
+      })
+    };
+    const file = ref<File | null>();
+    const form = ref<HTMLFormElement>();
+    const avatarSrc =
+        ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href)
+
+    const handleFileUpload = async ($event: Event) => {
+      const target = $event.target as HTMLInputElement;
+      if (target && target.files) {
+        file.value = target.files[0];
+        let formData = new FormData();
+        formData.append('file', file.value);
+        let data = {
+          id: route.params.id,
+          file: formData
+        }
+        await store.dispatch('inspections/addMainPhoto', data).then(()=>{
+          store.dispatch('inspections/inspectionMainPhoto', route.params.id)
+        })
+      } else {
+        file.value = avatarSrc;
+      }
+    };
+    const deletePhoto = () => {
+      store.commit('inspections/DELETE_INSPECTION_PHOTO')
+    }
+
+    return {
+       editedInspection,
+      onSaveDataButtonClick,
+      handleFileUpload,
+      file,
+      mainPhoto,
+      deletePhoto,
+      companies,
+      itemProps
+    }
+  },
   data() {
     return {
-
-      avatarSrc: new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href, // Заглушка для изображения
+      inspectionPhoto: null,
+      avatarSrc:
+      new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href, // Заглушка для изображения
     };
   },
   methods: {
     openFilePicker() {
       // Открыть проводник при нажатии на аватар
       this.$refs.fileInput.click();
-    },
-    handleFileUpload: function (event: Event) {
-      const input = event.target as HTMLInputElement;
-      if (input != null && input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          // Обновить изображение аватара при загрузке нового файла
-          if (e.target) {
-            this.avatarSrc = e.target.result as string;
-          }
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
-    deletePhoto() {
-      // Удалить фотографию (можно добавить здесь логику удаления)
-      this.avatarSrc = new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href; // Возвращаем заглушку
     },
   },
 });

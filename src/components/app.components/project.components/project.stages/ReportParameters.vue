@@ -19,7 +19,7 @@
               </v-row>
               <v-row justify="center">
                 <v-card-actions>
-                <v-btn variant="outlined" color="#E03021">
+                <v-btn variant="outlined" color="#E03021" @click="onGenerateReport">
                   Сгенерировать отчет
                 </v-btn>
                 </v-card-actions>
@@ -34,10 +34,26 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, ref} from "vue";
+import {useStore} from "vuex";
+import {useRoute, useRouter} from "vue-router";
 
 export default defineComponent({
-  name: "ReportParameters"
+  name: "ReportParameters",
+  emits: ['go-route'],
+  setup({emit}) {
+    const store = useStore()
+    const router = useRouter()
+    const route = useRoute()
+    const onGenerateReport = () => {
+      store.dispatch('inspections/generateReport', route.params.id).then(()=>{
+        router.push({name: 'DocExport', params: {id: route.params.id}})
+      })
+    }
+    return {
+      onGenerateReport
+    }
+  }
 });
 </script>
 

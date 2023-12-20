@@ -1,12 +1,13 @@
 version: "3.9"
 services:
   server:
-    image: tetrade/inspection:0.0.2
+    image: tetrade/inspection:0.0.4.5
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/inspection-service-db
       - aws.s3.host=http://minio:9000/
     ports:
       - "8080:8080"
+    restart: on-failure
 
 
   postgres:
@@ -33,3 +34,17 @@ services:
       MINIO_CONSOLE_ADDRESS: ':9001'
       MINIO_REGION: 'ru-msk'
     command: minio server /data
+
+  client:
+    image: alina2002alina/front:0.0.4
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 8082:80
+    depends_on:
+      - server
+    links:
+      - server
+    restart: on-failure
