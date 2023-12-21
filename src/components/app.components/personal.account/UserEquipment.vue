@@ -66,7 +66,7 @@
             <td>{{ item.verificationNumber }}</td>
             <td>{{ item.verificationDate }}</td>
             <td>
-              <v-btn @click="onUploadDialog(item)" icon size="40">
+              <v-btn @click="onUploadDialog(item)" icon size="30" elevation="0">
                 <v-icon>
                   mdi-paperclip
                 </v-icon>
@@ -74,13 +74,13 @@
               ({{item.files.length}})
             </td>
             <td>
-              <v-btn @click="openEditDialog(index)" icon size="40">
+              <v-btn @click="openEditDialog(index)" icon size="30" elevation="0">
                 <v-icon>
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <v-btn @click="removeItem(item)" icon size="40">
-                <v-icon>
+              <v-btn @click="removeItem(item)" icon size="30" elevation="0">
+                <v-icon color="#E03021">
                   mdi-delete
                 </v-icon>
               </v-btn>

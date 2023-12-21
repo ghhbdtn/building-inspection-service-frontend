@@ -1,21 +1,21 @@
 <template>
   <v-main>
-    <v-container fluid>
-      <v-row justify="center">
-        <v-btn-group>
-          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">
-            Отправить данные
-          </v-btn>
-          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">
-              Загрузить ТЗ
-          </v-btn>
-          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">
-            Загрузить ТЗ с подписью
-          </v-btn>
-        </v-btn-group>
-      </v-row>
-    </v-container>
-    <v-divider class="divider-project"/>
+<!--    <v-container fluid>-->
+<!--      <v-row justify="center">-->
+<!--        <v-btn-group>-->
+<!--          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">-->
+<!--            Отправить данные-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">-->
+<!--              Загрузить ТЗ-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" variant="outlined" style="border-color: #E03021">-->
+<!--            Загрузить ТЗ с подписью-->
+<!--          </v-btn>-->
+<!--        </v-btn-group>-->
+<!--      </v-row>-->
+<!--    </v-container>-->
+<!--    <v-divider class="divider-project"/>-->
     <v-container fluid>
       <v-card elevation="0" border style="border-color: #E03021">
         <v-row justify="center">
@@ -33,6 +33,7 @@
                     :items="companies"
                     :item-props="itemProps"
                     label="Компания"
+                    clearable
                     v-model="editedInspection.company"
                 />
               </v-card-item>
@@ -42,6 +43,7 @@
                     v-model="editedInspection.employer"
                     :items="editedInspection.company.employers"
                     :item-props="itemProps"
+                    clearable
                 />
               </v-card-item>
               <v-card-item>
@@ -74,8 +76,7 @@
                 <v-checkbox
                     label="Объект культурного наследия"
                     v-model="editedInspection.isCulture"
-                    :value="editedInspection.isCulture"
-                />
+                ></v-checkbox>
               </v-card-item>
               <v-card-actions>
                 <v-btn
