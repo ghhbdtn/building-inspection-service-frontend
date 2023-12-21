@@ -26,9 +26,11 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "node_modules/@vue/runtime-core/dist/runtime-core.d.ts",
-    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts",
-    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "files": ["node_modules/@vue/runtime-core/dist/runtime-core.d.ts"]
+  "files": [
+    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts",
+    "../../Programm/WebShtorm/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts",
+    "node_modules/vue/macros-global.d.ts"
+  ]
 }

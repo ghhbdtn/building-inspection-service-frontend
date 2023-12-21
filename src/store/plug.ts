@@ -1,15 +1,28 @@
 import {Store} from 'vuex';
 
-export const plug = (store: Store<any>) => {
-    // подписываемся на мутации Vuex store
+// Значения по умолчанию
+let shouldSave = true; // Флаг для контроля сохранения состояния
+let shouldRestore = true; // Флаг для контроля восстановления состояния
+
+// Функция для установки флага shouldSave
+export const setShouldSave = (value) => {
+    shouldSave = value;
+};
+
+// Функция для установки флага shouldRestore
+export const setShouldRestore = (value) => {
+    shouldRestore = value;
+};
+
+export const plug = (store) => {
     store.subscribe((mutation, state) => {
-        // сохраняем состояние Vuex store в браузерное хранилище
-        localStorage.setItem('vuex-state', JSON.stringify(state));
+        if (shouldSave) {
+            localStorage.setItem('vuex-state', JSON.stringify(state));
+        }
     });
 
-    // восстанавливаем состояние Vuex store из браузерного хранилища
     const storedState = localStorage.getItem('vuex-state');
-    if (storedState) {
+    if (storedState && shouldRestore) {
         const state = JSON.parse(storedState);
         store.replaceState(state);
     }
