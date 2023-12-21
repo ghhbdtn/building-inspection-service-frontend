@@ -1,24 +1,24 @@
 <template>
   <v-main>
-    <v-container fluid>
-      <v-row justify="center">
-        <v-btn-group>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-            Синхронизировать
-          </v-btn>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-            Скачать фото с объекта
-          </v-btn>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-            Отправить фото на распознавание
-          </v-btn>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-            Отправить контекстную информацию
-          </v-btn>
-        </v-btn-group>
-      </v-row>
-    </v-container>
-    <v-divider class="divider-project"/>
+<!--    <v-container fluid>-->
+<!--      <v-row justify="center">-->
+<!--        <v-btn-group>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--            Синхронизировать-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--            Скачать фото с объекта-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--            Отправить фото на распознавание-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--            Отправить контекстную информацию-->
+<!--          </v-btn>-->
+<!--        </v-btn-group>-->
+<!--      </v-row>-->
+<!--    </v-container>-->
+<!--    <v-divider class="divider-project"/>-->
     <v-container fluid>
       <v-card elevation="0" border style="border-color: #E03021">
       <v-row>
@@ -97,6 +97,8 @@
             <v-carousel height="300" width="300" v-if="editedCategory.loadedImages.length > 0 && !uploadPhotoDialog"
                         show-arrows-on-hover
                         cover
+                        hide-delimiters
+                        progress="#E03021"
             >
               <v-carousel-item v-for="(image, index) in editedCategory.loadedImages" :key="index">
                 <img :width="500" :height="300" :src="`${image}`" alt="Изображение">

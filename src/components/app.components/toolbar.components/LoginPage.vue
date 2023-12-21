@@ -19,6 +19,7 @@
                 type="email"
                 placeholder="Email"
                 variant="outlined"
+                :rules="[rules.required]"
             />
             <v-text-field
                 v-model="data.password"
@@ -28,7 +29,9 @@
                 placeholder="Введите пароль"
                 type="password"
                 variant="outlined"
+                :rules="[rules.required]"
             />
+                <p v-if="errorMessage" style="color: #E03021; text-align: center">{{errorMessage}}</p>
               </v-col>
             </v-row>
           </div>
@@ -53,22 +56,36 @@
 <script lang="ts">
 import {defineComponent, ref} from "vue";
 import {useStore} from "vuex";
+import {rules} from "../../../utils/rules";
 export default defineComponent({
   name: "LoginPage",
   setup(){
     const store = useStore()
+    const errorMessage = ref('')
     const data = ref({
       email: "",
       password: ""
     });
-
     return{
       data,
+      errorMessage,
       onLoginButtonClick(){
-        store.dispatch('users/signIn', data.value).then(()=>{
-          window.location.reload();
-        })
-      }
+        if (data.value.email && data.value.password) {
+          errorMessage.value = ''
+          store.dispatch('users/signIn', data.value).then(() => {
+            window.location.reload();
+          }).catch(() => {
+            errorMessage.value = 'Не удалось выполнить вход'
+          })
+        } else {
+          errorMessage.value = 'Заполните все поля формы'
+        }
+      },
+    }
+  },
+  data() {
+    return{
+      rules: rules
     }
   }
 });

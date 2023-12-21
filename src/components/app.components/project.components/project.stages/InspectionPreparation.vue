@@ -1,18 +1,18 @@
 <template>
   <v-main>
-    <v-container fluid>
-      <v-row justify="center">
-        <v-btn-group>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-             Отправить программу работ
-          </v-btn>
-          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">
-            Экспорт чертежей
-          </v-btn>
-        </v-btn-group>
-      </v-row>
-    </v-container>
-    <v-divider class="divider-project"/>
+<!--    <v-container fluid>-->
+<!--      <v-row justify="center">-->
+<!--        <v-btn-group>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--             Отправить программу работ-->
+<!--          </v-btn>-->
+<!--          <v-btn color="#E03021" style="border-color: #E03021" variant="outlined">-->
+<!--            Экспорт чертежей-->
+<!--          </v-btn>-->
+<!--        </v-btn-group>-->
+<!--      </v-row>-->
+<!--    </v-container>-->
+<!--    <v-divider class="divider-project"/>-->
     <v-container fluid>
       <v-card elevation="0" border style="border-color: #E03021">
         <v-container fluid>

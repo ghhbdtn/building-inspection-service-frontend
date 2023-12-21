@@ -17,6 +17,7 @@
                 label="Фамилия"
                 v-model="userData.secondName"
                 variant="outlined"
+                :rules="[rules.required]"
             />
             <v-text-field
                 color="#181D2B"
@@ -24,6 +25,7 @@
                 label="Имя"
                 v-model="userData.firstName"
                 variant="outlined"
+                :rules="[rules.required]"
             />
             <v-text-field
                 color="#181D2B"
@@ -38,6 +40,7 @@
                 label="Электронная почта"
                 v-model="userData.email"
                 variant="outlined"
+                :rules="[rules.required]"
             />
             <v-text-field
                 color="#181D2B"
@@ -47,6 +50,7 @@
                 type="password"
                 v-model="userData.password"
                 variant="outlined"
+                :rules="[rules.required]"
             />
             <v-text-field
                 color="#181D2B"
@@ -54,8 +58,10 @@
                 label="Подтверждение пароля"
                 placeholder="Повторите пароль"
                 type="password"
+                v-model="userData.confirm"
                 variant="outlined"
             />
+              <p v-if="errorMessage" style="color: #E03021; text-align: center">{{errorMessage}}</p>
             </v-col>
             </v-row>
           </div>
@@ -82,21 +88,25 @@ import {defineComponent, nextTick, ref} from "vue";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import {User} from "../../../source/interfaces";
+import {rules} from "../../../utils/rules";
 
 
 export default  defineComponent({
   setup () {
     const store = useStore()
     const router = useRouter()
+    const errorMessage = ref('')
     const userData = ref({
       email: "",
       password: "",
       firstName: "",
       secondName: "",
-      patronymic: ""
+      patronymic: "",
+      confirm: ""
     } as User)
     return {
       userData,
+      errorMessage,
       onRegisterButtonClick() {
         let data = {
           email: userData.value.email,
@@ -105,14 +115,22 @@ export default  defineComponent({
           secondName: userData.value.secondName,
           patronymic: userData.value.patronymic
         }
-        store.dispatch('users/signUp', data).then(()=>{
-          console.log("OK")
-          store.dispatch('users/signIn', {email: userData.value.email,
-            password: userData.value.password}).then(()=>
-              nextTick(()=> {
-                location.reload();
-              }))
-        }).catch()
+        errorMessage.value = ''
+        if (userData.value.password == userData.value.confirm) {
+          store.dispatch('users/signUp', data).then(() => {
+            store.dispatch('users/signIn', {
+              email: userData.value.email,
+              password: userData.value.password
+            }).then(() =>
+                nextTick(() => {
+                  location.reload();
+                }))
+          }).catch(() => {
+            errorMessage.value = 'Не удалось выполнить регистрацию'
+          })
+        } else {
+          errorMessage.value = 'Пароли не совпадают'
+        }
       }
     }
   },
@@ -126,7 +144,8 @@ export default  defineComponent({
         firstName: "",
         secondName: "",
         patronymic: ""
-      }
+      },
+      rules: rules
     }
   },
   methods: {

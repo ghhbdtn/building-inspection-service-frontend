@@ -1,7 +1,7 @@
 <template>
   <v-main>
-    <v-container>
-  <v-card border elevation="10" style="border-color: #E03021">
+    <v-container fluid>
+  <v-card elevation="0">
     <v-row>
       <v-col cols="3">
         <CustomAvatar/>
@@ -18,17 +18,17 @@
         <v-card-item>
           <v-text-field v-model="editedCompany.legalAddress" label="Реквизиты компании"></v-text-field>
         </v-card-item>
+        <v-card-actions>
+          <v-btn color="#E03021" variant="outlined" @click="saveCompanyData">Сохранить</v-btn>
+        </v-card-actions>
           <v-card-text>Загрузить СРО (.jpg)
             <v-btn @click="uploadScanDialog = true" icon size="30" elevation="0">
               <v-icon>
                 mdi-paperclip
               </v-icon>
             </v-btn>
-            ({{editedCompany.sro.length}})
+            ({{editedCompany.sro ? editedCompany.sro.length : 0}})
           </v-card-text>
-        <v-card-actions>
-          <v-btn color="#E03021" variant="outlined" @click="saveCompanyData">Сохранить</v-btn>
-        </v-card-actions>
         <v-divider class="divider"/>
         <v-card-title>Список лицензий</v-card-title>
         <v-card-actions>
@@ -42,7 +42,7 @@
             </v-icon>
           </v-btn>
         </v-card-actions>
-        <v-table v-if="editedCompany.licenses.length > 0">
+        <v-table v-if="editedCompany.licenses">
           <template v-slot:default>
             <thead>
             <tr>
@@ -89,7 +89,7 @@
             </v-icon>
           </v-btn>
         </v-card-actions>
-        <v-table v-if="editedCompany.employers.length > 0">
+        <v-table v-if="editedCompany.employers">
           <template v-slot:default>
             <thead>
             <tr>
