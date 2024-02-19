@@ -1,359 +1,228 @@
 <template>
   <div class="about-us">
     <div class="about-us-container">
-      <div
-          style="margin-bottom: 150px; margin-top: 65px; width: 100%; height: 100%; justify-content: flex-start; align-items: center; gap: 94px; display: inline-flex">
-        <div
-            style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 35px; display: inline-flex">
+      <div id="firstscreen">
+        <div id="leftcontainer">
           <button class="main-container" @click="onRegisterButtonClick">
-            <div class="title">Попробуйте уже сейчас</div>
+            <div class="main-container-text">Попробуйте уже сейчас</div>
             <div class="image-wrapper">
               <img class="image" loading="lazy" src="../../../assets/images/Group%2048097054.svg"/>
             </div>
           </button>
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 50px; display: flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 40px; display: flex">
-              <div
-                  style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 45px; display: flex">
-                <div style="flex-direction: column; justify-content: flex-start; align-items: flex-end; display: flex">
-                  <div
-                      style="width: 699px; color: #181D2B; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">
-                    ИНТЕЛЛЕКТУАЛЬНЫЙ ПОМОЩНИК<br> ИНЖЕНЕРА ПО ОБСЛЕДОВАНИЮ<br> ЗДАНИЙ —
-                    <nobr
-                        style="width: 330px; height: 50px; position: absolute; text-align: center; border-radius: 25px; border: 2px #E03021 solid;">
-                      Checkpoint-K
-                    </nobr>
-                  </div>
+          <div id="text-block">
+            <p class="title-1">
+              ИНТЕЛЛЕКТУАЛЬНЫЙ ПОМОЩНИК<br> ИНЖЕНЕРА ПО ОБСЛЕДОВАНИЮ<br> ЗДАНИЙ —
+              <span class="red-border">
+                Checkpoint-K
+              </span>
+            </p>
+            <p class="text-1">
+              Команда checkpoint-k разрабатывает интеллектуальный помощник, который пишет отчет за вас и помогает на
+              объекте. Протестируйте прототип уже сейчас и запишитесь на апробацию полной версии.
+            </p>
+          </div>
+          <div style="justify-content: flex-start; align-items: center; gap: 35px; display: inline-flex">
+            <button class="start-button"
+                    @click="onRegisterButtonClick">
+              <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
+                <div class="start-button-text">
+                  Начало работы
                 </div>
-                <p
-                    style="width: 570px; color: #616161; font-size: 18px; font-family: TT Travels; font-weight: 400; line-height: 29.70px; word-wrap: break-word">
-                  Команда checkpoint-k разрабатывает интеллектуальный помощник, который пишет отчет за вас и помогает на
-                  объекте. Протестируйте прототип уже сейчас и запишитесь на апробацию полной версии.
-                </p>
+                <img src="../../../assets/images/start.svg" style="width: 16px; height: 16px; position: relative">
               </div>
-            </div>
-            <div style="justify-content: flex-start; align-items: center; gap: 35px; display: inline-flex">
-              <button class="start-button"
-                  @click="onRegisterButtonClick">
-                <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-                  <div
-                      style="color: white; font-size: 18px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
-                    Начало работы
-                  </div>
-                  <img src="../../../assets/images/start.svg" style="width: 16px; height: 16px; position: relative">
-                </div>
-              </button>
-            </div>
-            <a href="https://disk.yandex.ru/i/ddmHnRFgOmQ73A"
-               class="link"
-            >Инструкция по работе</a>
+            </button>
           </div>
+          <a class="link-1"
+             href="https://disk.yandex.ru/i/ddmHnRFgOmQ73A"
+          >Инструкция по работе</a>
         </div>
-        <div style="width: 517.50px; height: 624px; position: relative">
-          <img src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif"
-               style="position: absolute; width: 517.50px; height: 624px"/>
-          <div
-              style="margin: 60px 72.25px;position: absolute; width: 203px; height: 60px; padding: 20px 25px;background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
-            <p style="position: absolute; color: #E03021; font-size: 18px; font-family: TT Travels; font-weight: 600; line-height: 29.70px; word-wrap: break-word">
-              Анализирует ТЗ</p>
+
+        <div class="gif">
+          <img class="gif-img" src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif"/>
+          <div class="red-dies die-1">
+            <p class="die-text">
+              Анализирует <br>техническое задание</p>
           </div>
-          <div
-              style="position: absolute; margin: 165px 250.25px; width: 217px; height: 60px; padding: 12px 25px;background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
-            <p
-                style="text-align: right; color: #E03021; font-size: 18px; font-family: TT Travels; font-weight: 600; line-height: 23.40px; word-wrap: break-word">
+          <div class="red-dies die-2">
+            <p class="die-text">
               Составляет <br/>программу работ
             </p>
           </div>
-          <div
-              style="position: absolute; margin: 270px 72.25px; width: 253px; height: 60px; padding-left: 25px; padding-right: 25px; padding-top: 20px; padding-bottom: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
-            <p
-                style="color: #E03021; font-size: 18px; font-family: TT Travels; font-weight: 600; line-height: 29.70px; word-wrap: break-word">
+          <div class="red-dies die-3">
+            <p class="die-text">
               Помогает на объекте
             </p>
           </div>
-          <div
-              style="position: absolute; margin: 375px 204.25px; width: 263px; height: 60px; padding-left: 25px; padding-right: 25px; padding-top: 12px; padding-bottom: 12px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
-            <p
-                style="text-align: right; color: #E03021; font-size: 18px; font-family: TT Travels; font-weight: 600; line-height: 23.40px; word-wrap: break-word">
+          <div class="red-dies die-4">
+            <p class="die-text">
               Делает всю <br/>аналитику и рассчеты
             </p>
           </div>
-          <div
-              style="position: absolute; margin: 480px 72.25px; width: 257px; height: 60px; padding-left: 25px; padding-right: 25px; padding-top: 12px; padding-bottom: 12px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 25px; backdrop-filter: blur(80px); justify-content: center; align-items: center; gap: 15px; display: inline-flex">
-            <p
-                style="color: #E03021; font-size: 18px; font-family: TT Travels; font-weight: 600; line-height: 23.40px; word-wrap: break-word">
+          <div class="red-dies die-5">
+            <p class="die-text">
               Пишет и выдает отчет<br/>по одной кнопке
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div
-        style="margin-bottom: 150px; width: 100%; height: 100%; justify-content: center; align-items: center; gap: 18px; display: inline-flex">
-      <div
-          style="padding-left: 38px; padding-right: 38px; padding-top: 45px; padding-bottom: 45px; background: white; border-radius: 25px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-        <div
-            style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: inline-flex">
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
-              <div style="width: 50px; height: 50px; position: relative">
-                <img src="../../../assets/images/analytics.svg">
-              </div>
-              <div
-                  style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
-                Аналитика
-              </div>
-            </div>
-            <div
-                style="width: 250px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-content">
+          <div class="icon">
+            <img alt="Analytics Icon" src="../../../assets/images/analytics.svg">
+          </div>
+          <div class="text-card-2">
+            <div class="title-card-2">Аналитика</div>
+            <div class="description">
               Комплексный анализ с учетом конкретной ситуации на объекте, формирование выводов и рекомендаций
             </div>
           </div>
-          <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div
-                style="color: #E03021; font-size: 16px; font-family: TT Travels; font-weight: 600; line-height: 26.40px; word-wrap: break-word">
-              Узнать больше
-            </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-              <div
-                  style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
+        </div>
+        <div class="cta">
+          <div class="link">
+            <div class="link-text">Узнать больше</div>
+            <div class="icon-container">
+              <div class="icon-wrapper">
+                <img alt="Link Icon" src="../../../assets/images/Group%2048097054.svg">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-          style="padding-left: 38px; padding-right: 38px; padding-top: 45px; padding-bottom: 45px; background: white; border-radius: 25px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-        <div
-            style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: inline-flex">
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
-              <div style="width: 50px; height: 50px; position: relative">
-                <div style="width: 50px; height: 45.83px; left: 0px; top: 4.17px; position: absolute">
-                  <img src="../../../assets/images/photo.svg">
-                </div>
-              </div>
-              <div
-                  style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
-                Описание фото
-              </div>
+
+      <div class="card">
+        <div class="card-content">
+          <div class="icon">
+            <div class="icon-wrapper">
+              <img alt="Photo Icon" src="../../../assets/images/photo.svg">
             </div>
-            <div
-                style="width: 239px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+          </div>
+          <div class="text-card-2">
+            <div class="title-card-2">Описание фото</div>
+            <div class="description">
               Инструменты распознавания дефектов выявляют их на фото и описывают в отчете
             </div>
           </div>
-          <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div
-                style="color: #E03021; font-size: 16px; font-family: TT Travels; font-weight: 600; line-height: 26.40px; word-wrap: break-word">
-              Узнать больше
-            </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-              <div
-                  style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
-                <div
-                    style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
-                </div>
+        </div>
+        <div class="cta">
+          <div class="link">
+            <div class="link-text">Узнать больше</div>
+            <div class="icon-container">
+              <div class="icon-wrapper">
+                <img alt="Link Icon" src="../../../assets/images/Group%2048097054.svg">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-          style="padding: 45px 38px;background: white; border-radius: 25px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-        <div
-            style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: inline-flex">
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
-              <div style="width: 50px; height: 50px; position: relative">
-                <div style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute">
-                  <img src="../../../assets/images/drawing.svg">
-                </div>
-              </div>
-              <div
-                  style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
-                Отметки на чертежах
-              </div>
+
+      <div class="card">
+        <div class="card-content">
+          <div class="icon">
+            <div class="icon-wrapper">
+              <img alt="Drawing Icon" src="../../../assets/images/drawing.svg">
             </div>
-            <div
-                style="width: 239px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+          </div>
+          <div class="text-card-2">
+            <div class="title-card-2">Отметки на чертежах</div>
+            <div class="description">
               Используйте наше приложение на объекте для съемки и получите готовый dwg-файл с отметками фото
             </div>
           </div>
-          <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div
-                style="color: #E03021; font-size: 16px; font-family: TT Travels; font-weight: 600; line-height: 26.40px; word-wrap: break-word">
-              Узнать больше
-            </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-              <div
-                  style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
-                <div
-                    style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
-                </div>
+        </div>
+        <div class="cta">
+          <div class="link">
+            <div class="link-text">Узнать больше</div>
+            <div class="icon-container">
+              <div class="icon-wrapper">
+                <img alt="Link Icon" src="../../../assets/images/Group%2048097054.svg">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-          style="padding: 45px 38px;background: white; border-radius: 25px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-        <div
-            style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: inline-flex">
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: flex">
-              <div style="width: 53.33px; height: 50px; position: relative">
-                <img src="../../../assets/images/audio.svg">
-              </div>
-              <div
-                  style="color: #181D2B; font-size: 21px; font-family: TT Travels; font-weight: 700; line-height: 34.65px; word-wrap: break-word">
-                Аудиоконтекст
-              </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="icon">
+            <div class="icon-wrapper">
+              <img alt="Audio Icon" src="../../../assets/images/audio.svg">
             </div>
-            <div
-                style="width: 239px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+          </div>
+          <div class="text-card-2">
+            <div class="title-card-2">Аудиоконтекст</div>
+            <div class="description">
               Опишите обстановку на объекте, а ИИ опишет это научным языком по нормативным документам
             </div>
           </div>
-          <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div
-                style="color: #E03021; font-size: 16px; font-family: TT Travels; font-weight: 600; line-height: 26.40px; word-wrap: break-word">
-              Узнать больше
-            </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-              <div
-                  style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px">
-                <div
-                    style="width: 20px; height: 20px; background: rgba(255, 189.59, 184.02, 0.30); border-radius: 9999px; align-items: center">
-                  <img src="../../../assets/images/Group%2048097054.svg" style="position: relative; padding: 5px 4px">
-                </div>
+        </div>
+        <div class="cta">
+          <div class="link">
+            <div class="link-text">Узнать больше</div>
+            <div class="icon-container">
+              <div class="icon-wrapper">
+                <img alt="Link Icon" src="../../../assets/images/Group%2048097054.svg">
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div
-        style="margin-bottom: 150px; width: 100%; height: 100%; justify-content: center; align-items: center; gap: 87px; display: inline-flex">
-      <div style="width: 527px; height: 633px; position: relative">
-        <img src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif"
-             style="width: 527px; height: 633px; left: 0px; top: 0px; position: absolute"/>
+
+    <div class="main-container-3">
+      <div class="image-container-1">
+        <img alt="Image Description" class="img-left"
+             src="../../../assets/images/Checkpoint-K_Screen_Render_resize.gif">
       </div>
-      <div
-          style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 55px; display: inline-flex">
-        <div
-            style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-            <div
-                style="padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px; background: white; border-radius: 25px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-              <div
-                  style="color: black; font-size: 14px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; line-height: 23.10px; word-wrap: break-word">
-                как это работает
-              </div>
+      <div class="content-container-1">
+        <div class="section">
+          <div class="sub-section">
+            <div class="card-3">
+              <div class="title-3">Как это работает</div>
             </div>
-            <div style="width: 706px"><span
-                style="color: #181D2B; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">Использование </span><span
-                style="color: #E03021; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">современных инструментов ИИ</span><span
-                style="color: #181D2B; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word"> на базе теории и практики</span>
+            <div class="subtitle">
+              Использование <span class="highlight">современных инструментов ИИ</span> на базе теории и практики
             </div>
           </div>
-          <div
-              style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 45px; display: flex">
-            <div
-                style="width: 700px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+          <div class="sub-section">
+            <div class="long-text">
               Мы соединили современные инструменты искусственного интеллекта со значительной теоретической и
               практической базой инженерного обследования зданий и сооружений. В результате становится возможным
-              упростить камеральную обработку до минимума действий:
+              упростить
+              камеральную обработку до минимума действий.
             </div>
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 20px; display: flex">
-              <div
-                  style="width: 706px; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
-                <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                  <div style="width: 25px; height: 25px; background: #E03021; border-radius: 9999px">
-                    <div
-                        style="padding-left: 9px; color: white; font-size: 16px; font-family: TT Travels; font-weight: 700; line-height: 26.40px; word-wrap: break-word">
-                      1
-                    </div>
-                  </div>
+          </div>
+          <div class="sub-section">
+            <div class="list-container">
+              <div class="list-item">
+                <div class="bullet">
+                  <div>1</div>
                 </div>
-                <div
-                    style="width: 666px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-                  Создаете проект и загружаете техническое задание
-                </div>
+                <div class="description-1">Создаете проект и загружаете техническое задание</div>
               </div>
-              <div
-                  style="width: 706px; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
-                <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                  <div style="width: 25px; height: 25px; background: #E03021; border-radius: 9999px">
-                    <div
-                        style="padding-left: 7px; color: white; font-size: 16px; font-family: TT Travels; font-weight: 700; line-height: 26.40px; word-wrap: break-word">
-                      2
-                    </div>
-                  </div>
+              <div class="list-item">
+                <div class="bullet">
+                  <div>2</div>
                 </div>
-                <div
-                    style="width: 666px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-                  Формируете программу работ
-                </div>
+                <div class="description-1">Формируете программу работ</div>
               </div>
-              <div
-                  style="width: 706px; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
-                <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                  <div style="width: 25px; height: 25px; background: #E03021; border-radius: 9999px">
-                    <div
-                        style="padding-left: 7px; color: white; font-size: 16px; font-family: TT Travels; font-weight: 700; line-height: 26.40px; word-wrap: break-word">
-                      3
-                    </div>
-                  </div>
+              <div class="list-item">
+                <div class="bullet">
+                  <div>3</div>
                 </div>
-                <div
-                    style="width: 666px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-                  Проводите обследование с нашим приложением
-                </div>
+                <div class="description-1">Проводите обследование с нашим приложением</div>
               </div>
-              <div
-                  style="width: 706px; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
-                <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                  <div style="width: 25px; height: 25px; background: #E03021; border-radius: 9999px">
-                    <div
-                        style="padding-left: 7px; color: white; font-size: 16px; font-family: TT Travels; font-weight: 700; line-height: 26.40px; word-wrap: break-word">
-                      4
-                    </div>
-                  </div>
+              <div class="list-item">
+                <div class="bullet">
+                  <div>4</div>
                 </div>
-                <div
-                    style="width: 666px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-                  Загружаете фотографии, результаты измерений и иные данные
-                </div>
+                <div class="description-1">Загружаете фотографии, результаты измерений и иные данные</div>
               </div>
-              <div
-                  style="width: 706px; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
-                <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                  <div style="width: 25px; height: 25px; background: #E03021; border-radius: 9999px">
-                    <div
-                        style="padding-left: 7px; color: white; font-size: 16px; font-family: TT Travels; font-weight: 700; line-height: 26.40px; word-wrap: break-word">
-                      5
-                    </div>
-                  </div>
+              <div class="list-item">
+                <div class="bullet">
+                  <div>5</div>
                 </div>
-                <div
-                    style="width: 666px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-                  Запускаете ИИ и получаете отчет высокой степени готовности по ГОСТ 31937
+                <div class="description-1">Запускаете ИИ и получаете отчет высокой степени готовности по ГОСТ 31937
                 </div>
               </div>
             </div>
@@ -361,125 +230,100 @@
         </div>
       </div>
     </div>
-    <div
-        style="margin-bottom: 150px; width: 100%; height: 100%; flex-direction: column; justify-content: center; align-items: center;  gap: 65px; display: inline-flex;">
-      <div
-          style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: inline-flex;">
-        <div
-            style="padding: 10px 20px;background: white; border-radius: 25px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
-          <p
-              style="color: black; font-size: 14px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; line-height: 23.10px; word-wrap: break-word">
-            преимущества сервиса
-          </p>
+
+    <div class="main-container-4">
+      <div class="section-container">
+        <div class="highlight-box">
+          <p class="section-title">преимущества сервиса</p>
         </div>
-        <p style="width: 728px"><span
-            style="color: #E03021; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">Ценности и преимущества <br/></span><span
-            style="color: #181D2B; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">при работе с Checkpoint-K</span>
+        <p>
+          <span class="main-title">Ценности и преимущества <br/></span>
+          <span class="main-title-1">при работе с Checkpoint-K</span>
         </p>
       </div>
-      <div
-          style="flex-direction: column; justify-content: center; align-items: center; gap: 55px; display: flex">
-        <div style="justify-content: flex-start; align-items: flex-start; gap: 55px; display: inline-flex">
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/moreobjects.svg">
+      <div class="sub-container">
+        <div class="feature-box">
+          <!-- Feature 1 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="More Objects Icon" src="../../../assets/images/moreobjects.svg">
               </div>
-              <div
-                  style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Больше объектов
-              </div>
+              <div class="feature-title">Больше объектов</div>
             </div>
-            <div
-                style="width: 395px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+            <div class="feature-description">
               Сервис сокращает срок работ на 30-60% без потери качества, что позволяет брать новые объекты и повышать
               прибыль
             </div>
           </div>
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/calm.svg">
+
+          <!-- Feature 2 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="Calm Icon" src="../../../assets/images/calm.svg">
               </div>
-              <div
-                  style="width: 339px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Спокойствие
-              </div>
+              <div class="feature-title">Спокойствие</div>
             </div>
-            <div
-                style="width: 395px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+            <div class="feature-description">
               Аналитика сервиса и написание отчета основаны на значительной теоретической базе и обосновании через
               нормативную базу
             </div>
           </div>
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/universe.svg">
+
+          <!-- Feature 3 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="Universe Icon" src="../../../assets/images/universe.svg">
               </div>
-              <div
-                  style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Универсальность
-              </div>
+              <div class="feature-title">Универсальность</div>
             </div>
-            <div
-                style="width: 395px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
-              Работайте с объектами обследования <br/>по всему миру и не переживайте <br/>за адаптацию к местным
+            <div class="feature-description">
+              Работайте с объектами обследования по всему миру и не переживайте за адаптацию к местным
               условиям
             </div>
           </div>
         </div>
-        <div style="justify-content: flex-start; align-items: flex-start; gap: 55px; display: inline-flex">
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/knowledge.svg">
+
+        <div class="feature-box">
+          <!-- Feature 4 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="Knowledge Icon" src="../../../assets/images/knowledge.svg">
               </div>
-              <div
-                  style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Знание как делать
-              </div>
+              <div class="feature-title">Знание как делать</div>
             </div>
-            <div
-                style="width: 395px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+            <div class="feature-description">
               Сервис подскажет как действовать и что учесть, ориентируясь на опыт обследования последних лет собранный в
               1 месте
             </div>
           </div>
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/quality.svg">
+
+          <!-- Feature 5 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="Quality Icon" src="../../../assets/images/quality.svg">
               </div>
-              <div
-                  style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Качество
-              </div>
+              <div class="feature-title">Качество</div>
             </div>
-            <div
-                style="width: 395px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+            <div class="feature-description">
               Не бойтесь что-то упустить из-за огромного массива информации. Доверьте обработку таких объемов ИИ без
               ошибок
             </div>
           </div>
-          <div
-              style="width: 404px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 30px; display: inline-flex">
-            <div style="justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-              <div style="width: 40px; height: 40px; position: relative">
-                <img src="../../../assets/images/rapidity.svg">
+
+          <!-- Feature 6 -->
+          <div class="feature">
+            <div class="feature-icon">
+              <div class="icon-container">
+                <img alt="Rapidity Icon" src="../../../assets/images/rapidity.svg">
               </div>
-              <div
-                  style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 700; line-height: 33px; word-wrap: break-word">
-                Быстрота внедрения
-              </div>
+              <div class="feature-title">Быстрота внедрения</div>
             </div>
-            <div
-                style="width: 404px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+            <div class="feature-description">
               Никаких сложных настроек, интуитивный интерфейс, созданный инженерами для инженеров. Убедитесь на личном
               опыте
             </div>
@@ -487,220 +331,179 @@
         </div>
       </div>
     </div>
-    <div
-        style="margin-bottom: 150px; width: 100%; height: 100%; flex-direction: column; justify-content: center; align-items: center; gap: 59px; display: inline-flex">
-      <div style="flex-direction: column; justify-content: flex-start; align-items: center; gap: 35px; display: flex">
-        <div style="justify-content: flex-start; align-items: flex-start; gap: 87px; display: inline-flex">
-          <div
-              style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 55px; display: inline-flex">
-            <div
-                style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 35px; display: flex">
-              <div
-                  style="flex-direction: column; justify-content: center; align-items: center; gap: 35px; display: flex">
-                <div
-                    style="padding: 10px 20px;background: white; border-radius: 25px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-                  <p style="color: black; font-size: 14px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; line-height: 23.10px; word-wrap: break-word">
-                    будущее проекта</p>
-                </div>
-                <div style="width: 706px; text-align: center"><span
-                    style="color: #E03021; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">Что вас ждёт </span><span
-                    style="color: #181D2B; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">в ближайшем будущем</span>
-                </div>
-              </div>
+    <div id="fifth-screen">
+      <div class="text-container">
+        <div class="main-text">
+          <div class="main-text-container-5">
+            <div class="shape">
+              <p>
+                будущее проекта</p>
+            </div>
+            <div class="colored-text"><span
+                class="red">Что вас ждёт </span><span
+                class="black">в ближайшем будущем</span>
             </div>
           </div>
         </div>
-        <div
-            style="width: 739px; text-align: center; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 400; line-height: 26.40px; word-wrap: break-word">
+        <div class="text-description">
           Сервис checkpoint-k разрабатывается командой профессиональных программистов и инженеров с большим опытом, и мы
           нацелены на скорый охват значительно большего функционала. Вот наша дорожная карта на 2024 год
         </div>
       </div>
-      <div style="width: 1042px; height: 516px; position: relative">
-        <div style="width: 1042px; height: 516px; left: 0; top: 0; position: absolute">
-          <div
-              style=" height: 111px; left: 50px; top: 130px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-end; gap: 25px; display: inline-flex">
-            <div
-                style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
+      <div class="timeline">
+        <div class="time-line-container">
+          <div class="june">
+            <div class="title-5">
               Июнь 2024
             </div>
-            <div
-                style="text-align: right; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
+            <div class="text-5 text-changable">
               Расчетный модуль<br/>Распознавание дефектов на металлоконструкциях<br/>Проверка здания на нормативы
             </div>
           </div>
-          <div
-              style=" height: 111px; left: 583px; top: 0px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: inline-flex">
-            <div
-                style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
+          <div class="february">
+            <div class="title-5">
               Февраль 2024
             </div>
-            <div
-                style="width: 550px; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
-              <p>Распознавание дефектов на каменных и ж.б. конструкциях<br/>Маркировка дефектов в приложении<br/>Анализ
-              архивной документации</p>
+            <div class="text-5">
+              Распознавание дефектов на каменных и ж.б. конструкциях<br/>Маркировка дефектов в приложении<br/>Анализ
+              архивной документации
             </div>
           </div>
-          <div
-              style=" height: 111px; left: 583px; top: 259px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 25px; display: inline-flex">
-            <div
-                style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
+          <div class="october">
+            <div class="title-5">
               Октябрь 2024
             </div>
-            <div
-                style="color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 32px; word-wrap: break-word">
+            <div class="text-5">
               Анализ ТЗ и программы работ<br/>Распознавание дефектов на деревянных конструкциях<br/>Выпуск полной версии
             </div>
           </div>
-          <div
-              style=" height: 125px; left: 176px; top: 391px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-end; gap: 25px; display: inline-flex">
-            <div
-                style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 26.40px; word-wrap: break-word">
+          <div class="next-year">
+            <div class="title-5">
               2025+
             </div>
-            <div
-                style="text-align: right; color: #616161; font-size: 16px; font-family: TT Travels; font-weight: 500; line-height: 26.40px; word-wrap: break-word">
+            <div class="text-5 text-changable">
               Разработка новых модулей<br/>Адаптация под специальные задачи<br/>Более мощный ИИ<br/>Зарубежные
               нормативные базы
             </div>
           </div>
         </div>
-        <div
-            style="width: 15px; height: 440px; left: 528px; top: 0; position: relative; justify-content: center; align-items: flex-start; display: inline-flex">
-          <div style="position: absolute; width: 15px; height: 399px; background: #E03021; border-radius: 23px"></div>
-          <div
-              style="flex-direction: column; justify-content: center; align-items: center; gap: 80px; display: inline-flex">
-            <div style="justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-              <div
-                  style="position: relative; width: 50px; height: 50px; background: #FFEBE9; border-radius: 9999px"></div>
-              <div
-                  style="position: absolute; width: 15px; height: 15px; background: #E03021; border-radius: 9999px"></div>
+        <div class="line">
+          <div class="red-line"></div>
+          <div class="dod-container">
+            <div class="dod">
+              <div class="big-round"></div>
+              <div class="small-round"></div>
             </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-              <div
-                  style="position: relative; width: 50px; height: 50px; background: #FFEBE9; border-radius: 9999px"></div>
-              <div
-                  style="position: absolute; width: 15px; height: 15px; background: #E03021; border-radius: 9999px"></div>
+            <div class="dod">
+              <div class="big-round"></div>
+              <div class="small-round"></div>
             </div>
-            <div style="justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-              <div
-                  style="position: relative; width: 50px; height: 50px; background: #FFEBE9; border-radius: 9999px"></div>
-              <div
-                  style="position: absolute; width: 15px; height: 15px; background: #E03021; border-radius: 9999px"></div>
+            <div class="dod">
+              <div class="big-round"></div>
+              <div class="small-round"></div>
             </div>
-            <div
-                style="justify-content: center; align-items: center; gap: 10px; display: inline-flex; position: relative">
-              <div
-                  style="position: relative; width: 50px; height: 50px; background: #FFEBE9; border-radius: 9999px"></div>
-              <div
-                  style="position: absolute; width: 15px; height: 15px; background: #E03021; border-radius: 9999px"></div>
+            <div class="dod">
+              <div class="big-round"></div>
+              <div class="small-round"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div
-        style="margin-bottom: 150px;  background: #E03021; border-radius: 25px; overflow: hidden; flex-direction: row;  gap: 10px; display: inline-flex">
-      <div
-          style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 50px; display: flex; padding: 80px 57px;">
-        <div style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 35px; display: flex">
-          <div
-              style="padding: 10px 20px;background: white; border-radius: 25px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-            <div
-                style="color: black; font-size: 14px; font-family: TT Travels; font-weight: 600; text-transform: uppercase; line-height: 23.10px; word-wrap: break-word">
+    <div class="sixth-screen">
+      <div class="left-container">
+        <div class="left-text">
+          <div class="text-1">
+            <p>
               Вы готовы?
-            </div>
+            </p>
           </div>
-          <div
-              style="width: 596px; color: white; font-size: 35px; font-family: TT Travels; font-weight: 700; text-transform: uppercase; line-height: 49px; letter-spacing: 1.05px; word-wrap: break-word">
+          <div class="text-2">
             Ваша история
             <br>цифрового успеха<br>
             начинается здесь
           </div>
         </div>
-        <button @click="onDialogButton" class="dialog-button">
-          <div style="justify-content: center; align-items: center; gap: 10px; display: flex">
-            <p
-                style="color: white; font-size: 18px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+        <button class="dialog-button" @click="onDialogButton">
+          <div class="btn-background">
+            <p>
               Начать сотрудничество
             </p>
-            <div style="width: 16px; height: 16px; position: relative">
+            <div class="icn">
               <img src="../../../assets/images/start.svg">
             </div>
           </div>
         </button>
       </div>
-      <img
-          src="../../../assets/images/Checkpoint-K_Screen_Render_Red.gif"
-          style="width: 590px; left: 0; top: 0; border-radius: 25px; padding-right: 0;"/>
+      <img class="img-right" src="../../../assets/images/Checkpoint-K_Screen_Render_Red.gif"/>
     </div>
   </div>
   <v-dialog v-model="dialog">
     <v-row justify="center">
-    <v-card width="600" style="border-radius: 25px">
-      <v-row justify="center">
-      <v-col cols="10" class="text-fields">
-        <h3 style="text-align: center; padding-top: 3%">Сотрудничество</h3>
-        <v-card-text>
-          Оставьте свои контактные данные и кратко опишите запрос - пилот,
-          инвестирование, сотрудничество,
-          внедрение или иное. Мы с вами
-          свяжемся и вышлем презентацию проекта
-        </v-card-text>
-        <v-form ref="form">
-        <v-text-field
-            label="ФИО*"
-            variant="outlined"
-            v-model="message.fullName"
-            :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
-        />
-        <v-text-field
-            label="email*"
-            variant="outlined"
-            v-model="message.email"
-            :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
-        />
-        <v-text-field
-            label="Контактный номер"
-            variant="outlined"
-            v-model="message.number"
-        />
-        <v-text-field
-            label="Компания"
-            variant="outlined"
-            v-model="message.companyName"
-        />
-        <v-textarea
-            label="Описание запроса"
-            variant="outlined"
-            v-model="message.details"
-        />
-        </v-form>
-        <v-card-actions style="justify-content: center; padding-bottom: 3%">
-          <v-btn
-              variant="outlined"
-              color="#E03021"
-              style="border-radius: 25px;
+      <v-card style="border-radius: 25px" width="600">
+        <v-row justify="center">
+          <v-col class="text-fields" cols="10">
+            <h3 style="text-align: center; padding-top: 3%">Сотрудничество</h3>
+            <v-card-text>
+              Оставьте свои контактные данные и кратко опишите запрос - пилот,
+              инвестирование, сотрудничество,
+              внедрение или иное. Мы с вами
+              свяжемся и вышлем презентацию проекта
+            </v-card-text>
+            <v-form ref="form">
+              <v-text-field
+                  v-model="message.fullName"
+                  :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
+                  label="ФИО*"
+                  variant="outlined"
+              />
+              <v-text-field
+                  v-model="message.email"
+                  :rules="[(value: String | Number) => !!value || /0/.test(value) || 'Обязательное поле']"
+                  label="email*"
+                  variant="outlined"
+              />
+              <v-text-field
+                  v-model="message.number"
+                  label="Контактный номер"
+                  variant="outlined"
+              />
+              <v-text-field
+                  v-model="message.companyName"
+                  label="Компания"
+                  variant="outlined"
+              />
+              <v-textarea
+                  v-model="message.details"
+                  label="Описание запроса"
+                  variant="outlined"
+              />
+            </v-form>
+            <v-card-actions style="justify-content: center; padding-bottom: 3%">
+              <v-btn
+                  color="#E03021"
+                  style="border-radius: 25px;
               border-color: #E03021;
               align-content: center;"
-              @click="onSendMessage"
-          >
-            Отправить
-          </v-btn>
-          <v-btn
-              variant="outlined"
-              color="#181D2B"
-              style="border-radius: 25px;
+                  variant="outlined"
+                  @click="onSendMessage"
+              >
+                Отправить
+              </v-btn>
+              <v-btn
+                  color="#181D2B"
+                  style="border-radius: 25px;
               border-color: #181D2B;
               align-content: center;"
-              @click="onClose"
-          >
-            Отмена
-          </v-btn>
-        </v-card-actions>
-      </v-col>
-      </v-row>
-    </v-card>
+                  variant="outlined"
+                  @click="onClose"
+              >
+                Отмена
+              </v-btn>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-row>
   </v-dialog>
 </template>
@@ -722,7 +525,7 @@ export default defineComponent({
       companyName: "",
       details: ""
     });
-    const onDialogButton= () => {
+    const onDialogButton = () => {
       dialog.value = true;
     };
     const onSendMessage = () => {

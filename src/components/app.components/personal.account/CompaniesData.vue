@@ -10,7 +10,9 @@
                 mdi-plus
               </v-icon>
             </v-btn>
-            <v-list-item v-for="company in companies" :key="company.id" :title="company.name" @click="onOpenCompany(company)"/>
+            <v-list-item v-for="company in companies"
+                         :key="company.id" :title="company.name ? company.name : 'Без названия'"
+                         @click="onOpenCompany(company)"/>
           </v-list>
         </v-col>
         <v-col>
@@ -68,6 +70,7 @@ export default defineComponent({
       isCompanyChosen.value = true;
       router.push({name: 'CompanyCard', params:{id: company.id}}).then(() => {
         store.dispatch('companies/getCompanyData', company.id)
+        store.dispatch('companies/getLogo', {id: company.id})
       })
     }
 

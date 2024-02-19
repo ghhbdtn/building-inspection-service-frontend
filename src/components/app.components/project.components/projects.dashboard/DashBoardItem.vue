@@ -1,20 +1,25 @@
 <template>
   <v-card
       :class="'align-center'"
+      class="cards"
       elevation="10"
       border
-      style="width: 350px; height: 300px; border-radius: 24px; background-color: #eaeaea; border-color: #E03021"
   >
-    <img :src="getImageUrl()" :height="220" :width="350" style="background-color: white">
+    <img :src="getImageUrl()" class="card-img">
     <v-row justify="space-between">
       <v-col cols="6">
-        <v-card-text style="font-size: 18px">{{inspection.name}}</v-card-text>
+        <div style="vertical-align: center">
+        <v-card-text style="width: 327.67px; color: #181D2B; font-size: 18px; font-family: TT Travels;
+         font-weight: 600; line-height: 27px; word-wrap: break-word; vertical-align: center">
+          {{inspection.name}}
+        </v-card-text>
+        </div>
       </v-col>
       <v-col cols="4">
         <v-card-actions>
-          <v-btn @click.stop="onDeleteInspection" icon>
+          <v-btn @click.stop="onDeleteInspection" >
             <v-icon>
-              mdi-delete
+              <img :src="(`/src/assets/images/icons/delete.svg`)">
             </v-icon>
           </v-btn>
         </v-card-actions>
@@ -70,5 +75,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.cards {
+  width: clamp(100%, 370px, 470px);
+  height: clamp(220px, 276px,300px);
+  border-radius: 24px;
+  background-color: #ffffff;
+}
+
+.card-img {
+  background-color: white;
+  height: clamp(120px, 176px,200px);
+  width: 370px;
+}
 
 </style>

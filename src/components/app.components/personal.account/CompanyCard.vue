@@ -4,7 +4,7 @@
   <v-card elevation="0">
     <v-row>
       <v-col cols="3">
-        <CustomAvatar/>
+        <CustomAvatar :logo="avatar" @onAvatarUpload="onAvatarUpload"/>
         <v-card-text style="margin-left: 20%;">Логотип компании</v-card-text>
       </v-col>
       <v-col cols="6">
@@ -33,7 +33,7 @@
         <v-card-title>Список лицензий</v-card-title>
         <v-card-actions>
           <v-btn
-              @click="addLicenseDialog = true"
+              @click="onAddLicDialog"
               variant="text"
               color="#E03021">
             Добавить лицензию
@@ -136,7 +136,7 @@
             <v-col cols="12">
               <DragAndDrop
                   :files="editedCompany.sro"
-                  :is-multiple="false"
+                  :is-multiple="true"
                   @fileAdded="fileAdded"
                   @removeFile="removeFile"/>
             </v-col>
@@ -180,7 +180,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn @click="addEmployee">{{editMode ? 'Сохранить' : 'Добавить'}}</v-btn>
-          <v-btn @click="addEmployeeDialog = false">Отмена</v-btn>
+          <v-btn @click="onCancelEmployer">Отмена</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -189,12 +189,12 @@
   </v-main>
   <v-dialog v-model="addLicenseDialog" max-width="500px">
     <v-card>
-      <v-card-title>Добавить лицензию</v-card-title>
+      <v-card-title>{{editLicMode ? 'Редактировать лицензию' : 'Добавить лицензию'}}</v-card-title>
       <v-card-text>
         <v-text-field v-model="newLicense.name" label="Название"></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="addLicense">Добавить</v-btn>
+        <v-btn @click="addLicense">{{editLicMode ? 'Сохранить' : 'Добавить'}}</v-btn>
         <v-btn @click="cancelLicense">Отмена</v-btn>
       </v-card-actions>
     </v-card>
@@ -237,6 +237,7 @@ export default defineComponent({
     const addEmployeeDialog = ref(false);
     const uploadScanDialog = ref(false);
     const uploadLicenseScanDialog = ref(false);
+    const editLicMode = ref(false);
     const editedCompany = ref({
       name: company.value.name,
       city: company.value.city,
@@ -245,7 +246,9 @@ export default defineComponent({
       licenses: company.value.licenses as License[],
       employers: company.value.employers as Employee[],
     });
-
+    onMounted(() => {
+      store.dispatch('companies/getLogo', {id: route.params.id})
+    })
     watch(company, (newCompany) => {
       editedCompany.value = {
         name: newCompany.name,
@@ -279,12 +282,25 @@ export default defineComponent({
         },
         id: route.params.id
       }
-      store.dispatch('companies/putCompany', data)
+      store.dispatch('companies/putCompany', data).then(() => {
+        store.dispatch('companies/allCompanies')
+        store.dispatch('companies/getCompanyData', route.params.id);
+      })
     }
 
     const onAddEmployer = () => {
       addEmployeeDialog.value = true
       editMode.value = false
+    }
+
+    const onCancelEmployer = () => {
+      addEmployeeDialog.value = false
+      newEmployee.value = {
+        id: -1,
+        name: "",
+        positionName: "",
+        signatureName: null | File
+      }
     }
 
     const addEmployee = () => {
@@ -294,6 +310,7 @@ export default defineComponent({
         let data = {
           id: route.params.id,
           empId: newEmployee.value.id,
+          file: formData,
           data: {
             name: newEmployee.value.name,
             positionName: newEmployee.value.positionName
@@ -338,7 +355,7 @@ export default defineComponent({
         id: employeeToEdit.id,
         name: employeeToEdit.name,
         positionName: employeeToEdit.positionName,
-        signatureName: signatureFile || null
+        signatureName: signatureFile
       };
 
       // Отобразить диалог добавления сотрудника для редактирования
@@ -348,7 +365,7 @@ export default defineComponent({
     const deleteEmployee = (index: number) => {
           let data = {
             id: route.params.id,
-            empId: newEmployee.value.id,
+            empId: editedCompany.value.employers[index].id,
           }
           store.dispatch('companies/deleteEmployee', data).then(() => {
             editedCompany.value.employers.splice(index, 1);
@@ -393,7 +410,7 @@ export default defineComponent({
 
     const cancelUpload = () => {
       uploadScanDialog.value = false;
-      editedCompany.value.sro = [];
+      //editedCompany.value.sro = [];
     };
 
     const addLicense = () => {
@@ -426,14 +443,21 @@ export default defineComponent({
       addLicenseDialog.value = false;
     };
     const onLicDialog = (license) => {
+      newLicense.value.name = "";
+      newLicense.value.files = [];
       uploadLicenseScanDialog.value = true;
       newLicense.value = license
     }
     const cancelLicense = () => {
-      newLicense.value.name = "";
-      newLicense.value.files = [];
       addLicenseDialog.value = false;
     };
+
+    const onAddLicDialog = () => {
+      editLicMode.value = false;
+      newLicense.value.name = "";
+      newLicense.value.files = [];
+      addLicenseDialog.value = true
+    }
 
     const showLicenseScans = (index: number) => {
       const license = editedCompany.value.licenses[index];
@@ -441,9 +465,10 @@ export default defineComponent({
     };
 
     const editLicense = (index: number) => {
+      editLicMode.value = true;
       editedLicenseIndex.value = index;
       const license = editedCompany.value.licenses[index];
-      newLicense.value = license;
+      newLicense.value = {...license};
       addLicenseDialog.value = true;
     };
 
@@ -505,6 +530,19 @@ export default defineComponent({
       store.dispatch('companies/deleteCompany', route.params.id)
     }
 
+    const avatar = ref(computed(()=>store.getters['companies/getLogo']))
+    const onAvatarUpload = (file) => {
+      let formData = new FormData();
+      formData.append('file', file)
+      let data = {
+        file: formData,
+        id: route.params.id
+      }
+      store.dispatch('companies/addLogo', data).then(()=>{
+        store.dispatch('companies/getLogo', {id: route.params.id})
+      })
+    }
+
     return {
       addEmployeeDialog,
       uploadScanDialog,
@@ -533,7 +571,12 @@ export default defineComponent({
       onLicDialog,
       onRemoveCompany,
       onAddEmployer,
-      editMode
+      editMode,
+      avatar,
+      onAvatarUpload,
+      onAddLicDialog,
+      onCancelEmployer,
+      editLicMode
     }
   },
 });

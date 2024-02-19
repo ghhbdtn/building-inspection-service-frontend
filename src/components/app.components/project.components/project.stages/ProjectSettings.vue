@@ -17,75 +17,99 @@
 <!--    </v-container>-->
 <!--    <v-divider class="divider-project"/>-->
     <v-container fluid>
-      <v-card elevation="0" border style="border-color: #E03021">
+      <v-card elevation="0" style="background: #F4F6F7">
         <v-row justify="center">
           <v-col cols="5" offset="20">
             <v-form>
-              <v-card-title>Заполните данные проекта</v-card-title>
+              <v-card-title style="color: #181D2B; font-size: 25px; font-family: TT Travels; font-weight: 700; line-height: 41.25px; word-wrap: break-word">Заполните данные проекта</v-card-title>
               <v-card-item>
-                <v-text-field
-                    label="Название проекта"
-                    v-model="editedInspection.name"
-                />
+                <div class="container">
+                  <p class="label">Название проекта</p>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <input type="text" class="input-field" v-model="editedInspection.name">
+                  </div>
+                </div>
               </v-card-item>
               <v-card-item>
-                <v-select
-                    :items="companies"
-                    :item-props="itemProps"
-                    label="Компания"
-                    clearable
-                    v-model="editedInspection.company"
-                />
+                <form class="container">
+                  <label class="label" for="company-select">Компания</label>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <select name="company" class="select-field" v-model="editedInspection.company" id="company-select">
+                      <option disabled value="">-Выберите компанию-</option>
+                      <option v-for="company in companies" :id="company.id">
+                        {{company.name}}
+                      </option>
+                    </select>
+                    <div class="arrow">&#9660;</div>
+                  </div>
+                </form>
+
               </v-card-item>
               <v-card-item v-if="editedInspection.company">
-                <v-select
-                    label="Ответственный исполнитель"
-                    v-model="editedInspection.employer"
-                    :items="editedInspection.company.employers"
-                    :item-props="itemProps"
-                    clearable
-                />
+                <form class="container">
+                  <label class="label" for="employee-select">Ответственный исполнитель</label>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <select name="company" class="select-field" v-model="editedInspection.employer" id="employee-select">
+                      <option disabled value="">-Выберите сотрудника-</option>
+                      <option v-for="employee in editedInspection.company.employers" :id="employee.id">
+                        {{employee.name}}
+                      </option>
+                    </select>
+                    <div class="arrow">&#9660;</div>
+                  </div>
+                </form>
               </v-card-item>
               <v-card-item>
-                <v-text-field
-                    label="Адрес"
-                    v-model="editedInspection.address"
-                />
+                <div class="container">
+                  <p class="label">Адрес</p>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <input type="text" class="input-field" v-model="editedInspection.address">
+                  </div>
+                </div>
               </v-card-item>
               <v-card-item>
-                <v-text-field
-                    label="Шифр проекта"
-                    v-model="editedInspection.script"
-                />
+                <div class="container">
+                  <p class="label">Шифр проекта</p>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <input type="text" class="input-field" v-model="editedInspection.script">
+                  </div>
+                </div>
               </v-card-item>
               <v-card-item>
-                <v-text-field
-                    label="Дата начала"
-                    type="date"
-                    v-model="editedInspection.startDate"
-                />
+                <div class="container">
+                  <p class="label">Дата начала</p>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <input type="date" class="input-field" v-model="editedInspection.startDate">
+                  </div>
+                </div>
               </v-card-item>
               <v-card-item>
-                <v-text-field
-                    label="Дата окончания"
-                    type="date"
-                    v-model="editedInspection.endDate"
-                />
+                <div class="container">
+                  <p class="label">Дата окончания</p>
+                  <div class="spacer"></div>
+                  <div class="input-container">
+                    <input type="date" class="input-field" v-model="editedInspection.endDate">
+                  </div>
+                </div>
               </v-card-item>
               <v-card-item>
                 <v-checkbox
+                    class="text-fields"
                     label="Объект культурного наследия"
                     v-model="editedInspection.isCulture"
                 ></v-checkbox>
               </v-card-item>
               <v-card-actions>
-                <v-btn
-                    variant="outlined"
-                    color="#E03021"
-                    @click="onSaveDataButtonClick"
-                >
-                  сохранить данные
-                </v-btn>
+                <button class="button-container" @click="onSaveDataButtonClick">
+                  <img class="icon-container" :src="(`/src/assets/images/icons/save.svg`)">
+                  <p class="button-text">Сохранить данные</p>
+                </button>
               </v-card-actions>
             </v-form>
 
@@ -93,9 +117,11 @@
           <v-col cols="4" offset-sm="20">
             <v-container>
               <v-row justify="center">
-                <v-card-title>Обложка проекта</v-card-title>
+                <v-card-title style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+                  Загрузите обложку проекта
+                </v-card-title>
               </v-row>
-              <v-row justify="end">
+              <v-row justify="end" style="padding-bottom: 50px">
                 <v-menu
                     max-width="100"
                     rounded
@@ -104,11 +130,12 @@
                     <v-btn
                         elevation="0"
                         v-bind="props"
-                        height="300"
+                        height="215"
                         width="400"
+                        style="border-radius: 25px"
                     >
-                        <img v-if="!mainPhoto" :src="avatarSrc" :width="400"  :height="300" style=" border: double #E03021; ">
-                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="400"  :height="300" style=" border: double #E03021; ">
+                        <img v-if="!mainPhoto" :src="avatarSrc" :width="400"  :height="215" style=" border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;">
+                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="400"  :height="215" style=" border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;">
                     </v-btn>
                   </template>
                   <v-card max-height="200">
@@ -124,6 +151,15 @@
                     <input ref="fileInput" style="display: none" type="file" @change="handleFileUpload">
                   </v-card>
                 </v-menu>
+              </v-row>
+              <v-row justify="end">
+                <div style="width: 400px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+                  Контекстные данные из из тех. задания
+                </div>
+                <textarea style="width: 400px; height: 432px; padding-top: 25px; padding-bottom: 15px;
+                 padding-left: 20px; background: white; border-radius: 25px; border: 1px #C5C5C4 solid;
+                 justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                </textarea>
               </v-row>
             </v-container>
           </v-col>
@@ -158,6 +194,7 @@ export default defineComponent({
     const currentInspection = ref(computed(()=>store.getters['inspections/getInspectionData']))
     const mainPhoto = ref(computed(()=>store.getters['inspections/getMainPhoto']))
     const companies = ref(computed(() => store.getters['companies/getAll']) as Company[])
+    const employers = ref(computed(()=>editedInspection.value.company.employers))
     const itemProps = (item) => {
       return {
         title: item.name
@@ -242,7 +279,8 @@ export default defineComponent({
       mainPhoto,
       deletePhoto,
       companies,
-      itemProps
+      itemProps,
+      employers
     }
   },
   data() {
@@ -277,4 +315,98 @@ export default defineComponent({
 .v-btn{
   font-size: 12px
 }
+.container {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.label {
+  width: 135px;
+  text-align: right;
+  color: #181D2B;
+  font-size: 16px;
+  font-family: TT Travels;
+  font-weight: 600;
+  word-wrap: break-word
+}
+
+.spacer {
+  width: 25px;
+}
+
+.input-container {
+  width: 500px;
+  height: 49px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  background: white;
+  border-radius: 25px;
+  border-left: 5px #52596C solid;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex
+}
+
+.input-text {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+  color: rgba(24, 29, 43, 1);
+  margin: 0; /* Убираем внутренние отступы у <p> */
+}
+
+.input-field {
+  color: #181D2B;
+  font-size: 16px;
+  font-family: TT Travels;
+  font-weight: 500;
+  word-wrap: break-word;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.select-field {
+  width: 90%;
+  padding: 10px;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.button-container {
+  width: 257px;
+  height: 52px;
+  padding: 15px 25px;
+  background: #52596C;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-container {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-text {
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-family: 'TT Travels', sans-serif;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
 </style>

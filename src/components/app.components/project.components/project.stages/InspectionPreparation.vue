@@ -14,7 +14,7 @@
 <!--    </v-container>-->
 <!--    <v-divider class="divider-project"/>-->
     <v-container fluid>
-      <v-card elevation="0" border style="border-color: #E03021">
+      <v-card elevation="0" style="background: #F4F6F7">
         <v-container fluid>
       <v-row>
         <v-col >

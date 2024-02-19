@@ -26,7 +26,8 @@ interface Sro {
 export interface State {
     company: Company
     companies: Company[],
-    newId: number
+    newId: number,
+    logo: string
 }
 const companies = {
     namespaced: true,
@@ -41,7 +42,8 @@ const companies = {
             licenses: [] as License[]
         } as Company,
         companies: [] as Company[],
-        newId: -1
+        newId: -1,
+        logo: ''
     }),
 
     getters: {
@@ -53,6 +55,9 @@ const companies = {
         },
         getID(state: State) {
             return state.newId
+        },
+        getLogo(state: State) {
+            return state.logo
         }
     },
 
@@ -65,6 +70,9 @@ const companies = {
         },
         SET_COMPANY_ID: (state: State, data: number) => {
             state.newId = data;
+        },
+        SET_LOGO: (state: State, data: string) => {
+            state.logo = data;
         },
     },
 
@@ -272,11 +280,17 @@ const companies = {
                     })
             })
         },
-        putEmployee({commit}: any, data: {id: number, empId: number, data: {}}) {
+        putEmployee({commit}: any, data: {id: number, empId: number, file: FormData, data: {
+                name: string,
+                positionName: string
+            }}) {
             return new Promise((resolve, reject) => {
-                axios({url: `/api/v1/company/${data.id}/employer/${data.empId}`,
+                axios({url: `/api/v1/company/${data.id}/employer/${data.empId}?name=${data.data.name}&position=${data.data.positionName}`,
                     method: 'PUT',
-                    data: data.data,
+                    data: data.file,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
                     withCredentials: true
                 })
                     .then(resp => {
@@ -295,6 +309,46 @@ const companies = {
                     method: 'DELETE',
                     withCredentials: true
                 })
+                    .then(resp => {
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        getLogo({commit}: any, data: {id: number}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/company/${data.id}/logo`,
+                    method: 'GET',
+                    withCredentials: true,
+                    responseType: 'arraybuffer'
+                })
+                    .then(resp => {
+                        resolve(resp);
+                        const arrayBuffer = resp.data;
+                        const base64String = btoa(
+                            new Uint8Array(arrayBuffer)
+                                .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                        );
+                        commit('SET_LOGO', `${base64String}`)
+                    })
+                    .catch(err => {
+                        commit('ERR', err.response != null ? err.response.status : err);
+                        reject(err);
+                    })
+            })
+        },
+        addLogo({commit}: any, data: {file: FormData, id: number}) {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/v1/company/${data.id}/logo`,
+                    method: 'POST',
+                    data: data.file,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    withCredentials: true})
                     .then(resp => {
                         resolve(resp);
                     })

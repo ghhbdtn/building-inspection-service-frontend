@@ -1,29 +1,31 @@
 <template>
   <v-main>
-    <v-stepper alt-labels elevation="0" v-model="el">
+    <v-stepper v-model="el" elevation="0" style="background: #F4F6F7">
       <v-stepper-header>
-        <v-stepper-item :class="{ 'active-step': el === 0 }" value="1" editable title="Настройка проекта" @click="goToRoute('ProjectSettings')"></v-stepper-item>
-
-        <v-divider></v-divider>
-
-        <v-stepper-item :class="{ 'active-step': el === 1 }" value="2" editable title="Подготовка к обследованию"
+        <v-stepper-item style="font-family: TT Travels;" :color="el === 0 ? '#E03021' : 'black'"
+                        :edit-icon="false" :class="{ 'active-step': el === 0 }" editable title="Настройка проекта" value="1"
+                        @click="goToRoute('ProjectSettings')">
+        </v-stepper-item>
+        <v-divider style="height: 2px; background-color: black;"/>
+        <v-stepper-item :color="el === 1 ? '#E03021' : 'black'" style="font-family: TT Travels;"
+                        :edit-icon="false" :class="{ 'active-step': el === 1 }" editable title="Подготовка к обследованию" value="2"
                         @click="goToRoute('InspectionPreparation')"></v-stepper-item>
 
-        <v-divider></v-divider>
-
-        <v-stepper-item :class="{ 'active-step': el === 2 }" value="3" editable title="Импорт материалов обследования"
+        <v-divider style="height: 2px; background-color: black;"/>
+        <v-stepper-item :color="el === 2 ? '#E03021' : 'black'" style="font-family: TT Travels;"
+                        :edit-icon="false" :class="{ 'active-step': el === 2 }" editable title="Импорт материалов обследования" value="3"
                         @click="goToRoute('ImportMaterialsPage')"></v-stepper-item>
-        <v-divider></v-divider>
-
-        <v-stepper-item :class="{ 'active-step': el === 3 }" value="4" editable title="Параметры отчета"
+        <v-divider style="height: 2px; background-color: black;"/>
+        <v-stepper-item :color="el === 3 ? '#E03021' : 'black'" style="font-family: TT Travels;"
+                        :edit-icon="false" :class="{ 'active-step': el === 3 }" editable title="Параметры отчета" value="4"
                         @click="goToRoute('ReportParameters')"></v-stepper-item>
-        <v-divider></v-divider>
-
-        <v-stepper-item :class="{ 'active-step': el === 4 }"
-            value="5"
-            editable
-            title="Экспорт документации"
-            @click="goToRoute('DocExport')"
+        <v-divider style="height: 2px; background-color: black;"/>
+        <v-stepper-item :color="el === 4 ? '#E03021' : 'black'" style="font-family: TT Travels;"
+                        :edit-icon="false" :class="{ 'active-step': el === 4 }"
+                        editable
+                        title="Экспорт документации"
+                        value="5"
+                        @click="goToRoute('DocExport')"
         ></v-stepper-item>
       </v-stepper-header>
       <v-stepper-window>
@@ -39,7 +41,7 @@ import {useRoute, useRouter} from "vue-router";
 
 export default defineComponent({
   name: "ProjectEditPage",
-  setup(){
+  setup() {
     const router = useRouter();
     const route = useRoute();
     const el = ref(0)
@@ -57,7 +59,7 @@ export default defineComponent({
     const goToRoute = (name) => {
       router.push({name: name, params: {id: route.params.id}})
     }
-    return{
+    return {
       router,
       route,
       goToRoute,
@@ -65,7 +67,7 @@ export default defineComponent({
     }
   },
   data() {
-    return{
+    return {
       height: window.screen.height - 48,
     }
   }
@@ -74,6 +76,6 @@ export default defineComponent({
 
 <style scoped>
 .active-step {
-  background-color: rgba(24, 29, 43, 0.3);
+  color: #E03021;
 }
 </style>

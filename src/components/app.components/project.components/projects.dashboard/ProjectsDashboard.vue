@@ -1,25 +1,31 @@
 <template>
-<v-main>
+<v-main style="background: #F4F6F7">
   <v-container>
-     <v-row justify="start">
-       <v-col cols="12">
-       <v-btn variant="text" color="#E03021" @click="onNewProjectItemClick">
+     <v-row justify="space-between" style="padding-top: 50px">
+         <p style="color: #181D2B; font-size: 25px; font-family: TT Travels; font-weight: 700; line-height: 37.75px;
+          word-wrap: break-word">
+           Мои проекты
+         </p>
+       <button style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 600; word-wrap: break-word"
+               variant="text" color="#E03021" @click="onNewProjectItemClick">
          Создать проект
          <v-icon dark>
            mdi-plus
          </v-icon>
-       </v-btn>
-       </v-col>
+       </button>
      </v-row>
     <v-row>
     <v-item-group selected-class="bg-primary">
-      <v-container>
+      <v-container fluid>
         <v-row>
           <v-col
-              v-for="(inspection) in inspections"
+              v-for="(inspection, index) in inspections"
               :key="inspection.id"
               cols="12"
-              :md="(inspections.length > 2) ? 4 : 6"
+              :md="(inspections.length > 2) ? 4 : 12"
+              xs:md="12"
+              sm:md="6"
+              md:md="6"
           >
             <v-item>
               <DashBoardItem
@@ -82,6 +88,10 @@ export default defineComponent({
       router.push({name: 'NewProject', params:{id: newInspectionId.value.inspectionId}})
       )
     };
+    const getColumns = (index) => {
+      const columns = [12, 6, 4, 3]; // Define columns for 1 to 4 items
+      return index > 4 ?  12 : columns[index] || columns[columns.length - 1];
+    }
     const onDeleteInspection = (inspection) => {
       const data = {
         id: inspection.id
@@ -106,7 +116,8 @@ export default defineComponent({
       page,
       onNextPage,
       onDeleteInspection,
-      size
+      size,
+      getColumns
     };
   },
   computed:{

@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row justify="center">
         <v-col cols="5" offset="20">
-          <v-card elevation="0" border style="border-color: #E03021" width="600">
+          <v-card elevation="0" style="background: #F4F6F7" width="600">
             <v-container fluid>
               <v-card-item>
                 <v-card-subtitle>

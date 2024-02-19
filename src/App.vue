@@ -1,12 +1,10 @@
 <template>
-  <UnauthAppView v-if="!isAuth"/>
-
-    <PersonalAccount v-if="isAuth"/>
-
+  <UnauthAppView v-if="!isAuth || !isWorkSpace&&isAuth" @onOpenWorkspace="onOpenWorkspace" :isAuth="isAuth"/>
+  <PersonalAccount v-else @onCloseWorkspace="onCloseWorkspace" />
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import {computed, defineComponent, ref} from "vue";
 import UnauthAppView from "./components/app.components/UnauthAppView.vue";
 import PersonalAccount from "./components/app.components/PersonalAccount.vue";
 
@@ -20,20 +18,30 @@ function checkJWTTokenInCookies() {
     if (cookie.startsWith('jwt=')) {
       // JWT токен найден в куках
       const jwtToken = cookie.substring(4); // Получаем сам токен (без "jwt=")
-      return jwtToken;
+      return jwtToken.length > 0;
     }
   }
 
   // JWT токен не найден
-  return null;
+  return false;
 }
 
 export default defineComponent({
   components: {PersonalAccount, UnauthAppView},
   setup() {
     const isAuth = computed(() => checkJWTTokenInCookies())
+    const isWorkSpace = ref(false)
+    const onOpenWorkspace = () => {
+      isWorkSpace.value = true;
+    }
+    const onCloseWorkspace = () => {
+      isWorkSpace.value = false;
+    }
     return {
       isAuth,
+      onOpenWorkspace,
+      isWorkSpace,
+      onCloseWorkspace,
     }
 
   },
@@ -42,5 +50,6 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
+
 </style>
