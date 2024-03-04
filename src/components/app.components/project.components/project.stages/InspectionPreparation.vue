@@ -17,49 +17,54 @@
       <v-card elevation="0" style="background: #F4F6F7">
         <v-container fluid>
       <v-row>
-        <v-col >
-            <v-row justify="space-around">
-              <v-col>
-              <v-card-text>Загрузить обмерные чертежи или схемы здания</v-card-text>
+        <v-col cols="12" lg="6" sm="12" xs="12">
+          <v-row justify="center">
+            <div style="width: 500px; margin-top: 25px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+              Загрузите материалы для обследования
+            </div>
+          </v-row>
+            <v-row justify="center">
+              <v-col cols="9">
+              <v-card-text class="labels">Загрузить обмерные чертежи или схемы здания</v-card-text>
               </v-col>
-              <v-col>
-                <v-btn icon @click="uploadMeasurementDrawings = true" color="#181D2B">
+              <v-col cols="3">
+                <v-btn icon @click="uploadMeasurementDrawings = true" color="#52596C">
                   <v-icon size="25">
                     mdi-paperclip
                   </v-icon>
                 </v-btn>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col>
-              <v-card-text>Общие виды здания</v-card-text>
+            <v-row justify="center">
+              <v-col cols="9">
+              <v-card-text class="labels">Общие виды здания</v-card-text>
               </v-col>
-              <v-col>
-              <v-btn icon @click="uploadBuildingViewsDialog = true" color="#181D2B">
+              <v-col cols="3">
+              <v-btn icon @click="uploadBuildingViewsDialog = true" color="#52596C">
                 <v-icon size="25">
                   mdi-paperclip
                 </v-icon>
               </v-btn>
               </v-col>
             </v-row>
-              <v-row>
-                <v-col>
-                  <v-card-text>Скан программы работ (с подписью)</v-card-text>
+              <v-row justify="center">
+                <v-col cols="9">
+                  <v-card-text class="labels">Скан программы работ (с подписью)</v-card-text>
                 </v-col>
-                <v-col>
-                  <v-btn icon @click="uploadWorkProgramScanDialog = true" color="#181D2B">
+                <v-col cols="3">
+                  <v-btn icon @click="uploadWorkProgramScanDialog = true" color="#52596C">
                     <v-icon size="25">
                       mdi-paperclip
                     </v-icon>
                   </v-btn>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-col>
-                  <v-card-text>Файл программы работ (pdf)</v-card-text>
+              <v-row justify="center">
+                <v-col cols="9">
+                  <v-card-text class="labels">Файл программы работ (pdf)</v-card-text>
                 </v-col>
-                <v-col>
-                  <v-btn icon @click="uploadProgramWorkDialog = true" color="#181D2B">
+                <v-col cols="3">
+                  <v-btn icon @click="uploadProgramWorkDialog = true" color="#52596C">
                     <v-icon size="25">
                       mdi-paperclip
                     </v-icon>
@@ -67,11 +72,13 @@
                 </v-col>
               </v-row>
         </v-col>
-        <v-col >
-          <v-row justify="space-around">
-            <h4>Схема осей здания</h4>
+        <v-col cols="12" lg="6" sm="12" xs="12">
+          <v-row justify="center">
+            <h4 style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+              Схема осей здания
+            </h4>
           </v-row>
-          <v-row justify="space-around">
+          <v-row justify="center">
             <v-menu
                 max-width="100"
                 rounded
@@ -82,24 +89,35 @@
                     v-bind="props"
                     height="300"
                     width="500"
-                >
+                    style="border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;"
 
-                  <img :src="avatarSrc" :width="500"  :height="300" style=" border: double #E03021;">
+                >
+                  <img :src="avatarSrc" :width="500"  :height="300" style="max-width: 600px; border-radius: 25px;">
                 </v-btn>
               </template>
               <v-card max-height="200">
-                <v-btn variant="text" color="#181D2B" rounded
+                <v-list-item  variant="text" color="#181D2B" rounded
                        @click="openFilePicker" >
-                  Загрузить фото
-                </v-btn>
-                <v-divider/>
-                <v-btn rounded variant="text" v-show="avatarSrc !== 'src/assets/photo-camera-black-tool_icon-icons.com_72960.svg'"
+                  <v-list-item-title style="color: #181D2B; font-family: TT Travels;">Загрузить фото</v-list-item-title>
+                </v-list-item>
+                <v-list-item  rounded variant="text" v-show="avatarSrc !== 'src/assets/images/default_photo.svg'"
                        @click="deletePhoto" color="#E03021">
-                  Удалить фото
-                </v-btn>
+                  <v-list-item-title style="color: #E03021; font-family: TT Travels;">Удалить фото </v-list-item-title>
+                </v-list-item>
                 <input ref="fileInput" style="display: none" type="file" @change="handleFileUpload">
               </v-card>
             </v-menu>
+          </v-row>
+          <v-row justify="center">
+            <div style="width: 500px; margin-top: 25px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
+              Контекстные данные из из программы работ
+            </div>
+          </v-row>
+          <v-row justify="center">
+                <textarea style="width: 500px; height: 432px; padding-bottom: 15px;
+                 padding-left: 20px; background: white; border-radius: 25px; border: 1px #C5C5C4 solid;
+                 justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                </textarea>
           </v-row>
 <!--          <v-row>-->
 <!--            <v-textarea-->
@@ -217,7 +235,7 @@ export default defineComponent({
       uploadWorkProgramScanDialog: false,
       uploadProgramWorkDialog: false,
       programWork: [],
-      avatarSrc: new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href, // Заглушка для изображения
+      avatarSrc: new URL(`/src/assets/images/default_photo.svg`, import.meta.url).href, // Заглушка для изображения
     };
   },
   methods: {
@@ -240,7 +258,7 @@ export default defineComponent({
     },
     deletePhoto() {
       // Удалить фотографию (можно добавить здесь логику удаления)
-      this.avatarSrc = new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href; // Возвращаем заглушку
+      this.avatarSrc = new URL(`/src/assets/images/default_photo.svg`, import.meta.url).href; // Возвращаем заглушку
     },
 
     addMeasurementDrawings(files: File[]) {
@@ -324,5 +342,13 @@ export default defineComponent({
 .rounded-image {
   border: 2px solid #ccc;
   border-radius: 10px;
+}
+.labels {
+  text-align: right;
+  color: #181D2B;
+  font-size: 16px;
+  font-family: TT Travels;
+  font-weight: 600;
+  word-wrap: break-word
 }
 </style>

@@ -8,8 +8,7 @@
         <div class="checkpoint-dark">Checkpoint</div>
         <div class="custom-k">-k</div>
       </v-tab>
-
-        <v-toolbar-items>
+        <v-toolbar-items class="toolbar">
           <router-link to="/personal-account/projects-dashboard">
             <div
                 style="align-items: center; align-content: center; padding-top: 20px; padding-bottom: 25px; padding-left: 30px; gap: 10px; display: inline-flex">
@@ -21,10 +20,23 @@
           </router-link>
         </v-toolbar-items>
       </template>
-      <v-menu>
-        <template v-slot:activator="{ props }">
+
+      <v-btn v-if="!isShortMenuClick" icon @click="onOpenShortMenu" class="toolbar-xs">
+        <v-icon>
+          <img src="../../assets/images/short_menu_close.svg" style="height: 25px; width: 25px">
+        </v-icon>
+      </v-btn>
+
+      <v-btn v-if="isShortMenuClick" icon @click="onOpenShortMenu" class="toolbar-xs">
+        <v-icon>
+          <img src="../../assets/images/short_menu_open.svg" style="height: 25px; width: 25px">
+        </v-icon>
+      </v-btn>
+
+      <v-menu class="toolbar">
+        <template v-slot:activator="{ props }" >
         <v-btn icon v-bind="props">
-          <v-icon>
+          <v-icon class="toolbar">
             <img src="../../assets/images/icons/lk.svg" style="height: 25px; width: 25px">
           </v-icon>
         </v-btn>
@@ -38,12 +50,42 @@
 <!--      <v-btn icon>-->
 <!--        <v-icon>mdi mdi-help</v-icon>-->
 <!--      </v-btn>-->
-      <v-btn icon @click="onLogoutButtonClick">
+      <v-btn icon @click="onLogoutButtonClick" class="toolbar">
         <v-icon>
           <img src="../../assets/images/icons/logout.svg" style="height: 25px; width: 25px">
         </v-icon>
       </v-btn>
     </v-toolbar>
+    <template v-if="isShortMenuClick">
+      <div class="short-menu-1">
+        <button style="color: white; font-size: 16px; font-family: TT Travels; font-weight: 600;
+         line-height: 19.20px; word-wrap: break-word;"
+                @click="router.push('/personal-account/projects-dashboard')">
+          Мои проекты
+        </button>
+        <button
+            style="font-family: TT Travels; color: white; font-weight: 600; line-height: 19.20px;
+               word-wrap: break-word;"
+            @click="router.push('/personal-account/personal-data')">
+          Персональные данные
+        </button>
+        <button
+            style="font-family: TT Travels; color: white; font-weight: 600; line-height: 19.20px;
+              word-wrap: break-word;" @click="router.push('/personal-account/companies')">
+          Список компаний
+        </button>
+        <button
+            style="font-family: TT Travels; color: white; font-weight: 600; line-height: 19.20px;
+               word-wrap: break-word;" @click="router.push('/personal-account/equipment')">
+          Перечень оборудования
+        </button>
+        <button
+            style="font-family: TT Travels; color: white; font-weight: 600; line-height: 19.20px;
+               word-wrap: break-word;" @click="onLogoutButtonClick">
+          Выйти
+        </button>
+      </div>
+    </template>
     <RouterView/>
   </v-main>
   </v-app>
@@ -62,7 +104,7 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const showNewProject = ref(false); // Используйте ref для переменной
-
+    const isShortMenuClick = ref(false);
 
     const onLogoutButtonClick = () => {
       const result = confirm("Вы действительно хотите завршить сессию?")
@@ -74,6 +116,10 @@ export default defineComponent({
       }
     };
 
+    const onOpenShortMenu = () => {
+      isShortMenuClick.value = ! isShortMenuClick.value;
+    }
+
     onMounted(() => {
       router.push({name: "Мои проекты"});
     });
@@ -81,7 +127,9 @@ export default defineComponent({
     return {
       showNewProject,
       onLogoutButtonClick,
-      router
+      router,
+      onOpenShortMenu,
+      isShortMenuClick
     };
   },
   data() {
@@ -97,4 +145,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.toolbar {
+  @media (max-width: 700px) {
+    display: none;
+  }
+}
+
+.toolbar-xs{
+  display: none;
+  @media (max-width: 700px) {
+    display: inline-flex;
+  }
+}
+
+.short-menu-1 {
+  background: #181D2B;
+  width: 100%;
+  height: 100%;
+  max-height: 250px;
+  top: 90px;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  display: none;
+  @media (max-width: 700px) {
+    display: flex;
+  }
+}
 </style>

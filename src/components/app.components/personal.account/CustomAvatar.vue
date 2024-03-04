@@ -10,7 +10,7 @@
           style="margin-left: 20%; margin-top: 10%;" v-bind="props"
       >
         <v-avatar size="150" style=" border: double #E03021;">
-          <img :height="150" :src="avatarSrc" :width="150" style=" border: #181D2B">
+          <img :height="80" :src="avatarSrc" :width="80" style=" border: #181D2B">
         </v-avatar>
       </v-btn>
     </template>
@@ -20,7 +20,7 @@
         Загрузить фото
       </v-btn>
       <v-divider/>
-      <v-btn v-show="avatarSrc !== 'src/assets/photo-camera-black-tool_icon-icons.com_72960.svg'" color="#E03021" rounded
+      <v-btn v-show="avatarSrc !== 'src/assets/images/default_photo.svg'" color="#E03021" rounded
              variant="text" @click="deletePhoto">
         Удалить фото
       </v-btn>
@@ -42,7 +42,7 @@ export default defineComponent({
     const avatarSrc = computed(() => {
       return logo.value
           ? `data:image/png;base64,${logo.value}`
-          : new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href;
+          : new URL(`/src/assets/images/default_photo.svg`, import.meta.url).href;
     });
     const deletePhoto = () => {
       emit('onDeletePhoto')

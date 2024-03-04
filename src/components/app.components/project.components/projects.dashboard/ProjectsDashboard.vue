@@ -6,7 +6,7 @@
           word-wrap: break-word">
            Мои проекты
          </p>
-       <button style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 600; word-wrap: break-word"
+       <button v-if="inspections.length !== 0" style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 600; word-wrap: break-word"
                variant="text" color="#E03021" @click="onNewProjectItemClick">
          Создать проект
          <v-icon dark>
@@ -14,7 +14,30 @@
          </v-icon>
        </button>
      </v-row>
-    <v-row>
+    <v-row justify="center">
+      <v-card v-if="inspections.length === 0"
+          style="width: 600.54px; height: 349px; padding-left: 50px; padding-right: 50px; padding-top: 60px; padding-bottom: 60px; background: white; box-shadow: 0px 14px 30px rgba(18, 30, 42, 0.10); border-radius: 25px; flex-direction: column; justify-content: flex-start; align-items: center; gap: 35px; display: inline-flex">
+        <div style="flex-direction: column; justify-content: flex-start; align-items: center; gap: 25px; display: flex">
+          <div style="width: 70px; height: 70px; padding-left: 12.40px; padding-right: 12.40px; padding-top: 2.92px; padding-bottom: 2.92px; justify-content: center; align-items: center; display: inline-flex">
+            <img :src="getImageUrl1()" width="65" height="67">
+          </div>
+          <div style="width: 500.54px; text-align: center; color: #616161; font-size: 24px; font-family: TT Travels; font-weight: 600; line-height: 32.40px; word-wrap: break-word">У вас еще нет созданных проектов<br/>Создайте сейчас свой первый проект</div>
+        </div>
+        <button  @click="onNewProjectItemClick"
+                 style="justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
+          <div
+              style="background: #52596C; width: 35px; height: 35px; position: relative;
+               border-radius: 999px; justify-items: center">
+            <v-icon color="white" size="35">
+              mdi-plus
+            </v-icon>
+          </div>
+          <div style="color: #181D2B; font-size: 16px; font-family: TT Travels;
+           font-weight: 600; word-wrap: break-word">
+            Добавить проект
+          </div>
+        </button>
+      </v-card>
     <v-item-group selected-class="bg-primary">
       <v-container fluid>
         <v-row>
@@ -22,10 +45,11 @@
               v-for="(inspection, index) in inspections"
               :key="inspection.id"
               cols="12"
-              :md="(inspections.length > 2) ? 4 : 12"
-              xs:md="12"
-              sm:md="6"
-              md:md="6"
+              :md="(inspections.length > 2) ? 4 : 6"
+              xs="12"
+              :sm="(inspections.length > 2) ? 6 : 12"
+              :lg="(inspections.length > 2) ? 4 : 6"
+              :xl="(inspections.length > 2) ? ((inspections.length > 3) ? 3 : 4) : 6"
           >
             <v-item>
               <DashBoardItem
@@ -92,6 +116,9 @@ export default defineComponent({
       const columns = [12, 6, 4, 3]; // Define columns for 1 to 4 items
       return index > 4 ?  12 : columns[index] || columns[columns.length - 1];
     }
+    const getImageUrl1 = () => {
+      return new URL(`/src/assets/images/newprjct.svg`, import.meta.url).href
+    }
     const onDeleteInspection = (inspection) => {
       const data = {
         id: inspection.id
@@ -117,7 +144,8 @@ export default defineComponent({
       onNextPage,
       onDeleteInspection,
       size,
-      getColumns
+      getColumns,
+      getImageUrl1
     };
   },
   computed:{

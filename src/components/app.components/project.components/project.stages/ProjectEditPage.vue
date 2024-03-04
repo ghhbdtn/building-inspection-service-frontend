@@ -31,6 +31,11 @@
       <v-stepper-window>
         <RouterView/>
       </v-stepper-window>
+      <v-stepper-actions :prev-text="`Назад`"
+                         :next-text="`Дальше`"
+                         @click:next="el++"
+                         @click:prev="el--"
+      ></v-stepper-actions>
     </v-stepper>
   </v-main>
 </template>
@@ -51,6 +56,13 @@ export default defineComponent({
       else if (route.name === 'ImportMaterialsPage') el.value = 2;
       else if (route.name === 'ReportParameters') el.value = 3;
       else if (route.name === 'DocExport') el.value = 4;
+    });
+    watch(() => el.value, () => {
+      if (el.value === 0) goToRoute('ProjectSettings');
+      else if (el.value === 1) goToRoute('InspectionPreparation');
+      else if (el.value === 2) goToRoute('ImportMaterialsPage');
+      else if (el.value === 3) goToRoute('ReportParameters');
+      else if (el.value === 4) goToRoute('DocExport');
     });
     onMounted(() => {
       const id = route.params.id;

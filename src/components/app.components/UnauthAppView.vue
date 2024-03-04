@@ -140,9 +140,9 @@
             <div class="desc">
               Ютуб
             </div>
-            <div class="desc">
+            <a href="https://t.me/+kRaclAOTmKxkZWRi" class="desc">
               Телеграм
-            </div>
+            </a>
           </div>
         </div>
         <div

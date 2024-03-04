@@ -45,8 +45,9 @@
           mdi-plus
         </v-icon>
       </v-btn>
-      <v-card elevation="10" border style="border-color: #E03021">
-      <v-table class="table" :hide-no-data="true">
+      <v-card elevation="0" border style="border-color: #E03021; border-radius: 25px">
+      <v-table :hide-no-data="true" style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 500;
+                 word-wrap: break-word; border-radius: 25px;">
         <v-table class="table" :hide-no-data="true"
         >
           <thead>

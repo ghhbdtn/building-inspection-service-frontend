@@ -19,7 +19,7 @@
         <v-card-actions>
           <v-btn @click.stop="onDeleteInspection" >
             <v-icon>
-              <img :src="(`/src/assets/images/icons/delete.svg`)">
+              <img :src="getImageUrl1()">
             </v-icon>
           </v-btn>
         </v-card-actions>
@@ -59,8 +59,12 @@ export default defineComponent({
       return imgURL.value ? `data:image/png;base64,${imgURL.value}`
           : new URL(`/src/assets/images/maison2.svg`, import.meta.url).href
     }
+    const getImageUrl1 = () => {
+      return new URL(`/src/assets/images/delete.svg`, import.meta.url).href
+    }
 
-    return {getImageUrl, inspection}
+
+    return {getImageUrl, inspection, getImageUrl1}
   },
   data() {
     return {}
@@ -77,6 +81,7 @@ export default defineComponent({
 <style scoped>
 .cards {
   width: clamp(100%, 370px, 470px);
+  max-width: 500px;
   height: clamp(220px, 276px,300px);
   border-radius: 24px;
   background-color: #ffffff;
@@ -85,7 +90,8 @@ export default defineComponent({
 .card-img {
   background-color: white;
   height: clamp(120px, 176px,200px);
-  width: 370px;
+  width: clamp(100%, 370px, 470px);
+  max-width: 500px;
 }
 
 </style>

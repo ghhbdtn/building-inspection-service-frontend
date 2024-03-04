@@ -19,7 +19,7 @@
     <v-container fluid>
       <v-card elevation="0" style="background: #F4F6F7">
         <v-row justify="center">
-          <v-col cols="5" offset="20">
+          <v-col cols="12" sm="12" xs="12" lg="6">
             <v-form>
               <v-card-title style="color: #181D2B; font-size: 25px; font-family: TT Travels; font-weight: 700; line-height: 41.25px; word-wrap: break-word">Заполните данные проекта</v-card-title>
               <v-card-item>
@@ -32,33 +32,30 @@
                 </div>
               </v-card-item>
               <v-card-item>
-                <form class="container">
+                <div class="container">
                   <label class="label" for="company-select">Компания</label>
                   <div class="spacer"></div>
                   <div class="input-container">
-                    <select name="company" class="select-field" v-model="editedInspection.company" id="company-select">
-                      <option disabled value="">-Выберите компанию-</option>
-                      <option v-for="company in companies" :id="company.id">
-                        {{company.name}}
-                      </option>
-                    </select>
-                    <div class="arrow">&#9660;</div>
+                    <v-select class="input-field"
+                        variant="plain"
+                        :items="companies"
+                        :item-props="itemProps"
+                        v-model="editedInspection.company"
+                    />
                   </div>
-                </form>
-
+                </div>
               </v-card-item>
               <v-card-item v-if="editedInspection.company">
                 <form class="container">
                   <label class="label" for="employee-select">Ответственный исполнитель</label>
                   <div class="spacer"></div>
                   <div class="input-container">
-                    <select name="company" class="select-field" v-model="editedInspection.employer" id="employee-select">
-                      <option disabled value="">-Выберите сотрудника-</option>
-                      <option v-for="employee in editedInspection.company.employers" :id="employee.id">
-                        {{employee.name}}
-                      </option>
-                    </select>
-                    <div class="arrow">&#9660;</div>
+                    <v-select class="input-field"
+                        variant="plain"
+                        v-model="editedInspection.employer"
+                        :items="editedInspection.company.employers"
+                        :item-props="itemProps"
+                    />
                   </div>
                 </form>
               </v-card-item>
@@ -105,57 +102,55 @@
                     v-model="editedInspection.isCulture"
                 ></v-checkbox>
               </v-card-item>
-              <v-card-actions>
-                <button class="button-container" @click="onSaveDataButtonClick">
-                  <img class="icon-container" :src="(`/src/assets/images/icons/save.svg`)">
-                  <p class="button-text">Сохранить данные</p>
+                <button class="button-container" @click.prevent="onSaveDataButtonClick">
+                  <img class="icon-container" :src="getImageUrl1()">
+                  <div class="button-text">Сохранить данные</div>
                 </button>
-              </v-card-actions>
             </v-form>
-
           </v-col>
-          <v-col cols="4" offset-sm="20">
+          <v-col cols="12" lg="6" sm="12" xs="12">
             <v-container>
               <v-row justify="center">
                 <v-card-title style="color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
                   Загрузите обложку проекта
                 </v-card-title>
               </v-row>
-              <v-row justify="end" style="padding-bottom: 50px">
+              <v-row justify="center" style="padding-bottom: 50px">
                 <v-menu
-                    max-width="100"
                     rounded
                 >
                   <template v-slot:activator="{ props }">
                     <v-btn
                         elevation="0"
                         v-bind="props"
-                        height="215"
+                        height="300"
+                        max-width="600"
                         width="400"
-                        style="border-radius: 25px"
+                        style="border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;"
                     >
-                        <img v-if="!mainPhoto" :src="avatarSrc" :width="400"  :height="215" style=" border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;">
-                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="400"  :height="215" style=" border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;">
+                        <img v-if="!mainPhoto" :src="avatarSrc" :width="150"  :height="150" style="max-width: 600px;">
+                        <img :src="`data:image/png;base64,${mainPhoto}`" v-else :width="400"  :height="300" style="max-width: 600px; border-radius: 25px; border: 1px rgba(97, 97, 97, 0.30) solid;">
                     </v-btn>
                   </template>
-                  <v-card max-height="200">
-                    <v-btn variant="text" color="#181D2B" rounded
+                  <v-card>
+                    <v-list-item variant="text" rounded
                            @click="openFilePicker" >
-                      Загрузить фото
-                    </v-btn>
-                    <v-divider/>
-                    <v-btn rounded variant="text" v-show="avatarSrc !== 'src/assets/photo-camera-black-tool_icon-icons.com_72960.svg'"
-                           @click="deletePhoto" color="#E03021">
-                      Удалить фото
-                    </v-btn>
+                      <v-list-item-title style="color: #181D2B; font-family: TT Travels;">Загрузить фото</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item rounded variant="text" v-show="avatarSrc !== 'src/assets/images/default_photo.svg.svg'"
+                           @click="deletePhoto">
+                      <v-list-item-title style="color: #E03021; font-family: TT Travels;">Удалить фото </v-list-item-title>
+                    </v-list-item>
                     <input ref="fileInput" style="display: none" type="file" @change="handleFileUpload">
                   </v-card>
                 </v-menu>
               </v-row>
-              <v-row justify="end">
+              <v-row justify="center">
                 <div style="width: 400px; color: #181D2B; font-size: 20px; font-family: TT Travels; font-weight: 600; word-wrap: break-word">
                   Контекстные данные из из тех. задания
                 </div>
+              </v-row>
+              <v-row justify="center">
                 <textarea style="width: 400px; height: 432px; padding-top: 25px; padding-bottom: 15px;
                  padding-left: 20px; background: white; border-radius: 25px; border: 1px #C5C5C4 solid;
                  justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
@@ -248,7 +243,7 @@ export default defineComponent({
     const file = ref<File | null>();
     const form = ref<HTMLFormElement>();
     const avatarSrc =
-        ref(new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href)
+        ref(new URL(`/src/assets/images/default_photo.svg`, import.meta.url).href)
 
     const handleFileUpload = async ($event: Event) => {
       const target = $event.target as HTMLInputElement;
@@ -271,6 +266,10 @@ export default defineComponent({
       store.commit('inspections/DELETE_INSPECTION_PHOTO')
     }
 
+    const getImageUrl1 = () => {
+      return new URL(`/src/assets/images/save.svg`, import.meta.url).href
+    }
+
     return {
        editedInspection,
       onSaveDataButtonClick,
@@ -280,14 +279,15 @@ export default defineComponent({
       deletePhoto,
       companies,
       itemProps,
-      employers
+      employers,
+      getImageUrl1
     }
   },
   data() {
     return {
       inspectionPhoto: null,
       avatarSrc:
-      new URL(`/src/assets/images/photo-camera-black-tool_icon-icons.com_72960.svg`, import.meta.url).href, // Заглушка для изображения
+      new URL(`/src/assets/images/default_photo.svg`, import.meta.url).href, // Заглушка для изображения
     };
   },
   methods: {
@@ -401,11 +401,10 @@ export default defineComponent({
 
 .button-text {
   color: white;
-  padding-top: 20px;
-  padding-bottom: 10px;
   font-size: 16px;
   font-family: 'TT Travels', sans-serif;
   font-weight: 600;
+  line-height: 100%;
   word-wrap: break-word;
 }
 

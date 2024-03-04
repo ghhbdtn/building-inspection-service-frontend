@@ -22,15 +22,32 @@
     <v-container fluid>
       <v-card elevation="0" style="background: #F4F6F7">
       <v-row>
-        <v-col cols="7" offset="20">
+        <v-col cols="12" lg="7" sm="12" xs="12">
             <v-container fluid>
-              <v-row>
-                <v-card-title>
-                  Загрузка фото по категориям
-                </v-card-title>
+              <v-row justify="start">
+                <p style="color: #181D2B; font-size: 25px; font-family: TT Travels;
+                 font-weight: 700; line-height: 41.25px; word-wrap: break-word">
+                  Загрузите материалы обследования
+                </p>
               </v-row>
-              <v-col>
-                <v-table >
+              <v-row>
+                <button style="width: 230px; height: 26px; justify-content: flex-start; align-items: center; gap: 10px;
+                 display: inline-flex; margin-bottom: 25px"
+                        @click="onPlusButtonClick">
+                  <div
+                      style="background: #52596C; width: 26px; height: 26px; position: relative;
+               border-radius: 999px; justify-items: center">
+                    <v-icon color="white" size="26">
+                      mdi-plus
+                    </v-icon>
+                  </div>
+                  <div style="color: #181D2B; line-height: 100%; font-size: 16px; font-family: TT Travels; font-weight: 500; word-wrap: break-word">
+                    Добавить категорию</div>
+                </button>
+              </v-row>
+              <v-row>
+                <v-table style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 500;
+                 word-wrap: break-word; border-radius: 25px; justify-self: start">
                   <template v-slot:default>
                     <thead>
                     <tr>
@@ -73,35 +90,28 @@
                     </tbody>
                   </template>
                 </v-table>
-              </v-col>
-              <v-row>
-                <v-tooltip text="Добавить категорию">
-                  <template v-slot:activator="{props}">
-                    <v-btn icon v-bind="props" @click="onPlusButtonClick" color="#181D2B" size="40">
-                      <v-icon>
-                        mdi-plus
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                </v-tooltip>
               </v-row>
             </v-container>
         </v-col>
 
-        <v-col cols="4" offset-sm="20">
+        <v-col cols="12" lg="4" sm="12" xs="12">
           <v-container>
-          <v-row>
-            <v-card-title>Просмотр изображений</v-card-title>
+          <v-row justify="start">
+            <div style="color: #181D2B; font-size: 20px;
+             font-family: TT Travels; font-weight: 600; word-wrap: break-word; margin-bottom: 25px">
+              Просмотр фото
+            </div>
           </v-row>
-          <v-row>
-            <v-carousel height="300" width="300" v-if="editedCategory.loadedImages.length > 0 && !uploadPhotoDialog"
+          <v-row justify="start">
+            <v-carousel v-if="editedCategory.loadedImages.length > 0 && !uploadPhotoDialog"
                         show-arrows-on-hover
                         cover
                         hide-delimiters
+                        style="border-radius: 25px; height: 100%; width: 100%"
                         progress="#E03021"
             >
               <v-carousel-item v-for="(image, index) in editedCategory.loadedImages" :key="index">
-                <img :width="500" :height="300" :src="`${image}`" alt="Изображение">
+                <img :width="500" :height="300" style="width: 100%; height: 100%" :src="`${image}`" alt="Изображение">
               </v-carousel-item>
             </v-carousel>
           </v-row>
@@ -112,7 +122,8 @@
     </v-container>
   </v-main>
   <v-dialog v-model="addCategoryDialog" max-width="500px">
-    <v-card>
+    <v-card style="color: #181D2B; font-size: 16px; font-family: TT Travels; font-weight: 500;
+                 word-wrap: break-word; border-radius: 10px;">
       <v-card-title v-if="!editMode">Добавить категорию</v-card-title>
       <v-card-title v-else>Редактировать название категории</v-card-title>
       <v-card-text>
